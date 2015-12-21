@@ -26,13 +26,12 @@ describe 'vitrage::keystone::auth' do
       :roles   => ['admin']
     )}
 
-    it { is_expected.to contain_keystone_service('vitrage').with(
+    it { is_expected.to contain_keystone_service('vitrage::root_cause_analysis_engine').with(
       :ensure      => 'present',
-      :type        => 'root_cause_analysis_engine',
       :description => 'vitrage Root Cause Analysis engine Service'
     ) }
 
-    it { is_expected.to contain_keystone_endpoint('RegionOne/vitrage').with(
+    it { is_expected.to contain_keystone_endpoint('RegionOne/vitrage::root_cause_analysis_engine').with(
       :ensure       => 'present',
       :public_url   => 'http://127.0.0.1:8999/v1',
       :admin_url    => 'http://127.0.0.1:8999/v1',
@@ -48,7 +47,7 @@ describe 'vitrage::keystone::auth' do
         :admin_url    => 'http://10.10.10.12:81', }
     end
 
-    it { is_expected.to contain_keystone_endpoint('RegionOne/vitrage').with(
+    it { is_expected.to contain_keystone_endpoint('RegionOne/vitrage::root_cause_analysis_engine').with(
       :ensure       => 'present',
       :public_url   => 'https://10.10.10.10:80',
       :internal_url => 'http://10.10.10.11:81',
@@ -64,8 +63,8 @@ describe 'vitrage::keystone::auth' do
 
     it { is_expected.to contain_keystone_user('vitragey') }
     it { is_expected.to contain_keystone_user_role('vitragey@services') }
-    it { is_expected.to contain_keystone_service('vitragey') }
-    it { is_expected.to contain_keystone_endpoint('RegionOne/vitragey') }
+    it { is_expected.to contain_keystone_service('vitragey::root_cause_analysis_engine') }
+    it { is_expected.to contain_keystone_endpoint('RegionOne/vitragey::root_cause_analysis_engine') }
   end
 
   describe 'when overriding service name' do
@@ -77,8 +76,8 @@ describe 'vitrage::keystone::auth' do
 
     it { is_expected.to contain_keystone_user('vitrage') }
     it { is_expected.to contain_keystone_user_role('vitrage@services') }
-    it { is_expected.to contain_keystone_service('vitrage_service') }
-    it { is_expected.to contain_keystone_endpoint('RegionOne/vitrage_service') }
+    it { is_expected.to contain_keystone_service('vitrage_service::root_cause_analysis_engine') }
+    it { is_expected.to contain_keystone_endpoint('RegionOne/vitrage_service::root_cause_analysis_engine') }
   end
 
   describe 'when disabling user configuration' do
@@ -92,9 +91,8 @@ describe 'vitrage::keystone::auth' do
 
     it { is_expected.not_to contain_keystone_user('vitrage') }
     it { is_expected.to contain_keystone_user_role('vitrage@services') }
-    it { is_expected.to contain_keystone_service('vitrage').with(
+    it { is_expected.to contain_keystone_service('vitrage::root_cause_analysis_engine').with(
       :ensure      => 'present',
-      :type        => 'root_cause_analysis_engine',
       :description => 'vitrage Root Cause Analysis engine Service'
     ) }
 
@@ -112,9 +110,8 @@ describe 'vitrage::keystone::auth' do
 
     it { is_expected.not_to contain_keystone_user('vitrage') }
     it { is_expected.not_to contain_keystone_user_role('vitrage@services') }
-    it { is_expected.to contain_keystone_service('vitrage').with(
+    it { is_expected.to contain_keystone_service('vitrage::root_cause_analysis_engine').with(
       :ensure      => 'present',
-      :type        => 'root_cause_analysis_engine',
       :description => 'vitrage Root Cause Analysis engine Service'
     ) }
 

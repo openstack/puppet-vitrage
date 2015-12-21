@@ -69,7 +69,7 @@ class vitrage::keystone::auth (
   if $configure_user_role {
     Keystone_user_role["${auth_name}@${tenant}"] ~> Service <| name == 'vitrage-server' |>
   }
-  Keystone_endpoint["${region}/${real_service_name}"]  ~> Service <| name == 'vitrage-server' |>
+  Keystone_endpoint["${region}/${real_service_name}::${service_type}"]  ~> Service <| name == 'vitrage-server' |>
 
   keystone::resource::service_identity { 'vitrage':
     configure_user      => $configure_user,
