@@ -1,7 +1,7 @@
 # The vitrage::db::mysql class implements mysql backend for vitrage
 #
 # This class can be used to create tables, users and grant
-# privelege for a mysql vitrage database.
+# privileges for a mysql vitrage database.
 #
 # == parameters
 #
