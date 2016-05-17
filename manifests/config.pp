@@ -17,14 +17,20 @@
 #     DEFAULT/bar:
 #       value: barValue
 #
+# [*vitrage_api_paste_ini*]
+#   (optional) Allow configuration of /etc/vitrage/api_paste.ini options.
+#
 #   NOTE: The configuration MUST NOT be already handled by this module
 #   or Puppet catalog compilation will fail with duplicate resources.
 #
 class vitrage::config (
-  $vitrage_config = {},
+  $vitrage_config     = {},
+  $vitrage_api_paste_ini = {},
 ) {
 
   validate_hash($vitrage_config)
+  validate_hash($vitrage_api_paste_ini)
 
   create_resources('vitrage_config', $vitrage_config)
+  create_resources('vitrage_api_paste_ini', $vitrage_api_paste_ini)
 }
