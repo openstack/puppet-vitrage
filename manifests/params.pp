@@ -2,6 +2,8 @@
 #
 class vitrage::params {
 
+  $client_package_name = 'python-vitrageclient'
+
   case $::osfamily {
     'RedHat': {
       $api_package_name           = 'openstack-vitrage-api'
