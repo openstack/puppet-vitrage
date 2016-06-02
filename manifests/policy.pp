@@ -35,5 +35,6 @@ class vitrage::policy (
   }
 
   create_resources('openstacklib::policy::base', $policies)
+  oslo::policy { 'vitrage_config': policy_file => $policy_path }
 
 }
