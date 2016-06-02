@@ -21,7 +21,7 @@
 #
 # [*policy_path*]
 #   (optional) Path to the nova policy.json file
-#   Defaults to /etc/vitrage/policy.json
+#   Defaults to '/etc/vitrage/policy.json'
 #
 class vitrage::policy (
   $policies    = {},

@@ -8,46 +8,55 @@
 #   (required) Password for vitrage user.
 #
 # [*auth_name*]
-#   Username for vitrage service. Defaults to 'vitrage'.
+#   (Optional) Username for vitrage service.
+#   Defaults to 'vitrage'.
 #
 # [*email*]
-#   Email for vitrage user. Defaults to 'vitrage@localhost'.
+#   (Optional) Email for vitrage user.
+#   Defaults to 'vitrage@localhost'.
 #
 # [*tenant*]
-#   Tenant for vitrage user. Defaults to 'services'.
+#   (Optional) Tenant for vitrage user.
+#   Defaults to 'services'.
 #
 # [*configure_endpoint*]
-#   Should vitrage endpoint be configured? Defaults to 'true'.
+#   (Optional) Should vitrage endpoint be configured?
+#   Defaults to true.
 #
 # [*configure_user*]
 #   (Optional) Should the service user be configured?
-#   Defaults to 'true'.
+#   Defaults to true.
 #
 # [*configure_user_role*]
 #   (Optional) Should the admin role be configured for the service user?
-#   Defaults to 'true'.
+#   Defaults to true.
 #
 # [*service_type*]
-#   Type of service. Defaults to 'rca'.
+#   (Optional) Type of service.
+#   Defaults to 'rca'.
 #
 # [*region*]
-#   Region for endpoint. Defaults to 'RegionOne'.
+#   (Optional) Region for endpoint.
+#   Defaults to 'RegionOne'.
 #
 # [*service_name*]
 #   (optional) Name of the service.
 #   Defaults to the value of auth_name.
 #
 # [*public_url*]
-#   (optional) The endpoint's public url. (Defaults to 'http://127.0.0.1:8999')
+#   (optional) The endpoint's public url.
 #   This url should *not* contain any trailing '/'.
+#   Defaults to 'http://127.0.0.1:8999'
 #
 # [*admin_url*]
-#   (optional) The endpoint's admin url. (Defaults to 'http://127.0.0.1:8999')
+#   (optional) The endpoint's admin url.
 #   This url should *not* contain any trailing '/'.
+#   Defaults to 'http://127.0.0.1:8999'
 #
 # [*internal_url*]
-#   (optional) The endpoint's internal url. (Defaults to 'http://127.0.0.1:8999')
+#   (optional) The endpoint's internal url.
 #   This url should *not* contain any trailing '/'.
+#   Defaults to 'http://127.0.0.1:8999'
 #
 class vitrage::keystone::auth (
   $password,

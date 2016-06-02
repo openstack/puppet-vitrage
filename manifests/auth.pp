@@ -1,38 +1,37 @@
 # The vitrage::auth class helps configure auth settings
 #
 # == Parameters
-#  [*auth_url*]
-#    the keystone public endpoint
-#    Optional. Defaults to 'http://localhost:5000'
+# [*auth_url*]
+#   (Optional) The keystone public endpoint
+#   Defaults to 'http://localhost:5000'
 #
-#  [*auth_region*]
-#    the keystone region of this node
-#    Optional. Defaults to 'RegionOne'
+# [*auth_region*]
+#   (Optional) The keystone region of this node
+#   Defaults to 'RegionOne'
 #
-#  [*auth_user*]
-#    the keystone user for vitrage services
-#    Optional. Defaults to 'vitrage'
+# [*auth_user*]
+#   (Optional) The keystone user for vitrage services
+#   Defaults to 'vitrage'
 #
-#  [*auth_password*]
-#    the keystone password for vitrage services
-#    Required.
+# [*auth_password*]
+#   (Required) The keystone password for vitrage services
 #
-#  [*auth_tenant_name*]
-#    the keystone tenant name for vitrage services
-#    Optional. Defaults to 'services'
+# [*auth_tenant_name*]
+#   (Optional) The keystone tenant name for vitrage services
+#   Defaults to 'services'
 #
-#  [*auth_tenant_id*]
-#    the keystone tenant id for vitrage services.
-#    Optional. Defaults to $::os_service_default.
+# [*auth_tenant_id*]
+#   (Optional) The keystone tenant id for vitrage services.
+#   Defaults to $::os_service_default.
 #
-#  [*auth_cacert*]
-#    Certificate chain for SSL validation.
-#    Optional. Defaults to $::os_service_default.
+# [*auth_cacert*]
+#   (Optional) Certificate chain for SSL validation.
+#   Defaults to $::os_service_default.
 #
-#  [*auth_endpoint_type*]
-#    Type of endpoint in Identity service catalog to use for
-#    communication with OpenStack services.
-#    Optional. Defaults to $::os_service_default.
+# [*auth_endpoint_type*]
+#   (Optional) Type of endpoint in Identity service catalog to use for
+#   communication with OpenStack services.
+#   Defaults to $::os_service_default.
 #
 class vitrage::auth (
   $auth_password,

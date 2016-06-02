@@ -1,3 +1,5 @@
+# == Class: vitrage::params
+#
 # Parameters for puppet-vitrage
 #
 class vitrage::params {

@@ -2,8 +2,9 @@
 # Installs the vitrage python library.
 #
 # == parameters
-#  [*ensure*]
-#    ensure state for package.
+# [*ensure*]
+#   (Optional) Ensure state for package.
+#   Defaults to 'present'
 #
 class vitrage::client (
   $ensure = 'present'

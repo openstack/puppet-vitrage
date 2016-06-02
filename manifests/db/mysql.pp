@@ -7,7 +7,6 @@
 #
 # [*password*]
 #   (Mandatory) Password to connect to the database.
-#   Defaults to 'false'.
 #
 # [*dbname*]
 #   (Optional) Name of the database.
@@ -23,7 +22,7 @@
 #
 # [*allowed_hosts*]
 #   (Optional) Other hosts the user is allowed to connect from.
-#   Defaults to 'undef'.
+#   Defaults to undef.
 #
 # [*charset*]
 #   (Optional) The database charset.

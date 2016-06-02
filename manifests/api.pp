@@ -12,7 +12,7 @@
 #
 # [*keystone_user*]
 #   (optional) The name of the auth user
-#   Defaults to vitrage
+#   Defaults to 'vitrage'
 #
 # [*keystone_tenant*]
 #   (optional) Tenant to authenticate with.
@@ -21,22 +21,23 @@
 # [*keystone_password*]
 #   Password to authenticate with.
 #   Mandatory.
+#   Defaults to false.
 #
 # [*keystone_auth_uri*]
 #   (optional) Public Identity API endpoint.
-#   Defaults to 'false'.
+#   Defaults to false.
 #
 # [*keystone_identity_uri*]
 #   (optional) Complete admin Identity API endpoint.
-#   Defaults to: false
+#   Defaults to false
 #
 # [*host*]
 #   (optional) The vitrage api bind address.
-#   Defaults to 0.0.0.0
+#   Defaults to '0.0.0.0'
 #
 # [*port*]
 #   (optional) The vitrage api port.
-#   Defaults to 8999
+#   Defaults to '8999'
 #
 # [*package_ensure*]
 #   (optional) ensure state for package.
@@ -51,8 +52,6 @@
 #   to make vitrage-api be a web app using apache mod_wsgi.
 #   Defaults to '$::vitrage::params::api_service_name'
 #
-
-
 class vitrage::api (
   $manage_service        = true,
   $enabled               = true,

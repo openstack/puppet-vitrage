@@ -5,8 +5,8 @@
 # === Parameters
 #
 # [*database_connection*]
-#   Url used to connect to database.
-#   (Optional) Defaults to "mysql://vitrage:secrete@localhost:3306/vitrage".
+#   (Optional) Url used to connect to database.
+#   Defaults to "mysql://vitrage:secrete@localhost:3306/vitrage".
 #
 # [*database_max_retries*]
 #   (Optional) Maximum number of database connection retries during startup.
