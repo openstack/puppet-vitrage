@@ -87,7 +87,7 @@ describe 'vitrage::db' do
       end
 
       it 'install the proper backend package' do
-        is_expected.to contain_package('vitrage-backend-package').with(
+        is_expected.to contain_package('db_backend_package').with(
           :ensure => 'present',
           :name   => 'python-pymysql',
           :tag    => 'openstack'
@@ -111,7 +111,7 @@ describe 'vitrage::db' do
         { :database_connection     => 'mysql+pymysql://vitrage:vitrage@localhost/vitrage', }
       end
 
-      it { is_expected.not_to contain_package('vitrage-backend-package') }
+      it { is_expected.not_to contain_package('db_backend_package') }
     end
   end
 
