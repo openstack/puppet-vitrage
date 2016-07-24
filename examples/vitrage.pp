@@ -1,3 +1,9 @@
+class { '::vitrage::keystone::auth':
+  admin_url    => 'http://127.0.0.1:8999',
+  internal_url => 'http://127.0.0.1:8999',
+  public_url   => 'http://127.0.0.1:8999',
+  password     => 'a_big_secret',
+}
 class { '::vitrage': }
 class { '::vitrage::api':
   enabled               => true,
