@@ -10,27 +10,6 @@
 #   (optional) Whether the service should be managed by Puppet.
 #   Defaults to true.
 #
-# [*keystone_user*]
-#   (optional) The name of the auth user
-#   Defaults to 'vitrage'
-#
-# [*keystone_tenant*]
-#   (optional) Tenant to authenticate with.
-#   Defaults to 'services'.
-#
-# [*keystone_password*]
-#   Password to authenticate with.
-#   Mandatory.
-#   Defaults to false.
-#
-# [*keystone_auth_uri*]
-#   (optional) Public Identity API endpoint.
-#   Defaults to false.
-#
-# [*keystone_identity_uri*]
-#   (optional) Complete admin Identity API endpoint.
-#   Defaults to false
-#
 # [*host*]
 #   (optional) The vitrage api bind address.
 #   Defaults to '0.0.0.0'
@@ -56,11 +35,6 @@ class vitrage::api (
   $manage_service        = true,
   $enabled               = true,
   $package_ensure        = 'present',
-  $keystone_user         = 'vitrage',
-  $keystone_tenant       = 'services',
-  $keystone_password     = false,
-  $keystone_auth_uri     = false,
-  $keystone_identity_uri = false,
   $host                  = '0.0.0.0',
   $port                  = '8999',
   $service_name          = $::vitrage::params::api_service_name,
@@ -68,8 +42,6 @@ class vitrage::api (
 
   include ::vitrage::params
   include ::vitrage::policy
-
-  validate_string($keystone_password)
 
   Vitrage_config<||> ~> Service[$service_name]
   Class['vitrage::policy'] ~> Service[$service_name]
@@ -116,22 +88,8 @@ class vitrage::api (
   }
 
   vitrage_config {
-    'keystone_authtoken/auth_uri'          : value => $keystone_auth_uri;
-    'keystone_authtoken/admin_tenant_name' : value => $keystone_tenant;
-    'keystone_authtoken/admin_user'        : value => $keystone_user;
-    'keystone_authtoken/admin_password'    : value => $keystone_password, secret => true;
     'api/host'                             : value => $host;
     'api/port'                             : value => $port;
-  }
-
-  if $keystone_identity_uri {
-    vitrage_config {
-      'keystone_authtoken/identity_uri': value => $keystone_identity_uri;
-    }
-  } else {
-    vitrage_config {
-      'keystone_authtoken/identity_uri': ensure => absent;
-    }
   }
 
 }
