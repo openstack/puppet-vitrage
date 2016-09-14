@@ -84,7 +84,8 @@ class vitrage::api (
     # we need to make sure vitrage-api/eventlet is stopped before trying to start apache
     Service['vitrage-api'] -> Service[$service_name]
   } else {
-    fail('Invalid service_name. Either vitrage/openstack-vitrage-api for running as a standalone service, or httpd for being run by a httpd server')
+    fail('Invalid service_name. Either vitrage/openstack-vitrage-api for running \
+          as a standalone service, or httpd for being run by a httpd server')
   }
 
   vitrage_config {
