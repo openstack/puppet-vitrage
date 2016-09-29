@@ -16,6 +16,8 @@ class vitrage::db::sync(
     path        => '/usr/bin',
     user        => 'vitrage',
     refreshonly => true,
+    try_sleep   => 5,
+    tries       => 10,
     subscribe   => [Package['vitrage'], Vitrage_config['database/connection']],
   }
 
