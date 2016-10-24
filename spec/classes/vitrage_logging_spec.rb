@@ -32,7 +32,7 @@ describe 'vitrage::logging' do
     }
   end
 
-  shared_examples_for 'vitrage-logging' do
+  shared_examples_for 'vitrage::logging' do
 
     context 'with basic logging options and default settings' do
       it_configures  'basic default logging settings'
@@ -53,8 +53,7 @@ describe 'vitrage::logging' do
     end
 
   end
-
-  shared_examples 'basic default logging settings' do
+  shared_examples_for 'basic default logging settings' do
     it 'configures vitrage logging settins with default values' do
       is_expected.to contain_vitrage_config('DEFAULT/use_syslog').with(:value => '<SERVICE DEFAULT>')
       is_expected.to contain_vitrage_config('DEFAULT/use_stderr').with(:value => '<SERVICE DEFAULT>')
@@ -64,7 +63,7 @@ describe 'vitrage::logging' do
     end
   end
 
-  shared_examples 'basic non-default logging settings' do
+  shared_examples_for 'basic non-default logging settings' do
     it 'configures vitrage logging settins with non-default values' do
       is_expected.to contain_vitrage_config('DEFAULT/use_syslog').with(:value => 'true')
       is_expected.to contain_vitrage_config('DEFAULT/use_stderr').with(:value => 'false')
@@ -110,7 +109,6 @@ describe 'vitrage::logging' do
     end
   end
 
-
   shared_examples_for 'logging params unset' do
    [ :logging_context_format_string, :logging_default_format_string,
      :logging_debug_format_suffix, :logging_exception_prefix,
@@ -122,20 +120,16 @@ describe 'vitrage::logging' do
       }
   end
 
-  context 'on Debian platforms' do
-    let :facts do
-      @default_facts.merge({ :osfamily => 'Debian' })
+  on_supported_os({
+    :supported_os   => OSDefaults.get_supported_os
+  }).each do |os,facts|
+    context "on #{os}" do
+      let (:facts) do
+        facts.merge!(OSDefaults.get_facts())
+      end
+
+      it_configures 'vitrage::logging'
     end
-
-    it_configures 'vitrage-logging'
-  end
-
-  context 'on RedHat platforms' do
-    let :facts do
-      @default_facts.merge({ :osfamily => 'RedHat' })
-    end
-
-    it_configures 'vitrage-logging'
   end
 
 end
