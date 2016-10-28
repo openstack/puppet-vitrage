@@ -31,6 +31,7 @@ describe 'vitrage::api' do
     it 'configures api' do
       is_expected.to contain_vitrage_config('api/host').with_value( params[:host] )
       is_expected.to contain_vitrage_config('api/port').with_value( params[:port] )
+      is_expected.to contain_vitrage_config('oslo_middleware/enable_proxy_headers_parsing').with_value('<SERVICE DEFAULT>')
     end
 
     [{:enabled => true}, {:enabled => false}].each do |param_hash|
@@ -50,6 +51,14 @@ describe 'vitrage::api' do
           )
         end
       end
+    end
+
+    context 'with enable_proxy_headers_parsing' do
+      before do
+        params.merge!({:enable_proxy_headers_parsing => true })
+      end
+
+      it { is_expected.to contain_vitrage_config('oslo_middleware/enable_proxy_headers_parsing').with_value(true) }
     end
 
     context 'with disabled service managing' do

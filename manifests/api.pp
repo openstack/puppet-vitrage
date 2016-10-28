@@ -31,13 +31,19 @@
 #   to make vitrage-api be a web app using apache mod_wsgi.
 #   Defaults to '$::vitrage::params::api_service_name'
 #
+# [*enable_proxy_headers_parsing*]
+#   (Optional) Enable paste middleware to handle SSL requests through
+#   HTTPProxyToWSGI middleware.
+#   Defaults to $::os_service_default.
+#
 class vitrage::api (
-  $manage_service        = true,
-  $enabled               = true,
-  $package_ensure        = 'present',
-  $host                  = '0.0.0.0',
-  $port                  = '8999',
-  $service_name          = $::vitrage::params::api_service_name,
+  $manage_service               = true,
+  $enabled                      = true,
+  $package_ensure               = 'present',
+  $host                         = '0.0.0.0',
+  $port                         = '8999',
+  $service_name                 = $::vitrage::params::api_service_name,
+  $enable_proxy_headers_parsing = $::os_service_default,
 ) inherits vitrage::params {
 
   include ::vitrage::params
@@ -91,6 +97,10 @@ as a standalone service, or httpd for being run by a httpd server")
   vitrage_config {
     'api/host'                             : value => $host;
     'api/port'                             : value => $port;
+  }
+
+  oslo::middleware { 'vitrage_config':
+    enable_proxy_headers_parsing => $enable_proxy_headers_parsing,
   }
 
 }
