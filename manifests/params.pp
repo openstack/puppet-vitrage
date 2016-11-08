@@ -3,6 +3,7 @@
 # Parameters for puppet-vitrage
 #
 class vitrage::params {
+  include ::openstacklib::defaults
 
   $client_package_name = 'python-vitrageclient'
 
