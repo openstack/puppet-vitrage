@@ -73,17 +73,7 @@ describe 'vitrage::db' do
     end
   end
 
-  context 'on Debian platforms' do
-    let :facts do
-      @default_facts.merge({
-        :osfamily => 'Debian',
-        :operatingsystem => 'Debian',
-        :operatingsystemrelease => 'jessie',
-      })
-    end
-
-    it_configures 'vitrage::db'
-
+  shared_examples_for 'vitrage::db on Debian platforms' do
     context 'using pymysql driver' do
       let :params do
         { :database_connection     => 'mysql+pymysql://vitrage:vitrage@localhost/vitrage', }
@@ -99,22 +89,26 @@ describe 'vitrage::db' do
     end
   end
 
-  context 'on Redhat platforms' do
-    let :facts do
-      @default_facts.merge({
-        :osfamily => 'RedHat',
-        :operatingsystemrelease => '7.1',
-      })
-    end
-
-    it_configures 'vitrage::db'
-
+  shared_examples_for 'vitrage::db on RedHat platforms' do
     context 'using pymysql driver' do
       let :params do
         { :database_connection     => 'mysql+pymysql://vitrage:vitrage@localhost/vitrage', }
       end
 
       it { is_expected.not_to contain_package('db_backend_package') }
+    end
+  end
+
+  on_supported_os({
+    :supported_os   => OSDefaults.get_supported_os
+  }).each do |os,facts|
+    context "on #{os}" do
+      let (:facts) do
+        facts.merge!(OSDefaults.get_facts())
+      end
+
+      it_configures 'vitrage::db'
+      it_configures "vitrage::db on #{facts[:osfamily]} platforms"
     end
   end
 

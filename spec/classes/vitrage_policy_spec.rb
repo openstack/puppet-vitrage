@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'vitrage::policy' do
 
-  shared_examples_for 'vitrage policies' do
+  shared_examples_for 'vitrage::policy' do
     let :params do
       {
         :policy_path => '/etc/vitrage/policy.json',
@@ -24,19 +24,16 @@ describe 'vitrage::policy' do
     end
   end
 
-  context 'on Debian platforms' do
-    let :facts do
-      @default_facts.merge({ :osfamily => 'Debian' })
-    end
+  on_supported_os({
+    :supported_os   => OSDefaults.get_supported_os
+  }).each do |os,facts|
+    context "on #{os}" do
+      let (:facts) do
+        facts.merge!(OSDefaults.get_facts())
+      end
 
-    it_configures 'vitrage policies'
+      it_configures 'vitrage::policy'
+    end
   end
 
-  context 'on RedHat platforms' do
-    let :facts do
-      @default_facts.merge({ :osfamily => 'RedHat' })
-    end
-
-    it_configures 'vitrage policies'
-  end
 end
