@@ -225,6 +225,7 @@ class vitrage (
   $purge_config                       = false,
 ) inherits vitrage::params {
 
+  include ::vitrage::deps
   include ::vitrage::logging
 
   package { 'vitrage':
@@ -236,7 +237,6 @@ class vitrage (
   resources { 'vitrage_config':
     purge  => $purge_config,
   }
-
 
   if $rpc_backend == 'rabbit' {
     oslo::messaging::rabbit { 'vitrage_config':

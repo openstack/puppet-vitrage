@@ -19,11 +19,9 @@ class vitrage::notifier (
   $package_ensure = 'present',
 ) {
 
+  include ::vitrage::deps
   include ::vitrage::params
 
-  Vitrage_config<||> ~> Service['vitrage-notifier']
-
-  Package[$::vitrage::params::notifier_package_name] -> Service['vitrage-notifier']
   ensure_resource( 'package', [$::vitrage::params::notifier_package_name],
     { ensure => $package_ensure,
       tag    => ['openstack', 'vitrage-package'] }

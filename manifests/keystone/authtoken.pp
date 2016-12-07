@@ -222,6 +222,8 @@ class vitrage::keystone::authtoken(
   $token_cache_time               = $::os_service_default,
 ) {
 
+  include ::vitrage::deps
+
   keystone::resource::authtoken { 'vitrage_config':
     username                       => $username,
     password                       => $password,

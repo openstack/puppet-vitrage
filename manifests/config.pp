@@ -28,6 +28,8 @@ class vitrage::config (
   $vitrage_api_paste_ini = {},
 ) {
 
+  include ::vitrage::deps
+
   validate_hash($vitrage_config)
   validate_hash($vitrage_api_paste_ini)
 

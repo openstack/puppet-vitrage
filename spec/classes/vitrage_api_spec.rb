@@ -17,6 +17,7 @@ describe 'vitrage::api' do
 
   shared_examples_for 'vitrage-api' do
 
+    it { is_expected.to contain_class('vitrage::deps') }
     it { is_expected.to contain_class('vitrage::params') }
     it { is_expected.to contain_class('vitrage::policy') }
 

@@ -9,6 +9,7 @@ describe 'vitrage::notifier' do
   shared_examples_for 'vitrage-notifier' do
 
     context 'when enabled' do
+      it { is_expected.to contain_class('vitrage::deps') }
       it { is_expected.to contain_class('vitrage::params') }
 
       it 'installs vitrage-notifier package' do

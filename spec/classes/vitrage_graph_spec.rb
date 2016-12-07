@@ -9,6 +9,7 @@ describe 'vitrage::graph' do
   shared_examples_for 'vitrage-graph' do
 
     context 'when enabled' do
+      it { is_expected.to contain_class('vitrage::deps') }
       it { is_expected.to contain_class('vitrage::params') }
 
       it 'installs vitrage-graph package' do

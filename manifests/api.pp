@@ -46,15 +46,10 @@ class vitrage::api (
   $enable_proxy_headers_parsing = $::os_service_default,
 ) inherits vitrage::params {
 
+  include ::vitrage::deps
   include ::vitrage::params
   include ::vitrage::policy
 
-  Vitrage_config<||> ~> Service[$service_name]
-  Class['vitrage::policy'] ~> Service[$service_name]
-
-  Package['vitrage-api'] -> Service[$service_name]
-  Package['vitrage-api'] -> Service['vitrage-api']
-  Package['vitrage-api'] -> Class['vitrage::policy']
   package { 'vitrage-api':
     ensure => $package_ensure,
     name   => $::vitrage::params::api_package_name,

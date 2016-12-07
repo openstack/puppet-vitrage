@@ -13,6 +13,10 @@ describe 'vitrage' do
         is_expected.to contain_class('vitrage::logging')
       end
 
+      it 'contains the deps class' do
+        is_expected.to contain_class('vitrage::deps')
+      end
+
       it 'installs packages' do
         is_expected.to contain_package('vitrage').with(
           :name   => platform_params[:vitrage_common_package],

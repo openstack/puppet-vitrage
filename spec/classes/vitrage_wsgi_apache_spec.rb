@@ -4,6 +4,7 @@ describe 'vitrage::wsgi::apache' do
 
   shared_examples_for 'apache serving vitrage with mod_wsgi' do
     it { is_expected.to contain_service('httpd').with_name(platform_parameters[:httpd_service_name]) }
+    it { is_expected.to contain_class('vitrage::deps') }
     it { is_expected.to contain_class('vitrage::params') }
     it { is_expected.to contain_class('apache') }
     it { is_expected.to contain_class('apache::mod::wsgi') }

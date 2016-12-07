@@ -49,6 +49,8 @@ class vitrage::db (
   $database_max_overflow   = $::os_service_default,
 ) {
 
+  include ::vitrage::deps
+
   $database_connection_real = pick($::vitrage::database_connection, $database_connection)
   $database_idle_timeout_real = pick($::vitrage::database_idle_timeout, $database_idle_timeout)
   $database_min_pool_size_real = pick($::vitrage::database_min_pool_size, $database_min_pool_size)

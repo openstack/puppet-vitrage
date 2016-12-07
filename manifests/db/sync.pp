@@ -11,6 +11,9 @@
 class vitrage::db::sync(
   $extra_params  = undef,
 ) {
+
+  include ::vitrage::deps
+
   exec { 'vitrage-db-sync':
     command     => "vitrage-manage db_sync ${extra_params}",
     path        => '/usr/bin',
@@ -18,8 +21,12 @@ class vitrage::db::sync(
     refreshonly => true,
     try_sleep   => 5,
     tries       => 10,
-    subscribe   => [Package['vitrage'], Vitrage_config['database/connection']],
+    subscribe   => [
+      Anchor['vitrage::install::end'],
+      Anchor['vitrage::config::end'],
+      Anchor['vitrage::dbsync::begin']
+    ],
+    notify      => Anchor['vitrage::dbsync::end'],
   }
 
-  Exec['vitrage-manage db_sync'] ~> Service<| title == 'vitrage' |>
 }

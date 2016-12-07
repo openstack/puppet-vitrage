@@ -19,11 +19,9 @@ class vitrage::graph (
   $package_ensure = 'present',
 ) {
 
+  include ::vitrage::deps
   include ::vitrage::params
 
-  Vitrage_config<||> ~> Service['vitrage-graph']
-
-  Package[$::vitrage::params::graph_package_name] -> Service['vitrage-graph']
   ensure_resource( 'package', [$::vitrage::params::graph_package_name],
     { ensure => $package_ensure,
       tag    => ['openstack', 'vitrage-package'] }

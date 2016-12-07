@@ -32,7 +32,7 @@ class vitrage::db::postgresql(
   $privileges = 'ALL',
 ) {
 
-  Class['vitrage::db::postgresql'] -> Service<| title == 'vitrage' |>
+  include ::vitrage::deps
 
   ::openstacklib::db::postgresql { 'vitrage':
     password_hash => postgresql_password($user, $password),
@@ -42,6 +42,8 @@ class vitrage::db::postgresql(
     privileges    => $privileges,
   }
 
-  ::Openstacklib::Db::Postgresql['vitrage'] ~> Exec<| title == 'vitrage-manage db_sync' |>
+  Anchor['vitrage::db::begin']
+  ~> Class['vitrage::db::postgresql']
+  ~> Anchor['vitrage::db::end']
 
 }

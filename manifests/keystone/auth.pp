@@ -74,7 +74,9 @@ class vitrage::keystone::auth (
   $admin_url           = 'http://127.0.0.1:8999',
 ) {
 
-  $real_service_name    = pick($service_name, $auth_name)
+  include ::vitrage::deps
+
+  $real_service_name = pick($service_name, $auth_name)
 
   keystone::resource::service_identity { 'vitrage':
     configure_user      => $configure_user,

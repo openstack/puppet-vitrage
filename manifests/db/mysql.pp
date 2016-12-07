@@ -52,6 +52,8 @@ class vitrage::db::mysql(
   $allowed_hosts = undef
 ) {
 
+  include ::vitrage::deps
+
   validate_string($password)
 
   ::openstacklib::db::mysql { 'vitrage':
@@ -64,5 +66,8 @@ class vitrage::db::mysql(
     allowed_hosts => $allowed_hosts,
   }
 
-  ::Openstacklib::Db::Mysql['vitrage'] ~> Exec<| title == 'vitrage-manage db_sync' |>
+  Anchor['vitrage::db::begin']
+  ~> Class['vitrage::db::mysql']
+  ~> Anchor['vitrage::db::end']
+
 }

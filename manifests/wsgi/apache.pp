@@ -95,6 +95,7 @@ class vitrage::wsgi::apache (
   $priority      = '10',
 ) {
 
+  include ::vitrage::deps
   include ::vitrage::params
   include ::apache
   include ::apache::mod::wsgi

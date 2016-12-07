@@ -10,6 +10,7 @@ class vitrage::client (
   $ensure = 'present'
 ) {
 
+  include ::vitrage::deps
   include ::vitrage::params
 
   package { 'python-vitrageclient':

@@ -28,6 +28,8 @@ class vitrage::policy (
   $policy_path = '/etc/vitrage/policy.json',
 ) {
 
+  include ::vitrage::deps
+
   validate_hash($policies)
 
   Openstacklib::Policy::Base {
