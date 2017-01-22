@@ -29,6 +29,10 @@ class vitrage::deps {
   -> Openstacklib::Policy::Base<||>
   ~> Anchor['vitrage::config::end']
 
+  # all db settings should be applied and all packages should be installed
+  # before dbsync starts
+  Oslo::Db<||> -> Anchor['vitrage::dbsync::begin']
+
   # Installation or config changes will always restart services.
   Anchor['vitrage::install::end'] ~> Anchor['vitrage::service::begin']
   Anchor['vitrage::config::end']  ~> Anchor['vitrage::service::begin']
