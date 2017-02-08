@@ -28,6 +28,8 @@ describe 'vitrage' do
       it 'configures rabbit' do
         is_expected.to contain_vitrage_config('DEFAULT/rpc_backend').with_value('rabbit')
         is_expected.to contain_vitrage_config('DEFAULT/transport_url').with_value('<SERVICE DEFAULT>')
+        is_expected.to contain_vitrage_config('DEFAULT/rpc_response_timeout').with_value('<SERVICE DEFAULT>')
+        is_expected.to contain_vitrage_config('DEFAULT/control_exchange').with_value('<SERVICE DEFAULT>')
         is_expected.to contain_vitrage_config('oslo_messaging_rabbit/heartbeat_timeout_threshold').with_value('<SERVICE DEFAULT>')
         is_expected.to contain_vitrage_config('oslo_messaging_rabbit/heartbeat_rate').with_value('<SERVICE DEFAULT>')
         is_expected.to contain_vitrage_config('oslo_messaging_rabbit/kombu_compression').with_value('<SERVICE DEFAULT>')
@@ -48,6 +50,8 @@ describe 'vitrage' do
         {
           :debug                              => true,
           :default_transport_url              => 'rabbit://rabbit_user:password@localhost:5673',
+          :rpc_response_timeout               => '120',
+          :control_exchange                   => 'vitrage',
           :rabbit_ha_queues                   => 'undef',
           :rabbit_heartbeat_timeout_threshold => '60',
           :rabbit_heartbeat_rate              => '10',
@@ -62,6 +66,8 @@ describe 'vitrage' do
       it 'configures rabbit' do
         is_expected.to contain_vitrage_config('DEFAULT/rpc_backend').with_value('rabbit')
         is_expected.to contain_vitrage_config('DEFAULT/transport_url').with_value('rabbit://rabbit_user:password@localhost:5673')
+        is_expected.to contain_vitrage_config('DEFAULT/rpc_response_timeout').with_value('120')
+        is_expected.to contain_vitrage_config('DEFAULT/control_exchange').with_value('vitrage')
         is_expected.to contain_vitrage_config('oslo_messaging_rabbit/heartbeat_timeout_threshold').with_value('60')
         is_expected.to contain_vitrage_config('oslo_messaging_rabbit/heartbeat_rate').with_value('10')
         is_expected.to contain_vitrage_config('oslo_messaging_rabbit/kombu_compression').with_value('gzip')
@@ -189,6 +195,8 @@ describe 'vitrage' do
       let :params do
         { :rpc_backend           => 'amqp',
           :default_transport_url => 'amqp://amqp_user:password@localhost:5672',
+          :rpc_response_timeout  => '240',
+          :control_exchange      => 'openstack',
           :amqp_idle_timeout     => '60',
           :amqp_trace            => true,
           :amqp_ssl_ca_file      => '/etc/ca.cert',
@@ -202,6 +210,8 @@ describe 'vitrage' do
       it 'configures amqp' do
         is_expected.to contain_vitrage_config('DEFAULT/rpc_backend').with_value('amqp')
         is_expected.to contain_vitrage_config('DEFAULT/transport_url').with_value('amqp://amqp_user:password@localhost:5672')
+        is_expected.to contain_vitrage_config('DEFAULT/rpc_response_timeout').with_value('240')
+        is_expected.to contain_vitrage_config('DEFAULT/control_exchange').with_value('openstack')
         is_expected.to contain_vitrage_config('oslo_messaging_amqp/idle_timeout').with_value('60')
         is_expected.to contain_vitrage_config('oslo_messaging_amqp/trace').with_value('true')
         is_expected.to contain_vitrage_config('oslo_messaging_amqp/ssl_ca_file').with_value('/etc/ca.cert')
