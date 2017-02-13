@@ -3,7 +3,10 @@ require 'spec_helper'
 describe 'vitrage::api' do
 
   let :pre_condition do
-    "class { 'vitrage': }"
+    "class { 'vitrage': }
+     class { '::vitrage::keystone::authtoken':
+       password => 'a_big_secret',
+     }"
   end
 
   let :params do
@@ -51,6 +54,8 @@ describe 'vitrage::api' do
             :tag        => 'vitrage-service',
           )
         end
+        it { is_expected.to contain_service('vitrage-api').that_subscribes_to('Anchor[vitrage::service::begin]')}
+        it { is_expected.to contain_service('vitrage-api').that_notifies('Anchor[vitrage::service::end]')}
       end
     end
 
@@ -88,7 +93,10 @@ describe 'vitrage::api' do
 
       let :pre_condition do
         "include ::apache
-         class { 'vitrage': }"
+         class { 'vitrage': }
+         class { '::vitrage::keystone::authtoken':
+           password => 'a_big_secret',
+         }"
       end
 
       it 'configures vitrage-api service with Apache' do
@@ -108,7 +116,10 @@ describe 'vitrage::api' do
 
       let :pre_condition do
         "include ::apache
-         class { 'vitrage': }"
+         class { 'vitrage': }
+         class { '::vitrage::keystone::authtoken':
+           password => 'a_big_secret',
+         }"
       end
 
       it_raises 'a Puppet::Error', /Invalid service_name/
