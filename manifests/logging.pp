@@ -108,12 +108,20 @@ class vitrage::logging(
 
   include ::vitrage::deps
 
+  # NOTE(spredzy): In order to keep backward compatibility we rely on the pick function
+  # to use vitrage::<myparam> first then vitrage::vitrage::<myparam>.
+  $use_syslog_real   = pick($::vitrage::use_syslog,$use_syslog)
+  $use_stderr_real   = pick($::vitrage::use_stderr,$use_stderr)
+  $log_facility_real = pick($::vitrage::log_facility,$log_facility)
+  $log_dir_real      = pick($::vitrage::log_dir,$log_dir)
+  $debug_real        = pick($::vitrage::debug,$debug)
+
   oslo::log { 'vitrage_config':
-    debug                         => $debug,
-    use_syslog                    => $use_syslog,
-    use_stderr                    => $use_stderr,
-    log_dir                       => $log_dir,
-    syslog_log_facility           => $log_facility,
+    debug                         => $debug_real,
+    use_syslog                    => $use_syslog_real,
+    use_stderr                    => $use_stderr_real,
+    log_dir                       => $log_dir_real,
+    syslog_log_facility           => $log_facility_real,
     logging_context_format_string => $logging_context_format_string,
     logging_default_format_string => $logging_default_format_string,
     logging_debug_format_suffix   => $logging_debug_format_suffix,
