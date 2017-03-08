@@ -4,7 +4,7 @@
 #
 # === Parameters
 #
-# [*ensure_package*]
+# [*package_ensure*]
 #   (optional) The state of vitrage packages
 #   Defaults to 'present'
 #
@@ -194,7 +194,7 @@
 #   Defaults to false.
 #
 class vitrage (
-  $ensure_package                     = 'present',
+  $package_ensure                     = 'present',
   $default_transport_url              = $::os_service_default,
   $rpc_response_timeout               = $::os_service_default,
   $control_exchange                   = $::os_service_default,
@@ -241,7 +241,7 @@ class vitrage (
   include ::vitrage::logging
 
   package { 'vitrage':
-    ensure => $ensure_package,
+    ensure => $package_ensure,
     name   => $::vitrage::params::common_package_name,
     tag    => ['openstack', 'vitrage-package'],
   }
