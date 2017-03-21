@@ -193,6 +193,14 @@
 #   in the vitrage config.
 #   Defaults to false.
 #
+# [*snapshots_interval*]
+#   (optional) Datasources snapshot interval
+#   Defaults to $::os_service_default
+#
+# [*types*]
+#   (optional) Datasources types
+#   Defaults to $::os_service_default
+#
 class vitrage (
   $package_ensure                     = 'present',
   $default_transport_url              = $::os_service_default,
@@ -235,6 +243,8 @@ class vitrage (
   $notification_driver                = $::os_service_default,
   $notification_topics                = $::os_service_default,
   $purge_config                       = false,
+  $snapshots_interval                 = $::os_service_default,
+  $types                              = $::os_service_default,
 ) inherits vitrage::params {
 
   include ::vitrage::deps
@@ -296,6 +306,11 @@ class vitrage (
     transport_url => $notification_transport_url,
     driver        => $notification_driver,
     topics        => $notification_topics,
+  }
+
+  vitrage_config {
+    'datasources/snapshots_interval': value => $snapshots_interval;
+    'datasources/types':              value => $types;
   }
 }
 

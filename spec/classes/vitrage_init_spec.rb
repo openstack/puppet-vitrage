@@ -35,6 +35,8 @@ describe 'vitrage' do
         is_expected.to contain_vitrage_config('oslo_messaging_rabbit/kombu_compression').with_value('<SERVICE DEFAULT>')
         is_expected.to contain_vitrage_config('oslo_messaging_notifications/transport_url').with_value('<SERVICE DEFAULT>')
         is_expected.to contain_vitrage_config('oslo_messaging_notifications/driver').with_value('<SERVICE DEFAULT>')
+        is_expected.to contain_vitrage_config('datasources/types').with_value('<SERVICE DEFAULT>')
+        is_expected.to contain_vitrage_config('datasources/snapshots_interval').with_value('<SERVICE DEFAULT>')
       end
 
       it 'passes purge to resource' do
@@ -60,6 +62,8 @@ describe 'vitrage' do
           :notification_transport_url         => 'rabbit://rabbit_user:password@localhost:5673',
           :notification_driver                => 'messaging',
           :notification_topics                => 'openstack',
+          :types                              => 'nova.host,nova.instance,nova.zone,cinder.volume,neutron.port,neutron.network,doctor',
+          :snapshots_interval                 => '120',
         }
       end
 
@@ -77,6 +81,8 @@ describe 'vitrage' do
         is_expected.to contain_vitrage_config('oslo_messaging_notifications/transport_url').with_value('rabbit://rabbit_user:password@localhost:5673')
         is_expected.to contain_vitrage_config('oslo_messaging_notifications/driver').with_value('messaging')
         is_expected.to contain_vitrage_config('oslo_messaging_notifications/topics').with_value('openstack')
+        is_expected.to contain_vitrage_config('datasources/types').with_value('nova.host,nova.instance,nova.zone,cinder.volume,neutron.port,neutron.network,doctor')
+        is_expected.to contain_vitrage_config('datasources/snapshots_interval').with_value('120')
       end
 
       context 'with multiple notification_driver' do
