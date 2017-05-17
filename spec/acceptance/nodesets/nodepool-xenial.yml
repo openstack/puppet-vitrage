@@ -7,4 +7,4 @@ HOSTS:
     ip: 127.0.0.1
 CONFIG:
   type: foss
-set_env: false
+  set_env: false
