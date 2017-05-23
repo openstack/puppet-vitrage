@@ -20,7 +20,9 @@ describe 'vitrage::policy' do
         :key   => 'context_is_admin',
         :value => 'foo:bar'
       })
-      is_expected.to contain_vitrage_config('oslo_policy/policy_file').with_value('/etc/vitrage/policy.json')
+      is_expected.to contain_oslo__policy('vitrage_config').with(
+        :policy_file => '/etc/vitrage/policy.json',
+      )
     end
   end
 
