@@ -58,6 +58,7 @@ describe 'basic vitrage' do
           class { '::vitrage::client': }
           class { '::vitrage::notifier': }
           class { '::vitrage::graph': }
+          class { '::vitrage::collector': }
         }
         default: {
           fail("Unsupported osfamily (${::osfamily})")
