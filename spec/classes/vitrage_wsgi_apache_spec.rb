@@ -3,46 +3,26 @@ require 'spec_helper'
 describe 'vitrage::wsgi::apache' do
 
   shared_examples_for 'apache serving vitrage with mod_wsgi' do
-    it { is_expected.to contain_service('httpd').with_name(platform_parameters[:httpd_service_name]) }
-    it { is_expected.to contain_class('vitrage::deps') }
-    it { is_expected.to contain_class('vitrage::params') }
-    it { is_expected.to contain_class('apache') }
-    it { is_expected.to contain_class('apache::mod::wsgi') }
-
-    describe 'with default parameters' do
-
-      it { is_expected.to contain_file("#{platform_parameters[:wsgi_script_path]}").with(
-        'ensure'  => 'directory',
-        'owner'   => 'vitrage',
-        'group'   => 'vitrage',
-        'require' => 'Package[httpd]'
+    context 'with default parameters' do
+      it { is_expected.to contain_class('vitrage::params') }
+      it { is_expected.to contain_class('apache') }
+      it { is_expected.to contain_class('apache::mod::wsgi') }
+      it { is_expected.to contain_class('apache::mod::ssl') }
+      it { is_expected.to contain_openstacklib__wsgi__apache('vitrage_wsgi').with(
+        :bind_port           => 8999,
+        :group               => 'vitrage',
+        :path                => '/',
+        :servername          => facts[:fqdn],
+        :ssl                 => true,
+        :threads             => facts[:os_workers],
+        :user                => 'vitrage',
+        :workers             => 1,
+        :wsgi_daemon_process => 'vitrage',
+        :wsgi_process_group  => 'vitrage',
+        :wsgi_script_dir     => platform_params[:wsgi_script_path],
+        :wsgi_script_file    => 'app',
+        :wsgi_script_source  => platform_params[:wsgi_script_source],
       )}
-
-
-      it { is_expected.to contain_file('vitrage_wsgi').with(
-        'ensure'  => 'file',
-        'path'    => "#{platform_parameters[:wsgi_script_path]}/app",
-        'source'  => platform_parameters[:wsgi_script_source],
-        'owner'   => 'vitrage',
-        'group'   => 'vitrage',
-        'mode'    => '0644'
-      )}
-      it { is_expected.to contain_file('vitrage_wsgi').that_requires("File[#{platform_parameters[:wsgi_script_path]}]") }
-
-      it { is_expected.to contain_apache__vhost('vitrage_wsgi').with(
-        'servername'                  => 'some.host.tld',
-        'ip'                          => nil,
-        'port'                        => '8999',
-        'docroot'                     => "#{platform_parameters[:wsgi_script_path]}",
-        'docroot_owner'               => 'vitrage',
-        'docroot_group'               => 'vitrage',
-        'ssl'                         => 'true',
-        'wsgi_daemon_process'         => 'vitrage',
-        'wsgi_process_group'          => 'vitrage',
-        'wsgi_script_aliases'         => { '/' => "#{platform_parameters[:wsgi_script_path]}/app" },
-        'require'                     => 'File[vitrage_wsgi]'
-      )}
-      it { is_expected.to contain_concat("#{platform_parameters[:httpd_ports_file]}") }
     end
 
     describe 'when overriding parameters using different ports' do
@@ -55,22 +35,26 @@ describe 'vitrage::wsgi::apache' do
           :workers     => 37,
         }
       end
-
-      it { is_expected.to contain_apache__vhost('vitrage_wsgi').with(
-        'servername'                  => 'dummy.host',
-        'ip'                          => '10.42.51.1',
-        'port'                        => '12345',
-        'docroot'                     => "#{platform_parameters[:wsgi_script_path]}",
-        'docroot_owner'               => 'vitrage',
-        'docroot_group'               => 'vitrage',
-        'ssl'                         => 'false',
-        'wsgi_daemon_process'         => 'vitrage',
-        'wsgi_process_group'          => 'vitrage',
-        'wsgi_script_aliases'         => { '/' => "#{platform_parameters[:wsgi_script_path]}/app" },
-        'require'                     => 'File[vitrage_wsgi]'
+      it { is_expected.to contain_class('vitrage::params') }
+      it { is_expected.to contain_class('apache') }
+      it { is_expected.to contain_class('apache::mod::wsgi') }
+      it { is_expected.to_not contain_class('apache::mod::ssl') }
+      it { is_expected.to contain_openstacklib__wsgi__apache('vitrage_wsgi').with(
+        :bind_host                 => '10.42.51.1',
+        :bind_port                 => 12345,
+        :group                     => 'vitrage',
+        :path                      => '/',
+        :servername                => 'dummy.host',
+        :ssl                       => false,
+        :threads                   => facts[:os_workers],
+        :user                      => 'vitrage',
+        :workers                   => 37,
+        :wsgi_daemon_process       => 'vitrage',
+        :wsgi_process_group        => 'vitrage',
+        :wsgi_script_dir           => platform_params[:wsgi_script_path],
+        :wsgi_script_file          => 'app',
+        :wsgi_script_source        => platform_params[:wsgi_script_source],
       )}
-
-      it { is_expected.to contain_concat("#{platform_parameters[:httpd_ports_file]}") }
     end
   end
 
@@ -86,7 +70,7 @@ describe 'vitrage::wsgi::apache' do
         }))
       end
 
-      let(:platform_parameters) do
+      let(:platform_params) do
         case facts[:osfamily]
         when 'Debian'
           {
