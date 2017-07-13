@@ -57,6 +57,10 @@
 #     (optional) The number of threads for the vhost.
 #     Defaults to $::os_workers
 #
+#   [*wsgi_process_display_name*]
+#     (optional) Name of the WSGI process display-name.
+#     Defaults to undef
+#
 #   [*ssl_cert*]
 #   [*ssl_key*]
 #   [*ssl_chain*]
@@ -78,21 +82,22 @@
 #   class { 'vitrage::wsgi::apache': }
 #
 class vitrage::wsgi::apache (
-  $servername    = $::fqdn,
-  $port          = 8999,
-  $bind_host     = undef,
-  $path          = '/',
-  $ssl           = true,
-  $workers       = 1,
-  $ssl_cert      = undef,
-  $ssl_key       = undef,
-  $ssl_chain     = undef,
-  $ssl_ca        = undef,
-  $ssl_crl_path  = undef,
-  $ssl_crl       = undef,
-  $ssl_certs_dir = undef,
-  $threads       = $::os_workers,
-  $priority      = '10',
+  $servername                = $::fqdn,
+  $port                      = 8999,
+  $bind_host                 = undef,
+  $path                      = '/',
+  $ssl                       = true,
+  $workers                   = 1,
+  $wsgi_process_display_name = undef,
+  $ssl_cert                  = undef,
+  $ssl_key                   = undef,
+  $ssl_chain                 = undef,
+  $ssl_ca                    = undef,
+  $ssl_crl_path              = undef,
+  $ssl_crl                   = undef,
+  $ssl_certs_dir             = undef,
+  $threads                   = $::os_workers,
+  $priority                  = '10',
 ) {
 
   include ::vitrage::deps
@@ -104,27 +109,28 @@ class vitrage::wsgi::apache (
   }
 
   ::openstacklib::wsgi::apache { 'vitrage_wsgi':
-    bind_host           => $bind_host,
-    bind_port           => $port,
-    group               => 'vitrage',
-    path                => $path,
-    priority            => $priority,
-    servername          => $servername,
-    ssl                 => $ssl,
-    ssl_ca              => $ssl_ca,
-    ssl_cert            => $ssl_cert,
-    ssl_certs_dir       => $ssl_certs_dir,
-    ssl_chain           => $ssl_chain,
-    ssl_crl             => $ssl_crl,
-    ssl_crl_path        => $ssl_crl_path,
-    ssl_key             => $ssl_key,
-    threads             => $threads,
-    user                => 'vitrage',
-    workers             => $workers,
-    wsgi_daemon_process => 'vitrage',
-    wsgi_process_group  => 'vitrage',
-    wsgi_script_dir     => $::vitrage::params::vitrage_wsgi_script_path,
-    wsgi_script_file    => 'app',
-    wsgi_script_source  => $::vitrage::params::vitrage_wsgi_script_source,
+    bind_host                 => $bind_host,
+    bind_port                 => $port,
+    group                     => 'vitrage',
+    path                      => $path,
+    priority                  => $priority,
+    servername                => $servername,
+    ssl                       => $ssl,
+    ssl_ca                    => $ssl_ca,
+    ssl_cert                  => $ssl_cert,
+    ssl_certs_dir             => $ssl_certs_dir,
+    ssl_chain                 => $ssl_chain,
+    ssl_crl                   => $ssl_crl,
+    ssl_crl_path              => $ssl_crl_path,
+    ssl_key                   => $ssl_key,
+    threads                   => $threads,
+    user                      => 'vitrage',
+    workers                   => $workers,
+    wsgi_daemon_process       => 'vitrage',
+    wsgi_process_group        => 'vitrage',
+    wsgi_process_display_name => $wsgi_process_display_name,
+    wsgi_script_dir           => $::vitrage::params::vitrage_wsgi_script_path,
+    wsgi_script_file          => 'app',
+    wsgi_script_source        => $::vitrage::params::vitrage_wsgi_script_source,
   }
 }

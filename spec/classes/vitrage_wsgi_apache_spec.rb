@@ -28,11 +28,12 @@ describe 'vitrage::wsgi::apache' do
     describe 'when overriding parameters using different ports' do
       let :params do
         {
-          :servername  => 'dummy.host',
-          :bind_host   => '10.42.51.1',
-          :port        => 12345,
-          :ssl         => false,
-          :workers     => 37,
+          :servername                => 'dummy.host',
+          :bind_host                 => '10.42.51.1',
+          :port                      => 12345,
+          :ssl                       => false,
+          :wsgi_process_display_name => 'vitrage',
+          :workers                   => 37,
         }
       end
       it { is_expected.to contain_class('vitrage::params') }
@@ -50,6 +51,7 @@ describe 'vitrage::wsgi::apache' do
         :user                      => 'vitrage',
         :workers                   => 37,
         :wsgi_daemon_process       => 'vitrage',
+        :wsgi_process_display_name => 'vitrage',
         :wsgi_process_group        => 'vitrage',
         :wsgi_script_dir           => platform_params[:wsgi_script_path],
         :wsgi_script_file          => 'app',
