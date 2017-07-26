@@ -3,7 +3,7 @@ Puppet::Type.newtype(:vitrage_api_paste_ini) do
   ensurable
 
   newparam(:name, :namevar => true) do
-    desc 'Section/setting name to manage from /etc/vitrage/api_paste.ini'
+    desc 'Section/setting name to manage from /etc/vitrage/api-paste.ini'
     newvalues(/\S+\/\S+/)
   end
 

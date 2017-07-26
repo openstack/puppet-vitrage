@@ -18,7 +18,7 @@
 #       value: barValue
 #
 # [*vitrage_api_paste_ini*]
-#   (optional) Allow configuration of /etc/vitrage/api_paste.ini options.
+#   (optional) Allow configuration of /etc/vitrage/api-paste.ini options.
 #
 #   NOTE: The configuration MUST NOT be already handled by this module
 #   or Puppet catalog compilation will fail with duplicate resources.
