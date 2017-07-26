@@ -1,0 +1,4 @@
+---
+deprecations:
+  - vitrage::rpc_backend is deprecated and will be removed in a future
+    release. Please use vitrage::default_transport_url instead.

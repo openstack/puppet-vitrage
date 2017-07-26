@@ -24,13 +24,6 @@
 #   option.
 #   Defaults to $::os_service_default
 #
-# [*rpc_backend*]
-#   (optional) The rpc backend implementation to use, can be:
-#     amqp (for AMQP 1.0 protocol)
-#     rabbit (for rabbitmq)
-#     zmq (for zeromq)
-#   Defaults to 'rabbit'
-#
 # [*rabbit_use_ssl*]
 #   (optional) Connect over SSL for RabbitMQ
 #   Defaults to $::os_service_default
@@ -201,12 +194,20 @@
 #   (optional) Datasources types
 #   Defaults to $::os_service_default
 #
+# === DEPRECATED PARAMETERS
+#
+# [*rpc_backend*]
+#   (optional) The rpc backend implementation to use, can be:
+#     amqp (for AMQP 1.0 protocol)
+#     rabbit (for rabbitmq)
+#     zmq (for zeromq)
+#   Defaults to 'rabbit'
+#
 class vitrage (
   $package_ensure                     = 'present',
   $default_transport_url              = $::os_service_default,
   $rpc_response_timeout               = $::os_service_default,
   $control_exchange                   = $::os_service_default,
-  $rpc_backend                        = 'rabbit',
   $rabbit_use_ssl                     = $::os_service_default,
   $rabbit_heartbeat_timeout_threshold = $::os_service_default,
   $rabbit_heartbeat_rate              = $::os_service_default,
@@ -245,10 +246,17 @@ class vitrage (
   $purge_config                       = false,
   $snapshots_interval                 = $::os_service_default,
   $types                              = $::os_service_default,
+  #DEPRECATED
+  $rpc_backend                        = 'rabbit',
 ) inherits vitrage::params {
 
   include ::vitrage::deps
   include ::vitrage::logging
+
+  if !is_service_default($rpc_backend) {
+    warning("vitrage::rpc_backend is deprecated. Please use \
+vitrage::default_transport_url instead.")
+  }
 
   package { 'vitrage':
     ensure => $package_ensure,
@@ -260,40 +268,37 @@ class vitrage (
     purge  => $purge_config,
   }
 
-  if $rpc_backend == 'rabbit' {
-    oslo::messaging::rabbit { 'vitrage_config':
-      rabbit_ha_queues            => $rabbit_ha_queues,
-      heartbeat_timeout_threshold => $rabbit_heartbeat_timeout_threshold,
-      heartbeat_rate              => $rabbit_heartbeat_rate,
-      rabbit_use_ssl              => $rabbit_use_ssl,
-      kombu_reconnect_delay       => $kombu_reconnect_delay,
-      kombu_ssl_version           => $kombu_ssl_version,
-      kombu_ssl_keyfile           => $kombu_ssl_keyfile,
-      kombu_ssl_certfile          => $kombu_ssl_certfile,
-      kombu_ssl_ca_certs          => $kombu_ssl_ca_certs,
-      kombu_compression           => $kombu_compression,
-      amqp_durable_queues         => $amqp_durable_queues,
-    }
+  oslo::messaging::rabbit { 'vitrage_config':
+    rabbit_ha_queues            => $rabbit_ha_queues,
+    heartbeat_timeout_threshold => $rabbit_heartbeat_timeout_threshold,
+    heartbeat_rate              => $rabbit_heartbeat_rate,
+    rabbit_use_ssl              => $rabbit_use_ssl,
+    kombu_reconnect_delay       => $kombu_reconnect_delay,
+    kombu_ssl_version           => $kombu_ssl_version,
+    kombu_ssl_keyfile           => $kombu_ssl_keyfile,
+    kombu_ssl_certfile          => $kombu_ssl_certfile,
+    kombu_ssl_ca_certs          => $kombu_ssl_ca_certs,
+    kombu_compression           => $kombu_compression,
+    amqp_durable_queues         => $amqp_durable_queues,
   }
-  elsif $rpc_backend == 'amqp' {
-    oslo::messaging::amqp { 'vitrage_config':
-      server_request_prefix  => $amqp_server_request_prefix,
-      broadcast_prefix       => $amqp_broadcast_prefix,
-      group_request_prefix   => $amqp_group_request_prefix,
-      container_name         => $amqp_container_name,
-      idle_timeout           => $amqp_idle_timeout,
-      trace                  => $amqp_trace,
-      ssl_ca_file            => $amqp_ssl_ca_file,
-      ssl_cert_file          => $amqp_ssl_cert_file,
-      ssl_key_file           => $amqp_ssl_key_file,
-      ssl_key_password       => $amqp_ssl_key_password,
-      allow_insecure_clients => $amqp_allow_insecure_clients,
-      sasl_mechanisms        => $amqp_sasl_mechanisms,
-      sasl_config_dir        => $amqp_sasl_config_dir,
-      sasl_config_name       => $amqp_sasl_config_name,
-      username               => $amqp_username,
-      password               => $amqp_password,
-    }
+
+  oslo::messaging::amqp { 'vitrage_config':
+    server_request_prefix  => $amqp_server_request_prefix,
+    broadcast_prefix       => $amqp_broadcast_prefix,
+    group_request_prefix   => $amqp_group_request_prefix,
+    container_name         => $amqp_container_name,
+    idle_timeout           => $amqp_idle_timeout,
+    trace                  => $amqp_trace,
+    ssl_ca_file            => $amqp_ssl_ca_file,
+    ssl_cert_file          => $amqp_ssl_cert_file,
+    ssl_key_file           => $amqp_ssl_key_file,
+    ssl_key_password       => $amqp_ssl_key_password,
+    allow_insecure_clients => $amqp_allow_insecure_clients,
+    sasl_mechanisms        => $amqp_sasl_mechanisms,
+    sasl_config_dir        => $amqp_sasl_config_dir,
+    sasl_config_name       => $amqp_sasl_config_name,
+    username               => $amqp_username,
+    password               => $amqp_password,
   }
 
   oslo::messaging::default { 'vitrage_config':

@@ -175,37 +175,30 @@ describe 'vitrage' do
       end
     end
 
-    context 'with amqp rpc_backend' do
-      let :params do
-        { :rpc_backend => 'amqp' }
-      end
-
-      context 'with default parameters' do
-        it 'configures amqp' do
-          is_expected.to contain_vitrage_config('oslo_messaging_amqp/server_request_prefix').with_value('<SERVICE DEFAULT>')
-          is_expected.to contain_vitrage_config('oslo_messaging_amqp/broadcast_prefix').with_value('<SERVICE DEFAULT>')
-          is_expected.to contain_vitrage_config('oslo_messaging_amqp/group_request_prefix').with_value('<SERVICE DEFAULT>')
-          is_expected.to contain_vitrage_config('oslo_messaging_amqp/container_name').with_value('<SERVICE DEFAULT>')
-          is_expected.to contain_vitrage_config('oslo_messaging_amqp/idle_timeout').with_value('<SERVICE DEFAULT>')
-          is_expected.to contain_vitrage_config('oslo_messaging_amqp/trace').with_value('<SERVICE DEFAULT>')
-          is_expected.to contain_vitrage_config('oslo_messaging_amqp/ssl_ca_file').with_value('<SERVICE DEFAULT>')
-          is_expected.to contain_vitrage_config('oslo_messaging_amqp/ssl_cert_file').with_value('<SERVICE DEFAULT>')
-          is_expected.to contain_vitrage_config('oslo_messaging_amqp/ssl_key_file').with_value('<SERVICE DEFAULT>')
-          is_expected.to contain_vitrage_config('oslo_messaging_amqp/ssl_key_password').with_value('<SERVICE DEFAULT>')
-          is_expected.to contain_vitrage_config('oslo_messaging_amqp/allow_insecure_clients').with_value('<SERVICE DEFAULT>')
-          is_expected.to contain_vitrage_config('oslo_messaging_amqp/sasl_mechanisms').with_value('<SERVICE DEFAULT>')
-          is_expected.to contain_vitrage_config('oslo_messaging_amqp/sasl_config_dir').with_value('<SERVICE DEFAULT>')
-          is_expected.to contain_vitrage_config('oslo_messaging_amqp/sasl_config_name').with_value('<SERVICE DEFAULT>')
-          is_expected.to contain_vitrage_config('oslo_messaging_amqp/username').with_value('<SERVICE DEFAULT>')
-          is_expected.to contain_vitrage_config('oslo_messaging_amqp/password').with_value('<SERVICE DEFAULT>')
-        end
+    context 'with default amqp parameters' do
+      it 'configures amqp' do
+        is_expected.to contain_vitrage_config('oslo_messaging_amqp/server_request_prefix').with_value('<SERVICE DEFAULT>')
+        is_expected.to contain_vitrage_config('oslo_messaging_amqp/broadcast_prefix').with_value('<SERVICE DEFAULT>')
+        is_expected.to contain_vitrage_config('oslo_messaging_amqp/group_request_prefix').with_value('<SERVICE DEFAULT>')
+        is_expected.to contain_vitrage_config('oslo_messaging_amqp/container_name').with_value('<SERVICE DEFAULT>')
+        is_expected.to contain_vitrage_config('oslo_messaging_amqp/idle_timeout').with_value('<SERVICE DEFAULT>')
+        is_expected.to contain_vitrage_config('oslo_messaging_amqp/trace').with_value('<SERVICE DEFAULT>')
+        is_expected.to contain_vitrage_config('oslo_messaging_amqp/ssl_ca_file').with_value('<SERVICE DEFAULT>')
+        is_expected.to contain_vitrage_config('oslo_messaging_amqp/ssl_cert_file').with_value('<SERVICE DEFAULT>')
+        is_expected.to contain_vitrage_config('oslo_messaging_amqp/ssl_key_file').with_value('<SERVICE DEFAULT>')
+        is_expected.to contain_vitrage_config('oslo_messaging_amqp/ssl_key_password').with_value('<SERVICE DEFAULT>')
+        is_expected.to contain_vitrage_config('oslo_messaging_amqp/allow_insecure_clients').with_value('<SERVICE DEFAULT>')
+        is_expected.to contain_vitrage_config('oslo_messaging_amqp/sasl_mechanisms').with_value('<SERVICE DEFAULT>')
+        is_expected.to contain_vitrage_config('oslo_messaging_amqp/sasl_config_dir').with_value('<SERVICE DEFAULT>')
+        is_expected.to contain_vitrage_config('oslo_messaging_amqp/sasl_config_name').with_value('<SERVICE DEFAULT>')
+        is_expected.to contain_vitrage_config('oslo_messaging_amqp/username').with_value('<SERVICE DEFAULT>')
+        is_expected.to contain_vitrage_config('oslo_messaging_amqp/password').with_value('<SERVICE DEFAULT>')
       end
     end
 
     context 'with overriden amqp parameters' do
       let :params do
-        { :rpc_backend           => 'amqp',
-          :default_transport_url => 'amqp://amqp_user:password@localhost:5672',
+        { :default_transport_url => 'amqp://amqp_user:password@localhost:5672',
           :rpc_response_timeout  => '240',
           :control_exchange      => 'openstack',
           :amqp_idle_timeout     => '60',
