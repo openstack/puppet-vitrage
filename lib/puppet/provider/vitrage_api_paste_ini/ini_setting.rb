@@ -16,7 +16,7 @@ Puppet::Type.type(:vitrage_api_paste_ini).provide(
   end
 
   def self.file_path
-    '/etc/vitrage/api_paste.ini'
+    '/etc/vitrage/api-paste.ini'
   end
 
   # added for backwards compatibility with older versions of inifile
