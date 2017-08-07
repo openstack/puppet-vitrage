@@ -26,7 +26,6 @@ describe 'vitrage' do
       end
 
       it 'configures rabbit' do
-        is_expected.to contain_vitrage_config('DEFAULT/rpc_backend').with_value('rabbit')
         is_expected.to contain_vitrage_config('DEFAULT/transport_url').with_value('<SERVICE DEFAULT>')
         is_expected.to contain_vitrage_config('DEFAULT/rpc_response_timeout').with_value('<SERVICE DEFAULT>')
         is_expected.to contain_vitrage_config('DEFAULT/control_exchange').with_value('<SERVICE DEFAULT>')
@@ -68,7 +67,6 @@ describe 'vitrage' do
       end
 
       it 'configures rabbit' do
-        is_expected.to contain_vitrage_config('DEFAULT/rpc_backend').with_value('rabbit')
         is_expected.to contain_vitrage_config('DEFAULT/transport_url').with_value('rabbit://rabbit_user:password@localhost:5673')
         is_expected.to contain_vitrage_config('DEFAULT/rpc_response_timeout').with_value('120')
         is_expected.to contain_vitrage_config('DEFAULT/control_exchange').with_value('vitrage')

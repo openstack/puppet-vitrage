@@ -253,7 +253,7 @@ class vitrage (
   include ::vitrage::deps
   include ::vitrage::logging
 
-  if !is_service_default($rpc_backend) {
+  if $rpc_backend {
     warning("vitrage::rpc_backend is deprecated. Please use \
 vitrage::default_transport_url instead.")
   }
