@@ -1,6 +1,6 @@
 {
   "name": "openstack-vitrage",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "author": "OpenStack Contributors",
   "summary": "Puppet module for OpenStack Vitrage",
   "license": "Apache-2.0",
