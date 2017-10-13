@@ -22,8 +22,6 @@ describe 'vitrage::wsgi::apache' do
         :wsgi_script_dir     => platform_params[:wsgi_script_path],
         :wsgi_script_file    => 'app',
         :wsgi_script_source  => platform_params[:wsgi_script_source],
-        :access_log_file     => false,
-        :access_log_format   => false,
       )}
     end
 
@@ -36,9 +34,6 @@ describe 'vitrage::wsgi::apache' do
           :ssl                       => false,
           :wsgi_process_display_name => 'vitrage',
           :workers                   => 37,
-          :access_log_file           => '/var/log/httpd/access_log',
-          :access_log_format         => 'some format',
-          :error_log_file            => '/var/log/httpd/error_log'
         }
       end
       it { is_expected.to contain_class('vitrage::params') }
@@ -61,9 +56,6 @@ describe 'vitrage::wsgi::apache' do
         :wsgi_script_dir           => platform_params[:wsgi_script_path],
         :wsgi_script_file          => 'app',
         :wsgi_script_source        => platform_params[:wsgi_script_source],
-        :access_log_file           => '/var/log/httpd/access_log',
-        :access_log_format         => 'some format',
-        :error_log_file            => '/var/log/httpd/error_log',
       )}
     end
   end
