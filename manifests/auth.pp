@@ -3,7 +3,7 @@
 # == Parameters
 # [*auth_url*]
 #   (Optional) The keystone public endpoint
-#   Defaults to 'http://localhost:5000/v2.0'
+#   Defaults to 'http://localhost:5000/v3'
 #
 # [*auth_region*]
 #   (Optional) The keystone region of this node
@@ -48,7 +48,7 @@
 #
 class vitrage::auth (
   $auth_password,
-  $auth_url           = 'http://localhost:5000/v2.0',
+  $auth_url           = 'http://localhost:5000/v3',
   $auth_region        = 'RegionOne',
   $auth_user          = 'vitrage',
   $auth_tenant_name   = 'services',
