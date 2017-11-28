@@ -13,6 +13,10 @@
 #   (Optional) Use syslog for logging.
 #   Defaults to $::os_service_default
 #
+# [*use_json*]
+#   (Optional) Use json for logging.
+#   Defaults to $::os_service_default
+#
 # [*use_stderr*]
 #   (optional) Use stderr for logging
 #   Defaults to $::os_service_default
@@ -89,6 +93,7 @@
 #
 class vitrage::logging(
   $use_syslog                    = $::os_service_default,
+  $use_json                      = $::os_service_default,
   $use_stderr                    = $::os_service_default,
   $log_facility                  = $::os_service_default,
   $log_dir                       = '/var/log/vitrage',
@@ -123,6 +128,7 @@ class vitrage::logging(
   oslo::log { 'vitrage_config':
     debug                         => $debug_real,
     use_syslog                    => $use_syslog_real,
+    use_json                      => $use_json,
     use_stderr                    => $use_stderr_real,
     log_dir                       => $log_dir_real,
     syslog_log_facility           => $log_facility_real,
