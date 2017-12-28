@@ -18,8 +18,6 @@ describe 'basic vitrage' do
         }
         'RedHat': {
           include ::openstack_integration::vitrage
-          # until it's managed in p-o-i
-          include ::vitrage::db::sync
         }
         default: {
           fail("Unsupported osfamily (${::osfamily})")
