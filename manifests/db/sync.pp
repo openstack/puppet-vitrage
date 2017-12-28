@@ -15,7 +15,7 @@ class vitrage::db::sync(
   include ::vitrage::deps
 
   exec { 'vitrage-db-sync':
-    command     => "vitrage-manage db_sync ${extra_params}",
+    command     => "vitrage-dbsync ${extra_params}",
     path        => '/usr/bin',
     user        => 'vitrage',
     refreshonly => true,

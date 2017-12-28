@@ -6,7 +6,7 @@ describe 'vitrage::db::sync' do
 
     it 'runs vitrage-manage db sync' do
       is_expected.to contain_exec('vitrage-db-sync').with(
-        :command     => 'vitrage-manage db_sync ',
+        :command     => 'vitrage-dbsync ',
         :user        => 'vitrage',
         :path        => '/usr/bin',
         :refreshonly => 'true',
@@ -29,7 +29,7 @@ describe 'vitrage::db::sync' do
 
       it {
         is_expected.to contain_exec('vitrage-db-sync').with(
-          :command     => 'vitrage-manage db_sync --config-file /etc/vitrage/vitrage.conf',
+          :command     => 'vitrage-dbsync --config-file /etc/vitrage/vitrage.conf',
           :user        => 'vitrage',
           :path        => '/usr/bin',
           :refreshonly => 'true',
