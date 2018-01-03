@@ -18,6 +18,8 @@ class vitrage::params {
       $graph_service_name          = 'openstack-vitrage-graph'
       $collector_package_name      = 'openstack-vitrage-collector'
       $collector_service_name      = 'openstack-vitrage-collector'
+      $persistor_package_name      = 'openstack-vitrage-persistor'
+      $persistor_service_name      = 'openstack-vitrage-persistor'
       $vitrage_wsgi_script_path    = '/var/www/cgi-bin/vitrage'
       $vitrage_wsgi_script_source  = '/usr/lib/python2.7/site-packages/vitrage/api/app.wsgi'
     }
@@ -31,6 +33,8 @@ class vitrage::params {
       $graph_service_name          = 'vitrage-graph'
       $collector_package_name      = 'vitrage-collector'
       $collector_service_name      = 'vitrage-collector'
+      $persistor_package_name      = 'vitrage-persistor'
+      $persistor_service_name      = 'vitrage-persistor'
       $vitrage_wsgi_script_path    = '/usr/lib/cgi-bin/vitrage'
       $vitrage_wsgi_script_source  = '/usr/share/vitrage-common/app.wsgi'
     }

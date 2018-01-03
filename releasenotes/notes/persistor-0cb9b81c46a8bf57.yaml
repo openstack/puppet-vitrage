@@ -1,0 +1,5 @@
+---
+features:
+  - |
+    Add vitrage::persistor which allows to make events persistent with
+    the Vitrage Persistor service.
