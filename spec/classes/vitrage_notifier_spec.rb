@@ -19,6 +19,10 @@ describe 'vitrage::notifier' do
         )
       end
 
+      it 'configure notifier default params' do
+        is_expected.to contain_vitrage_config('DEFAULT/notifiers').with_value('<SERVICE DEFAULT>')
+      end
+
       it 'configures vitrage-notifier service' do
         is_expected.to contain_service('vitrage-notifier').with(
             :ensure     => 'running',
@@ -67,6 +71,18 @@ describe 'vitrage::notifier' do
         )
       end
     end
+
+    context 'when configuring notifiers' do
+      let :params do
+        { :notifiers => ['mistral', 'nova'] }
+      end
+
+      it { is_expected.to compile }
+      it 'configure notifier params' do
+        is_expected.to contain_vitrage_config('DEFAULT/notifiers').with_value('mistral,nova')
+      end
+    end
+
   end
 
   on_supported_os({
