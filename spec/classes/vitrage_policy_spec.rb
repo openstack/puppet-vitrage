@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'vitrage::policy' do
 
-  shared_examples_for 'vitrage::policy' do
+  shared_examples_for 'vitrage policies' do
     let :params do
       {
         :policy_path => '/etc/vitrage/policy.json',
@@ -17,8 +17,10 @@ describe 'vitrage::policy' do
 
     it 'set up the policies' do
       is_expected.to contain_openstacklib__policy__base('context_is_admin').with({
-        :key   => 'context_is_admin',
-        :value => 'foo:bar'
+        :key        => 'context_is_admin',
+        :value      => 'foo:bar',
+        :file_user  => 'root',
+        :file_group => 'vitrage',
       })
       is_expected.to contain_oslo__policy('vitrage_config').with(
         :policy_file => '/etc/vitrage/policy.json',
@@ -34,8 +36,7 @@ describe 'vitrage::policy' do
         facts.merge!(OSDefaults.get_facts())
       end
 
-      it_configures 'vitrage::policy'
+      it_configures 'vitrage policies'
     end
   end
-
 end

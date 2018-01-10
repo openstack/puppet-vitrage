@@ -6,6 +6,7 @@ class vitrage::params {
   include ::openstacklib::defaults
 
   $client_package_name = 'python-vitrageclient'
+  $group               = 'vitrage'
 
   case $::osfamily {
     'RedHat': {

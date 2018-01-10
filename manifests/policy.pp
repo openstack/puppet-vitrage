@@ -21,7 +21,7 @@
 #
 # [*policy_path*]
 #   (optional) Path to the nova policy.json file
-#   Defaults to '/etc/vitrage/policy.json'
+#   Defaults to /etc/vitrage/policy.json
 #
 class vitrage::policy (
   $policies    = {},
@@ -29,14 +29,18 @@ class vitrage::policy (
 ) {
 
   include ::vitrage::deps
+  include ::vitrage::params
 
   validate_hash($policies)
 
   Openstacklib::Policy::Base {
-    file_path => $policy_path,
+    file_path  => $policy_path,
+    file_user  => 'root',
+    file_group => $::vitrage::params::group,
   }
 
   create_resources('openstacklib::policy::base', $policies)
+
   oslo::policy { 'vitrage_config': policy_file => $policy_path }
 
 }
