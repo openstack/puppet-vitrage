@@ -13,7 +13,7 @@ describe 'vitrage::persistor' do
       it { is_expected.to contain_class('vitrage::params') }
 
       it 'configures vitrage.conf' do
-        is_expected.to contain_vitrage_config('persistor/persist_events').with_value('true')
+        is_expected.to contain_vitrage_config('persistency/enable_persistency').with_value('true')
       end
 
       it 'installs vitrage-persistor package' do
@@ -53,7 +53,7 @@ describe 'vitrage::persistor' do
         )
       end
       it 'configures vitrage.conf' do
-        is_expected.to contain_vitrage_config('persistor/persist_events').with_value('false')
+        is_expected.to contain_vitrage_config('persistency/enable_persistency').with_value('false')
       end
     end
 
