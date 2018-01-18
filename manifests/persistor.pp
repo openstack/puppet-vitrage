@@ -36,7 +36,7 @@ class vitrage::persistor (
   }
 
   vitrage_config {
-    'persistor/persist_events': value => $enabled;
+    'persistency/enable_persistency': value => $enabled;
   }
 
   service { 'vitrage-persistor':
