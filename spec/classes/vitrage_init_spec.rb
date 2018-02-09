@@ -32,6 +32,7 @@ describe 'vitrage' do
         is_expected.to contain_vitrage_config('oslo_messaging_rabbit/heartbeat_timeout_threshold').with_value('<SERVICE DEFAULT>')
         is_expected.to contain_vitrage_config('oslo_messaging_rabbit/heartbeat_rate').with_value('<SERVICE DEFAULT>')
         is_expected.to contain_vitrage_config('oslo_messaging_rabbit/kombu_compression').with_value('<SERVICE DEFAULT>')
+        is_expected.to contain_vitrage_config('oslo_messaging_rabbit/kombu_failover_strategy').with_value('<SERVICE DEFAULT>')
         is_expected.to contain_vitrage_config('oslo_messaging_notifications/transport_url').with_value('<SERVICE DEFAULT>')
         is_expected.to contain_vitrage_config('oslo_messaging_notifications/driver').with_value('<SERVICE DEFAULT>')
         is_expected.to contain_vitrage_config('datasources/types').with_value('<SERVICE DEFAULT>')
@@ -57,6 +58,7 @@ describe 'vitrage' do
           :rabbit_heartbeat_timeout_threshold => '60',
           :rabbit_heartbeat_rate              => '10',
           :kombu_compression                  => 'gzip',
+          :kombu_failover_strategy            => 'shuffle',
           :package_ensure                     => '2012.1.1-15.el6',
           :notification_transport_url         => 'rabbit://rabbit_user:password@localhost:5673',
           :notification_driver                => 'messaging',
@@ -73,6 +75,7 @@ describe 'vitrage' do
         is_expected.to contain_vitrage_config('oslo_messaging_rabbit/heartbeat_timeout_threshold').with_value('60')
         is_expected.to contain_vitrage_config('oslo_messaging_rabbit/heartbeat_rate').with_value('10')
         is_expected.to contain_vitrage_config('oslo_messaging_rabbit/kombu_compression').with_value('gzip')
+        is_expected.to contain_vitrage_config('oslo_messaging_rabbit/kombu_failover_strategy').with_value('shuffle')
       end
 
       it 'configures various things' do
