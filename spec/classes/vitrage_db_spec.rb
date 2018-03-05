@@ -6,7 +6,7 @@ describe 'vitrage::db' do
     context 'with default parameters' do
       it { is_expected.to contain_oslo__db('vitrage_config').with(
         :db_max_retries => '<SERVICE DEFAULT>',
-        :connection     => 'mysql://vitrage:secrete@localhost:3306/vitrage',
+        :connection     => 'mysql+pymysql://vitrage:secrete@localhost:3306/vitrage',
         :idle_timeout   => '<SERVICE DEFAULT>',
         :min_pool_size  => '<SERVICE DEFAULT>',
         :max_pool_size  => '<SERVICE DEFAULT>',
@@ -54,7 +54,7 @@ describe 'vitrage::db' do
 
     context 'with MySQL-python library as backend package' do
       let :params do
-        { :database_connection => 'mysql://vitrage:vitrage@localhost/vitrage', }
+        { :database_connection => 'mysql+pymysql://vitrage:vitrage@localhost/vitrage', }
       end
 
       it { is_expected.to contain_package('python-mysqldb').with(:ensure => 'present') }
