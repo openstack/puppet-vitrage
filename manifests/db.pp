@@ -6,7 +6,7 @@
 #
 # [*database_connection*]
 #   (Optional) Url used to connect to database.
-#   Defaults to "mysql://vitrage:secrete@localhost:3306/vitrage".
+#   Defaults to "mysql+pymysql://vitrage:secrete@localhost:3306/vitrage".
 #
 # [*database_max_retries*]
 #   (Optional) Maximum number of database connection retries during startup.
@@ -39,7 +39,7 @@
 #   Defaults to $::os_service_default.
 #
 class vitrage::db (
-  $database_connection     = 'mysql://vitrage:secrete@localhost:3306/vitrage',
+  $database_connection     = 'mysql+pymysql://vitrage:secrete@localhost:3306/vitrage',
   $database_idle_timeout   = $::os_service_default,
   $database_min_pool_size  = $::os_service_default,
   $database_max_pool_size  = $::os_service_default,
