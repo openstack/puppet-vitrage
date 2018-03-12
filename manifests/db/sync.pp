@@ -28,6 +28,7 @@ class vitrage::db::sync(
       Anchor['vitrage::dbsync::begin']
     ],
     notify      => Anchor['vitrage::dbsync::end'],
+    tag         => 'openstack-db',
   }
 
 }
