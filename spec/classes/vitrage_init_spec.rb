@@ -197,7 +197,7 @@ describe 'vitrage' do
       end
     end
 
-    context 'with overriden amqp parameters' do
+    context 'with overridden amqp parameters' do
       let :params do
         { :default_transport_url => 'amqp://amqp_user:password@localhost:5672',
           :rpc_response_timeout  => '240',
