@@ -38,6 +38,10 @@
 #   (optional) If set, use this value for max_overflow with sqlalchemy.
 #   Defaults to $::os_service_default.
 #
+# [*database_pool_timeout*]
+#   (Optional) If set, use this value for pool_timeout with SQLAlchemy.
+#   Defaults to $::os_service_default
+#
 class vitrage::db (
   $database_connection     = 'mysql+pymysql://vitrage:secrete@localhost:3306/vitrage',
   $database_idle_timeout   = $::os_service_default,
@@ -47,6 +51,7 @@ class vitrage::db (
   $database_max_retries    = $::os_service_default,
   $database_retry_interval = $::os_service_default,
   $database_max_overflow   = $::os_service_default,
+  $database_pool_timeout   = $::os_service_default,
 ) {
 
   include ::vitrage::deps
@@ -71,6 +76,7 @@ class vitrage::db (
     max_retries    => $database_max_retries_real,
     retry_interval => $database_retry_interval_real,
     max_overflow   => $database_max_overflow_real,
+    pool_timeout   => $database_pool_timeout,
   }
 
 }
