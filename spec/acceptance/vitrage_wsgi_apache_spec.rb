@@ -20,6 +20,9 @@ describe 'basic vitrage' do
           package { 'python-setproctitle':
             ensure => present,
           }
+          package { 'python2-cotyledon':
+            ensure => present,
+          }
           include ::openstack_integration::vitrage
         }
         default: {
