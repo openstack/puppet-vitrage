@@ -5,7 +5,13 @@
 class vitrage::params {
   include ::openstacklib::defaults
 
-  $client_package_name = 'python-vitrageclient'
+  if ($::os_package_type == 'debian') {
+    $pyvers = '3'
+  } else {
+    $pyvers = ''
+  }
+
+  $client_package_name = "python${pyvers}-vitrageclient"
   $group               = 'vitrage'
 
   case $::osfamily {

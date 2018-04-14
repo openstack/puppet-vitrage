@@ -9,7 +9,7 @@ describe 'vitrage::client' do
     it 'installs vitrage client package' do
       is_expected.to contain_package('python-vitrageclient').with(
         :ensure => 'present',
-        :name   => 'python-vitrageclient',
+        :name   => platform_params[:client_package_name],
         :tag    => 'openstack',
       )
     end
@@ -21,6 +21,19 @@ describe 'vitrage::client' do
     context "on #{os}" do
       let (:facts) do
         facts.merge!(OSDefaults.get_facts())
+      end
+
+      let(:platform_params) do
+        case facts[:osfamily]
+        when 'Debian'
+          if facts[:os_package_type] == 'debian'
+            { :client_package_name => 'python3-vitrageclient' }
+          else
+            { :client_package_name => 'python-vitrageclient' }
+          end
+        when 'RedHat'
+          { :client_package_name => 'python-vitrageclient' }
+        end
       end
 
       it_configures 'vitrage client'
