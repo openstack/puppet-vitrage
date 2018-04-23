@@ -14,6 +14,8 @@ describe 'vitrage::config' do
       { :vitrage_config => config_hash }
     end
 
+    it { is_expected.to contain_class('vitrage::deps') }
+
     it 'configures arbitrary vitrage-config configurations' do
       is_expected.to contain_vitrage_config('DEFAULT/foo').with_value('fooValue')
       is_expected.to contain_vitrage_config('DEFAULT/bar').with_value('barValue')
