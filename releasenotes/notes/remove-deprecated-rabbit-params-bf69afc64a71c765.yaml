@@ -1,0 +1,5 @@
+---
+upgrade:
+  - |
+    The deprecated vitrage::rpc_backend is now removed. Please use
+    vitrage::default_transport_url instead.

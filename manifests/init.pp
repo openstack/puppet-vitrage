@@ -200,15 +200,6 @@
 #   (optional) Datasources types
 #   Defaults to $::os_service_default
 #
-# === DEPRECATED PARAMETERS
-#
-# [*rpc_backend*]
-#   (optional) The rpc backend implementation to use, can be:
-#     amqp (for AMQP 1.0 protocol)
-#     rabbit (for rabbitmq)
-#     zmq (for zeromq)
-#   Defaults to 'rabbit'
-#
 class vitrage (
   $package_ensure                     = 'present',
   $default_transport_url              = $::os_service_default,
@@ -253,17 +244,10 @@ class vitrage (
   $purge_config                       = false,
   $snapshots_interval                 = $::os_service_default,
   $types                              = $::os_service_default,
-  #DEPRECATED
-  $rpc_backend                        = 'rabbit',
 ) inherits vitrage::params {
 
   include ::vitrage::deps
   include ::vitrage::logging
-
-  if $rpc_backend {
-    warning("vitrage::rpc_backend is deprecated. Please use \
-vitrage::default_transport_url instead.")
-  }
 
   package { 'vitrage':
     ensure => $package_ensure,
