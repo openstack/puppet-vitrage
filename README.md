@@ -83,6 +83,4 @@ Contributors
 Release Notes
 -------------
 
-**0.0.1**
-
-* Initial
+* https://docs.openstack.org/releasenotes/puppet-vitrage
