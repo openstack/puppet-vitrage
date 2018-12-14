@@ -5,7 +5,7 @@
 # === Parameters
 #
 # [*policies*]
-#   (optional) Set of policies to configure for vitrage
+#   (Optional) Set of policies to configure for vitrage
 #   Example :
 #     {
 #       'vitrage-context_is_admin' => {
@@ -20,7 +20,7 @@
 #   Defaults to empty hash.
 #
 # [*policy_path*]
-#   (optional) Path to the nova policy.json file
+#   (Optional) Path to the nova policy.json file
 #   Defaults to /etc/vitrage/policy.json
 #
 class vitrage::policy (

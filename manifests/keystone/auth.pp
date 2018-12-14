@@ -5,7 +5,7 @@
 # === Parameters
 #
 # [*password*]
-#   (required) Password for vitrage user.
+#   (Required) Password for vitrage user.
 #
 # [*auth_name*]
 #   (Optional) Username for vitrage service.
@@ -40,21 +40,21 @@
 #   Defaults to 'RegionOne'.
 #
 # [*service_name*]
-#   (optional) Name of the service.
+#   (Optional) Name of the service.
 #   Defaults to the value of auth_name.
 #
 # [*public_url*]
-#   (optional) The endpoint's public url.
+#   (Optional) The endpoint's public url.
 #   This url should *not* contain any trailing '/'.
 #   Defaults to 'http://127.0.0.1:8999'
 #
 # [*admin_url*]
-#   (optional) The endpoint's admin url.
+#   (Optional) The endpoint's admin url.
 #   This url should *not* contain any trailing '/'.
 #   Defaults to 'http://127.0.0.1:8999'
 #
 # [*internal_url*]
-#   (optional) The endpoint's internal url.
+#   (Optional) The endpoint's internal url.
 #   This url should *not* contain any trailing '/'.
 #   Defaults to 'http://127.0.0.1:8999'
 #
