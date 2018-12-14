@@ -9,10 +9,6 @@ describe 'vitrage' do
         { :purge_config => false  } 
       end
 
-      it 'contains the logging class' do
-        is_expected.to contain_class('vitrage::logging')
-      end
-
       it 'contains the deps class' do
         is_expected.to contain_class('vitrage::deps')
       end
@@ -50,7 +46,6 @@ describe 'vitrage' do
     context 'with overridden parameters' do
       let :params do
         {
-          :debug                              => true,
           :default_transport_url              => 'rabbit://rabbit_user:password@localhost:5673',
           :rpc_response_timeout               => '120',
           :control_exchange                   => 'vitrage',

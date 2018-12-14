@@ -150,28 +150,6 @@
 #   (Optional) Password for message broker authentication
 #   Defaults to $::os_service_default.
 #
-# [*log_dir*]
-#   (optional) Directory where logs should be stored.
-#   If set to boolean false or the $::os_service_default, it will not log to
-#   any directory.
-#   Defaults to undef.
-#
-# [*debug*]
-#   (optional) Set log output to debug output.
-#   Defaults to undef
-#
-# [*use_syslog*]
-#   (optional) Use syslog for logging
-#   Defaults to undef
-#
-# [*use_stderr*]
-#   (optional) Use stderr for logging
-#   Defaults to undef
-#
-# [*log_facility*]
-#   (optional) Syslog facility to receive log lines.
-#   Defaults to undef
-#
 # [*notification_transport_url*]
 #   (optional) A URL representing the messaging driver to use for notifications
 #   and its full configuration. Transport URLs take the form:
@@ -233,11 +211,6 @@ class vitrage (
   $amqp_sasl_config_name              = $::os_service_default,
   $amqp_username                      = $::os_service_default,
   $amqp_password                      = $::os_service_default,
-  $debug                              = undef,
-  $use_syslog                         = undef,
-  $use_stderr                         = undef,
-  $log_facility                       = undef,
-  $log_dir                            = undef,
   $notification_transport_url         = $::os_service_default,
   $notification_driver                = $::os_service_default,
   $notification_topics                = $::os_service_default,
@@ -247,7 +220,6 @@ class vitrage (
 ) inherits vitrage::params {
 
   include ::vitrage::deps
-  include ::vitrage::logging
 
   package { 'vitrage':
     ensure => $package_ensure,
