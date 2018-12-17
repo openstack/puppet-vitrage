@@ -43,6 +43,10 @@
 #   (Optional) Name of the service.
 #   Defaults to the value of auth_name.
 #
+# [*service_description*]
+#   (Optional) Description of the service.
+#   Default to 'Root Cause Analysis Service'
+#
 # [*public_url*]
 #   (Optional) The endpoint's public url.
 #   This url should *not* contain any trailing '/'.
@@ -66,6 +70,7 @@ class vitrage::keystone::auth (
   $configure_endpoint  = true,
   $configure_user      = true,
   $configure_user_role = true,
+  $service_description = 'Root Cause Analysis Service',
   $service_name        = undef,
   $service_type        = 'rca',
   $region              = 'RegionOne',
@@ -84,7 +89,7 @@ class vitrage::keystone::auth (
     configure_endpoint  => $configure_endpoint,
     service_name        => $real_service_name,
     service_type        => $service_type,
-    service_description => 'Root Cause Analysis Service',
+    service_description => $service_description,
     region              => $region,
     auth_name           => $auth_name,
     password            => $password,
