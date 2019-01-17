@@ -26,11 +26,7 @@ describe 'vitrage::client' do
       let(:platform_params) do
         case facts[:osfamily]
         when 'Debian'
-          if facts[:os_package_type] == 'debian'
-            { :client_package_name => 'python3-vitrageclient' }
-          else
-            { :client_package_name => 'python-vitrageclient' }
-          end
+          { :client_package_name => 'python3-vitrageclient' }
         when 'RedHat'
           { :client_package_name => 'python-vitrageclient' }
         end
