@@ -35,7 +35,7 @@ Setup
 
 **What the vitrage module affects**
 
-* [Vitrage](https://wiki.openstack.org/wiki/Vitrage), the Root Cause Analysis engine for organizing, analyzing and expanding OpenStack alarms & events for Openstack.
+* [Vitrage](https://docs.openstack.org/vitrage/latest/), the Root Cause Analysis engine for organizing, analyzing and expanding OpenStack alarms & events for Openstack.
 
 ### Installing vitrage
 
