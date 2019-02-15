@@ -56,26 +56,18 @@ class vitrage::db (
 
   include ::vitrage::deps
 
-  $database_connection_real = pick($::vitrage::database_connection, $database_connection)
-  $database_idle_timeout_real = pick($::vitrage::database_idle_timeout, $database_idle_timeout)
-  $database_min_pool_size_real = pick($::vitrage::database_min_pool_size, $database_min_pool_size)
-  $database_max_pool_size_real = pick($::vitrage::database_max_pool_size, $database_max_pool_size)
-  $database_max_retries_real = pick($::vitrage::database_max_retries, $database_max_retries)
-  $database_retry_interval_real = pick($::vitrage::database_retry_interval, $database_retry_interval)
-  $database_max_overflow_real = pick($::vitrage::database_max_overflow, $database_max_overflow)
-
-  validate_re($database_connection_real,
+  validate_re($database_connection,
     '^(sqlite|mysql(\+pymysql)?|postgresql):\/\/(\S+:\S+@\S+\/\S+)?')
 
   oslo::db { 'vitrage_config':
-    connection     => $database_connection_real,
-    idle_timeout   => $database_idle_timeout_real,
-    min_pool_size  => $database_min_pool_size_real,
-    max_pool_size  => $database_max_pool_size_real,
+    connection     => $database_connection,
+    idle_timeout   => $database_idle_timeout,
+    min_pool_size  => $database_min_pool_size,
+    max_pool_size  => $database_max_pool_size,
     db_max_retries => $database_db_max_retries,
-    max_retries    => $database_max_retries_real,
-    retry_interval => $database_retry_interval_real,
-    max_overflow   => $database_max_overflow_real,
+    max_retries    => $database_max_retries,
+    retry_interval => $database_retry_interval,
+    max_overflow   => $database_max_overflow,
     pool_timeout   => $database_pool_timeout,
   }
 
