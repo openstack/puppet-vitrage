@@ -30,8 +30,8 @@ class vitrage::config (
 
   include ::vitrage::deps
 
-  validate_hash($vitrage_config)
-  validate_hash($vitrage_api_paste_ini)
+  validate_legacy(Hash, 'validate_hash', $vitrage_config)
+  validate_legacy(Hash, 'validate_hash', $vitrage_api_paste_ini)
 
   create_resources('vitrage_config', $vitrage_config)
   create_resources('vitrage_api_paste_ini', $vitrage_api_paste_ini)

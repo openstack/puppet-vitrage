@@ -56,8 +56,8 @@ class vitrage::db (
 
   include ::vitrage::deps
 
-  validate_re($database_connection,
-    '^(sqlite|mysql(\+pymysql)?|postgresql):\/\/(\S+:\S+@\S+\/\S+)?')
+  validate_legacy(Oslo::Dbconn, 'validate_re', $database_connection,
+    ['^(sqlite|mysql(\+pymysql)?|postgresql):\/\/(\S+:\S+@\S+\/\S+)?'])
 
   oslo::db { 'vitrage_config':
     connection     => $database_connection,
