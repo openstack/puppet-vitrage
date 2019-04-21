@@ -91,4 +91,4 @@ Release Notes
 Repository
 ----------
 
-* https://git.openstack.org/cgit/openstack/puppet-vitrage
+* https://opendev.org/openstack/puppet-vitrage
