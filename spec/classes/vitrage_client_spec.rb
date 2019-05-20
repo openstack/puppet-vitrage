@@ -4,6 +4,7 @@ describe 'vitrage::client' do
 
   shared_examples_for 'vitrage client' do
 
+    it { is_expected.to contain_class('vitrage::deps') }
     it { is_expected.to contain_class('vitrage::params') }
 
     it 'installs vitrage client package' do
