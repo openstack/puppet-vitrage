@@ -1,0 +1,4 @@
+---
+upgrade:
+  - |
+    The deprecated vitrage::collector class is removed.
