@@ -6,11 +6,11 @@ describe 'basic vitrage' do
 
     it 'should work with no errors' do
       pp= <<-EOS
-      include ::openstack_integration
-      include ::openstack_integration::repos
-      include ::openstack_integration::rabbitmq
-      include ::openstack_integration::mysql
-      include ::openstack_integration::keystone
+      include openstack_integration
+      include openstack_integration::repos
+      include openstack_integration::rabbitmq
+      include openstack_integration::mysql
+      include openstack_integration::keystone
 
       case $::osfamily {
         'Debian': {
@@ -23,7 +23,7 @@ describe 'basic vitrage' do
           package { 'python2-cotyledon':
             ensure => present,
           }
-          include ::openstack_integration::vitrage
+          include openstack_integration::vitrage
         }
         default: {
           fail("Unsupported osfamily (${::osfamily})")

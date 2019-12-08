@@ -24,8 +24,8 @@ class vitrage::notifier (
   $notifiers      = $::os_service_default,
 ) {
 
-  include ::vitrage::deps
-  include ::vitrage::params
+  include vitrage::deps
+  include vitrage::params
 
   if !is_service_default($notifiers) {
     $notifiers_orig = join(any2array($notifiers), ',')

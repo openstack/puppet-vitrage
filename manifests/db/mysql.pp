@@ -43,7 +43,7 @@ class vitrage::db::mysql(
   $allowed_hosts = undef
 ) {
 
-  include ::vitrage::deps
+  include vitrage::deps
 
   validate_legacy(String, 'validate_string', $password)
 

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'vitrage::persistor' do
 
   let :pre_condition do
-    "class { '::vitrage': }"
+    "class { 'vitrage': }"
   end
 
   shared_examples_for 'vitrage-persistor' do

@@ -12,7 +12,7 @@ class vitrage::db::sync(
   $extra_params = undef,
 ) {
 
-  include ::vitrage::deps
+  include vitrage::deps
 
   exec { 'vitrage-db-sync':
     command     => "vitrage-dbsync ${extra_params}",

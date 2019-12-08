@@ -32,7 +32,7 @@ class vitrage::db::postgresql(
   $privileges = 'ALL',
 ) {
 
-  include ::vitrage::deps
+  include vitrage::deps
 
   ::openstacklib::db::postgresql { 'vitrage':
     password_hash => postgresql_password($user, $password),

@@ -51,9 +51,9 @@ class vitrage::api (
   $max_request_body_size        = $::os_service_default,
 ) inherits vitrage::params {
 
-  include ::vitrage::deps
-  include ::vitrage::params
-  include ::vitrage::policy
+  include vitrage::deps
+  include vitrage::params
+  include vitrage::policy
 
   package { 'vitrage-api':
     ensure => $package_ensure,
@@ -79,7 +79,7 @@ class vitrage::api (
       tag        => 'vitrage-service',
     }
   } elsif $service_name == 'httpd' {
-    include ::apache::params
+    include apache::params
     service { 'vitrage-api':
       ensure => 'stopped',
       name   => $::vitrage::params::api_service_name,

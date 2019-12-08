@@ -230,7 +230,7 @@ class vitrage (
   $types                              = $::os_service_default,
 ) inherits vitrage::params {
 
-  include ::vitrage::deps
+  include vitrage::deps
 
   package { 'vitrage':
     ensure => $package_ensure,

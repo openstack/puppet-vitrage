@@ -28,7 +28,7 @@ class vitrage::config (
   $vitrage_api_paste_ini = {},
 ) {
 
-  include ::vitrage::deps
+  include vitrage::deps
 
   validate_legacy(Hash, 'validate_hash', $vitrage_config)
   validate_legacy(Hash, 'validate_hash', $vitrage_api_paste_ini)

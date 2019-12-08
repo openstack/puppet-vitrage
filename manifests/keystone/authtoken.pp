@@ -202,7 +202,7 @@ class vitrage::keystone::authtoken(
   $service_token_roles_required   = $::os_service_default,
 ) {
 
-  include ::vitrage::deps
+  include vitrage::deps
 
   keystone::resource::authtoken { 'vitrage_config':
     username                       => $username,

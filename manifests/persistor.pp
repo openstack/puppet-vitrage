@@ -19,8 +19,8 @@ class vitrage::persistor (
   $package_ensure = 'present',
 ) {
 
-  include ::vitrage::deps
-  include ::vitrage::params
+  include vitrage::deps
+  include vitrage::params
 
   ensure_resource( 'package', [$::vitrage::params::persistor_package_name],
     { ensure => $package_ensure,

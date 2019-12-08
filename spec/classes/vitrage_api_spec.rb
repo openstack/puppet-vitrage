@@ -4,7 +4,7 @@ describe 'vitrage::api' do
 
   let :pre_condition do
     "class { 'vitrage': }
-     class { '::vitrage::keystone::authtoken':
+     class { 'vitrage::keystone::authtoken':
        password => 'a_big_secret',
      }"
   end
@@ -107,9 +107,9 @@ describe 'vitrage::api' do
       end
 
       let :pre_condition do
-        "include ::apache
+        "include apache
          class { 'vitrage': }
-         class { '::vitrage::keystone::authtoken':
+         class { 'vitrage::keystone::authtoken':
            password => 'a_big_secret',
          }"
       end
@@ -130,9 +130,9 @@ describe 'vitrage::api' do
       end
 
       let :pre_condition do
-        "include ::apache
+        "include apache
          class { 'vitrage': }
-         class { '::vitrage::keystone::authtoken':
+         class { 'vitrage::keystone::authtoken':
            password => 'a_big_secret',
          }"
       end

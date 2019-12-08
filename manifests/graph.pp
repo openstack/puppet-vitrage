@@ -19,8 +19,8 @@ class vitrage::graph (
   $package_ensure = 'present',
 ) {
 
-  include ::vitrage::deps
-  include ::vitrage::params
+  include vitrage::deps
+  include vitrage::params
 
   ensure_resource( 'package', [$::vitrage::params::graph_package_name],
     { ensure => $package_ensure,

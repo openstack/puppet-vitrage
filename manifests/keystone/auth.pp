@@ -79,7 +79,7 @@ class vitrage::keystone::auth (
   $admin_url           = 'http://127.0.0.1:8999',
 ) {
 
-  include ::vitrage::deps
+  include vitrage::deps
 
   $real_service_name = pick($service_name, $auth_name)
 

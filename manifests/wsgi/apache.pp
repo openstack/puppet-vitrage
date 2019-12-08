@@ -124,12 +124,12 @@ class vitrage::wsgi::apache (
   $custom_wsgi_process_options = {},
 ) {
 
-  include ::vitrage::deps
-  include ::vitrage::params
-  include ::apache
-  include ::apache::mod::wsgi
+  include vitrage::deps
+  include vitrage::params
+  include apache
+  include apache::mod::wsgi
   if $ssl {
-    include ::apache::mod::ssl
+    include apache::mod::ssl
   }
 
   ::openstacklib::wsgi::apache { 'vitrage_wsgi':

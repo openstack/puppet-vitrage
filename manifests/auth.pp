@@ -60,7 +60,7 @@ class vitrage::auth (
   $auth_endpoint_type = $::os_service_default,
 ) {
 
-  include ::vitrage::deps
+  include vitrage::deps
 
   vitrage_config {
     'service_credentials/auth_url'          : value => $auth_url;

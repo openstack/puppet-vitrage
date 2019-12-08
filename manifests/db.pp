@@ -62,7 +62,7 @@ class vitrage::db (
   $database_idle_timeout            = undef,
 ) {
 
-  include ::vitrage::deps
+  include vitrage::deps
 
   if $database_idle_timeout {
     warning('The database_idle_timeout parameter is deprecated. Please use \

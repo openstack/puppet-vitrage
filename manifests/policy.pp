@@ -28,8 +28,8 @@ class vitrage::policy (
   $policy_path = '/etc/vitrage/policy.json',
 ) {
 
-  include ::vitrage::deps
-  include ::vitrage::params
+  include vitrage::deps
+  include vitrage::params
 
   validate_legacy(Hash, 'validate_hash', $policies)
 
