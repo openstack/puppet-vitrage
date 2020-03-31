@@ -29,7 +29,15 @@ describe 'vitrage::client' do
         when 'Debian'
           { :client_package_name => 'python3-vitrageclient' }
         when 'RedHat'
-          { :client_package_name => 'python-vitrageclient' }
+          if facts[:operatingsystem] == 'Fedora'
+            { :client_package_name => 'python3-vitrageclient' }
+          else
+            if facts[:operatingsystemmajrelease] > '7'
+              { :client_package_name => 'python3-vitrageclient' }
+            else
+              { :client_package_name => 'python-vitrageclient' }
+            end
+          end
         end
       end
 
