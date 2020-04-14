@@ -88,7 +88,7 @@ describe 'vitrage' do
         before { params.merge!( :notification_driver => ['messaging', 'messagingv2']) }
 
         it { is_expected.to contain_vitrage_config('oslo_messaging_notifications/driver').with_value(
-          'messaging,messagingv2'
+          ['messaging', 'messagingv2']
         ) }
       end
 
