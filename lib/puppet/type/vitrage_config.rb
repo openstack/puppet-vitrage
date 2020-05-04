@@ -46,8 +46,8 @@ Puppet::Type.newtype(:vitrage_config) do
     defaultto('<SERVICE DEFAULT>')
   end
 
-  autorequire(:package) do
-    'vitrage'
+  autorequire(:anchor) do
+    ['vitrage::install::end']
   end
 
 end

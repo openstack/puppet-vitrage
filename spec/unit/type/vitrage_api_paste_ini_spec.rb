@@ -1,21 +1,11 @@
-require 'spec_helper'
-# this hack is required for now to ensure that the path is set up correctly
-# to retrieve the parent provider
-$LOAD_PATH.push(
-  File.join(
-    File.dirname(__FILE__),
-    '..',
-    '..',
-    'fixtures',
-    'modules',
-    'inifile',
-    'lib')
-)
+require 'puppet'
 require 'puppet/type/vitrage_api_paste_ini'
+
 describe 'Puppet::Type.type(:vitrage_api_paste_ini)' do
   before :each do
     @vitrage_api_paste_ini = Puppet::Type.type(:vitrage_api_paste_ini).new(:name => 'DEFAULT/foo', :value => 'bar')
   end
+
   it 'should accept a valid value' do
     @vitrage_api_paste_ini[:value] = 'bar'
     expect(@vitrage_api_paste_ini[:value]).to eq('bar')
@@ -23,12 +13,12 @@ describe 'Puppet::Type.type(:vitrage_api_paste_ini)' do
 
   it 'should autorequire the package that install the file' do
     catalog = Puppet::Resource::Catalog.new
-    package = Puppet::Type.type(:package).new(:name => 'vitrage-common')
-    catalog.add_resource package, @vitrage_api_paste_ini
+    anchor = Puppet::Type.type(:anchor).new(:name => 'vitrage::install::end')
+    catalog.add_resource anchor, @vitrage_api_paste_ini
     dependency = @vitrage_api_paste_ini.autorequire
     expect(dependency.size).to eq(1)
     expect(dependency[0].target).to eq(@vitrage_api_paste_ini)
-    expect(dependency[0].source).to eq(package)
+    expect(dependency[0].source).to eq(anchor)
   end
 
 end
