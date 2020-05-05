@@ -3,11 +3,11 @@ require 'spec_helper'
 describe 'vitrage::auth' do
 
   let :params do
-    { :auth_url         => 'http://localhost:5000/v3',
-      :auth_region      => 'RegionOne',
-      :auth_user        => 'vitrage',
-      :auth_password    => 'password',
-      :auth_tenant_name => 'services',
+    { :auth_url          => 'http://localhost:5000/v3',
+      :auth_region       => 'RegionOne',
+      :auth_user         => 'vitrage',
+      :auth_password     => 'password',
+      :auth_project_name => 'services',
     }
   end
 
@@ -28,12 +28,12 @@ describe 'vitrage::auth' do
     context 'when overriding parameters' do
       before do
         params.merge!(
-          :auth_cacert        => '/tmp/dummy.pem',
-          :auth_endpoint_type => 'internalURL',
+          :auth_cacert => '/tmp/dummy.pem',
+          :interface   => 'internalURL',
         )
       end
       it { is_expected.to contain_vitrage_config('service_credentials/cacert').with_value(params[:auth_cacert]) }
-      it { is_expected.to contain_vitrage_config('service_credentials/endpoint_type').with_value(params[:auth_endpoint_type]) }
+      it { is_expected.to contain_vitrage_config('service_credentials/interface').with_value(params[:interface]) }
     end
 
   end
