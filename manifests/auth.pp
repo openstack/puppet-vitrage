@@ -20,13 +20,13 @@
 #   (Optional) The keystone tenant name for vitrage services
 #   Defaults to 'services'
 #
-# [*project_domain_id*]
-#   (Optional) The keystone project domain id for vitrage services
-#   Defaults to 'default'
+# [*project_domain_name*]
+#   (Optional) The keystone project domain name for vitrage services
+#   Defaults to 'Default'
 #
-# [*user_domain_id*]
-#   (Optional) The keystone user domain id for vitrage services
-#   Defaults to 'default'
+# [*user_domain_name*]
+#   (Optional) The keystone user domain id name vitrage services
+#   Defaults to 'Default'
 #
 # [*auth_type*]
 #   (Optional) An authentication type to use with an OpenStack Identity server.
@@ -57,21 +57,31 @@
 #   (Optional) The keystone tenant id for vitrage services.
 #   Defaults to undef..
 #
+# [*project_domain_id*]
+#   (Optional) The keystone project domain id for vitrage services
+#   Defaults to 'default'
+#
+# [*user_domain_id*]
+#   (Optional) The keystone user domain id for vitrage services
+#   Defaults to 'default'
+#
 class vitrage::auth (
   $auth_password,
-  $auth_url           = 'http://localhost:5000/v3',
-  $auth_region        = 'RegionOne',
-  $auth_user          = 'vitrage',
-  $auth_project_name  = 'services',
-  $project_domain_id  = 'default',
-  $user_domain_id     = 'default',
-  $auth_type          = 'password',
-  $auth_cacert        = $::os_service_default,
-  $interface          = $::os_service_default,
+  $auth_url             = 'http://localhost:5000/v3',
+  $auth_region          = 'RegionOne',
+  $auth_user            = 'vitrage',
+  $auth_project_name    = 'services',
+  $project_domain_name  = 'Default',
+  $user_domain_name     = 'Default',
+  $auth_type            = 'password',
+  $auth_cacert          = $::os_service_default,
+  $interface            = $::os_service_default,
   # DEPRECATED PARAMETERS
-  $auth_endpoint_type = undef,
-  $auth_tenant_name   = undef,
-  $auth_tenant_id     = undef,
+  $auth_endpoint_type   = undef,
+  $auth_tenant_name     = undef,
+  $auth_tenant_id       = undef,
+  $project_domain_id    = undef,
+  $user_domain_id       = undef,
 ) {
 
   include vitrage::deps
@@ -104,9 +114,31 @@ Use auth_project_name instead')
     'service_credentials/project_name'      : value => $auth_project_name_real;
     'service_credentials/cacert'            : value => $auth_cacert;
     'service_credentials/interface'         : value => $interface_real;
-    'service_credentials/project_domain_id' : value => $project_domain_id;
-    'service_credentials/user_domain_id'    : value => $user_domain_id;
     'service_credentials/auth_type'         : value => $auth_type;
+  }
+
+  if $project_domain_id != undef {
+    warning('vitrage::auth::project_domain_id is deprecated and will be removed \
+in a future release. Use project_domain_name instead.')
+    vitrage_config{
+      'service_credentials/project_domain_id' : value => $project_domain_id;
+    }
+  } else {
+    vitrage_config{
+      'service_credentials/project_domain_name' : value => $project_domain_name;
+    }
+  }
+
+  if $user_domain_id != undef {
+    warning('vitrage::auth::user_domain_id is deprecated and will be removed \
+in a future release. Use user_domain_name instead.')
+    vitrage_config{
+      'service_credentials/user_domain_id' : value => $user_domain_id;
+    }
+  } else {
+    vitrage_config{
+      'service_credentials/user_domain_name' : value => $user_domain_name;
+    }
   }
 
 }
