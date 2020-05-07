@@ -1,0 +1,12 @@
+---
+deprecations:
+  - |
+    The ``vitrage::auth::auth_endpoint_type`` parameter has been deprecated and
+    will be removed in a future release. Use ``interface`` instead.
+
+  - |
+    The following parameters in ``vitrage::auth`` class have been deprecated
+    and will be removed in a future release. Use ``auth_project_name`` instead.
+
+    - ``auth_tenant_name``
+    - ``auth_tenant_id``
