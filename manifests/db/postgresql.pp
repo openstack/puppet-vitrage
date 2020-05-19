@@ -35,11 +35,11 @@ class vitrage::db::postgresql(
   include vitrage::deps
 
   ::openstacklib::db::postgresql { 'vitrage':
-    password_hash => postgresql_password($user, $password),
-    dbname        => $dbname,
-    user          => $user,
-    encoding      => $encoding,
-    privileges    => $privileges,
+    password   => $password,
+    dbname     => $dbname,
+    user       => $user,
+    encoding   => $encoding,
+    privileges => $privileges,
   }
 
   Anchor['vitrage::db::begin']

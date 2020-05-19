@@ -13,36 +13,36 @@ describe 'vitrage::db::mysql' do
     context 'with only required params' do
       let :params do
         {
-          'password'      => 'fooboozoo_default_password',
+          'password' => 'vitragepass',
         }
       end
 
       it { is_expected.to contain_openstacklib__db__mysql('vitrage').with(
-        :user           => 'vitrage',
-        :password_hash  => '*3DDF34A86854A312A8E2C65B506E21C91800D206',
-        :dbname         => 'vitrage',
-        :host           => '127.0.0.1',
-        :charset        => 'utf8',
-        :collate        => 'utf8_general_ci',
+        :user     => 'vitrage',
+        :password => 'vitragepass',
+        :dbname   => 'vitrage',
+        :host     => '127.0.0.1',
+        :charset  => 'utf8',
+        :collate  => 'utf8_general_ci',
       )}
     end
 
     context "overriding allowed_hosts param to array" do
       let :params do
         {
-          :password       => 'fooboozoo_default_password',
-          :allowed_hosts  => ['127.0.0.1','%'],
+          :password      => 'vitragepass',
+          :allowed_hosts => ['127.0.0.1','%'],
         }
       end
 
       it { is_expected.to contain_openstacklib__db__mysql('vitrage').with(
-        :user           => 'vitrage',
-        :password_hash  => '*3DDF34A86854A312A8E2C65B506E21C91800D206',
-        :dbname         => 'vitrage',
-        :host           => '127.0.0.1',
-        :charset        => 'utf8',
-        :collate        => 'utf8_general_ci',
-        :allowed_hosts  => ['127.0.0.1','%'],
+        :user          => 'vitrage',
+        :password      => 'vitragepass',
+        :dbname        => 'vitrage',
+        :host          => '127.0.0.1',
+        :charset       => 'utf8',
+        :collate       => 'utf8_general_ci',
+        :allowed_hosts => ['127.0.0.1','%'],
       )}
 
     end
@@ -50,19 +50,19 @@ describe 'vitrage::db::mysql' do
     context "overriding allowed_hosts param to string" do
       let :params do
         {
-          :password       => 'fooboozoo_default_password',
-          :allowed_hosts  => '192.168.1.1',
+          :password      => 'vitragepass',
+          :allowed_hosts => '192.168.1.1',
         }
       end
 
       it { is_expected.to contain_openstacklib__db__mysql('vitrage').with(
-        :user           => 'vitrage',
-        :password_hash  => '*3DDF34A86854A312A8E2C65B506E21C91800D206',
-        :dbname         => 'vitrage',
-        :host           => '127.0.0.1',
-        :charset        => 'utf8',
-        :collate        => 'utf8_general_ci',
-        :allowed_hosts  => '192.168.1.1',
+        :user          => 'vitrage',
+        :password      => 'vitragepass',
+        :dbname        => 'vitrage',
+        :host          => '127.0.0.1',
+        :charset       => 'utf8',
+        :collate       => 'utf8_general_ci',
+        :allowed_hosts => '192.168.1.1',
       )}
 
     end
@@ -70,14 +70,14 @@ describe 'vitrage::db::mysql' do
     context "overriding allowed_hosts equal to host param" do
       let :params do
         {
-          :password      => 'fooboozoo_default_password',
+          :password      => 'vitragepass',
           :allowed_hosts => '127.0.0.1',
         }
       end
 
       it { is_expected.to contain_openstacklib__db__mysql('vitrage').with(
         :user          => 'vitrage',
-        :password_hash => '*3DDF34A86854A312A8E2C65B506E21C91800D206',
+        :password      => 'vitragepass',
         :dbname        => 'vitrage',
         :host          => '127.0.0.1',
         :charset       => 'utf8',
@@ -89,7 +89,7 @@ describe 'vitrage::db::mysql' do
   end
 
   on_supported_os({
-    :supported_os   => OSDefaults.get_supported_os
+    :supported_os  => OSDefaults.get_supported_os
   }).each do |os,facts|
     context "on #{os}" do
       let (:facts) do

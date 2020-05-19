@@ -4,7 +4,7 @@ describe 'vitrage::db::postgresql' do
 
   shared_examples_for 'vitrage::db::postgresql' do
     let :req_params do
-      { :password => 'pw' }
+      { :password => 'vitragepass' }
     end
 
     let :pre_condition do
@@ -16,9 +16,12 @@ describe 'vitrage::db::postgresql' do
         req_params
       end
 
-      it { is_expected.to contain_postgresql__server__db('vitrage').with(
-        :user     => 'vitrage',
-        :password => 'md58e3c14dceaf5be55c5982764df87003a'
+      it { is_expected.to contain_openstacklib__db__postgresql('vitrage').with(
+        :user       => 'vitrage',
+        :password   => 'vitragepass',
+        :dbname     => 'vitrage',
+        :encoding   => nil,
+        :privileges => 'ALL',
       )}
     end
 
