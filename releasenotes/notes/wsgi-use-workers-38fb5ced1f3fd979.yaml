@@ -1,0 +1,5 @@
+---
+fixes:
+  - |
+    In wsgi configuration, now workers is used to define concurrency by default
+    instead of threads, to be consistent with the other puppet modules.
