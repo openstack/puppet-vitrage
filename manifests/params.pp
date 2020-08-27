@@ -5,6 +5,7 @@
 class vitrage::params {
   include openstacklib::defaults
   $pyvers = $::openstacklib::defaults::pyvers
+  $pyver3 = $::openstacklib::defaults::pyver3
 
   $client_package_name = "python${pyvers}-vitrageclient"
   $group               = 'vitrage'
@@ -21,7 +22,7 @@ class vitrage::params {
       $persistor_package_name      = 'openstack-vitrage-persistor'
       $persistor_service_name      = 'openstack-vitrage-persistor'
       $vitrage_wsgi_script_path    = '/var/www/cgi-bin/vitrage'
-      $vitrage_wsgi_script_source  = '/usr/lib/python2.7/site-packages/vitrage/api/app.wsgi'
+      $vitrage_wsgi_script_source  = "/usr/lib/python${pyver3}/site-packages/vitrage/api/app.wsgi"
     }
     'Debian': {
       $common_package_name         = 'vitrage-common'
