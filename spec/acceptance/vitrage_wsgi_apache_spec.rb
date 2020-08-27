@@ -18,12 +18,6 @@ describe 'basic vitrage' do
           warning('Vitrage is not yet packaged on Ubuntu systems.')
         }
         'RedHat': {
-          package { 'python-setproctitle':
-            ensure => present,
-          }
-          package { 'python2-cotyledon':
-            ensure => present,
-          }
           include openstack_integration::vitrage
         }
         default: {
