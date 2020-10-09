@@ -17,6 +17,8 @@ describe 'vitrage::db::mysql' do
         }
       end
 
+      it { should contain_class('vitrage::deps') }
+
       it { is_expected.to contain_openstacklib__db__mysql('vitrage').with(
         :user     => 'vitrage',
         :password => 'vitragepass',
