@@ -16,6 +16,8 @@ describe 'vitrage::db::postgresql' do
         req_params
       end
 
+      it { is_expected.to contain_class('vitrage::deps') }
+
       it { is_expected.to contain_openstacklib__db__postgresql('vitrage').with(
         :user       => 'vitrage',
         :password   => 'vitragepass',
