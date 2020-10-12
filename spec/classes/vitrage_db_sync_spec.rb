@@ -4,6 +4,8 @@ describe 'vitrage::db::sync' do
 
   shared_examples_for 'vitrage-dbsync' do
 
+    it { is_expected.to contain_class('vitrage::deps') }
+
     it 'runs vitrage-manage db sync' do
       is_expected.to contain_exec('vitrage-db-sync').with(
         :command     => 'vitrage-dbsync ',
