@@ -4,7 +4,7 @@
     "author": "OpenStack Contributors",
     "summary": "Puppet module for OpenStack Vitrage",
     "license": "Apache-2.0",
-    "source": "git://github.com/openstack/puppet-vitrage.git",
+    "source": "https://opendev.org/openstack/puppet-vitrage.git",
     "project_page": "https://launchpad.net/puppet-vitrage",
     "issues_url": "https://bugs.launchpad.net/puppet-vitrage",
     "description": "Installs and configures OpenStack Vitrage.",
