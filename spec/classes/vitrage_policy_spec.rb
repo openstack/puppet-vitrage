@@ -7,6 +7,7 @@ describe 'vitrage::policy' do
         :enforce_scope        => false,
         :enforce_new_defaults => false,
         :policy_path          => '/etc/vitrage/policy.yaml',
+        :policy_dirs          => '/etc/vitrage/policy.d',
         :policies             => {
           'context_is_admin' => {
             'key'   => 'context_is_admin',
@@ -28,6 +29,7 @@ describe 'vitrage::policy' do
         :enforce_scope        => false,
         :enforce_new_defaults => false,
         :policy_file          => '/etc/vitrage/policy.yaml',
+        :policy_dirs          => '/etc/vitrage/policy.d',
       )
     end
   end
