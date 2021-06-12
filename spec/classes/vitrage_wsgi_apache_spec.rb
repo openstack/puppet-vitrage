@@ -97,30 +97,12 @@ describe 'vitrage::wsgi::apache' do
             :wsgi_script_source => '/usr/share/vitrage-common/app.wsgi'
           }
         when 'RedHat'
-          if facts[:operatingsystem] == 'Fedora'
-            {
-              :httpd_service_name => 'httpd',
-              :httpd_ports_file   => '/etc/httpd/conf/ports.conf',
-              :wsgi_script_path   => '/var/www/cgi-bin/vitrage',
-              :wsgi_script_source => '/usr/lib/python3.6/site-packages/vitrage/api/app.wsgi'
-            }
-          else
-            if facts[:operatingsystemmajrelease] > '7'
-              {
-                :httpd_service_name => 'httpd',
-                :httpd_ports_file   => '/etc/httpd/conf/ports.conf',
-                :wsgi_script_path   => '/var/www/cgi-bin/vitrage',
-                :wsgi_script_source => '/usr/lib/python3.6/site-packages/vitrage/api/app.wsgi'
-              }
-            else
-              {
-                :httpd_service_name => 'httpd',
-                :httpd_ports_file   => '/etc/httpd/conf/ports.conf',
-                :wsgi_script_path   => '/var/www/cgi-bin/vitrage',
-                :wsgi_script_source => '/usr/lib/python2.7/site-packages/vitrage/api/app.wsgi'
-              }
-            end
-          end
+          {
+            :httpd_service_name => 'httpd',
+            :httpd_ports_file   => '/etc/httpd/conf/ports.conf',
+            :wsgi_script_path   => '/var/www/cgi-bin/vitrage',
+            :wsgi_script_source => '/usr/lib/python3.6/site-packages/vitrage/api/app.wsgi'
+          }
         end
       end
       it_configures 'apache serving vitrage with mod_wsgi'
