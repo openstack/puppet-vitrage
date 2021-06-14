@@ -4,10 +4,9 @@
 #
 class vitrage::params {
   include openstacklib::defaults
-  $pyvers = $::openstacklib::defaults::pyvers
   $pyver3 = $::openstacklib::defaults::pyver3
 
-  $client_package_name = "python${pyvers}-vitrageclient"
+  $client_package_name = 'python3-vitrageclient'
   $group               = 'vitrage'
 
   case $::osfamily {
