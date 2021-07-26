@@ -1,6 +1,6 @@
 {
     "name": "openstack-vitrage",
-    "version": "9.1.0",
+    "version": "9.2.0",
     "author": "OpenStack Contributors",
     "summary": "Puppet module for OpenStack Vitrage",
     "license": "Apache-2.0",
@@ -51,15 +51,15 @@
         },
         {
             "name": "openstack/openstacklib",
-            "version_requirement": ">=19.1.0 <20.0.0"
+            "version_requirement": ">=19.2.0 <20.0.0"
         },
         {
             "name": "openstack/keystone",
-            "version_requirement": ">=19.1.0 <20.0.0"
+            "version_requirement": ">=19.2.0 <20.0.0"
         },
         {
             "name": "openstack/oslo",
-            "version_requirement": ">=19.1.0 <20.0.0"
+            "version_requirement": ">=19.2.0 <20.0.0"
         }
     ]
 }
