@@ -30,6 +30,7 @@ describe 'vitrage::logging' do
      :log_facility                   => 'LOG_FOO',
      :log_dir                        => '/var/log',
      :log_file                       => '/var/log/vitrage.log',
+     :watch_log_file                 => true,
      :debug                          => true,
     }
   end
@@ -66,6 +67,7 @@ describe 'vitrage::logging' do
         :syslog_log_facility => '<SERVICE DEFAULT>',
         :log_dir             => '/var/log/vitrage',
         :log_file            => '<SERVICE DEFAULT>',
+        :watch_log_file      => '<SERVICE DEFAULT>',
         :debug               => '<SERVICE DEFAULT>',
       )
     end
@@ -81,6 +83,7 @@ describe 'vitrage::logging' do
         :syslog_log_facility => 'LOG_FOO',
         :log_dir             => '/var/log',
         :log_file            => '/var/log/vitrage.log',
+        :watch_log_file      => true,
         :debug               => true,
       )
     end
