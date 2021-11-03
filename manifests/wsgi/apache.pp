@@ -106,7 +106,7 @@ class vitrage::wsgi::apache (
   $port                        = 8999,
   $bind_host                   = undef,
   $path                        = '/',
-  $ssl                         = true,
+  $ssl                         = undef,
   $workers                     = $::os_workers,
   $wsgi_process_display_name   = undef,
   $ssl_cert                    = undef,
@@ -124,11 +124,16 @@ class vitrage::wsgi::apache (
   $custom_wsgi_process_options = {},
 ) {
 
+  if $ssl == undef {
+    warning('Default of the ssl parameter will be changed in a future release')
+  }
+  $ssl_real = pick($ssl, true)
+
   include vitrage::deps
   include vitrage::params
   include apache
   include apache::mod::wsgi
-  if $ssl {
+  if $ssl_real {
     include apache::mod::ssl
   }
 
@@ -139,7 +144,7 @@ class vitrage::wsgi::apache (
     path                        => $path,
     priority                    => $priority,
     servername                  => $servername,
-    ssl                         => $ssl,
+    ssl                         => $ssl_real,
     ssl_ca                      => $ssl_ca,
     ssl_cert                    => $ssl_cert,
     ssl_certs_dir               => $ssl_certs_dir,
