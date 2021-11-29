@@ -26,7 +26,7 @@ class vitrage::deps {
 
   # policy config should occur in the config block also.
   Anchor['vitrage::config::begin']
-  -> Openstacklib::Policy::Base<||>
+  -> Openstacklib::Policy<||>
   ~> Anchor['vitrage::config::end']
 
   # all db settings should be applied and all packages should be installed
