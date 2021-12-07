@@ -24,6 +24,11 @@ class vitrage::deps {
   ~> Service<| tag == 'vitrage-service' |>
   ~> anchor { 'vitrage::service::end': }
 
+  # paste-api.ini config should occur in the config block also.
+  Anchor['vitrage::config::begin']
+  -> Vitrage_api_paste_ini<||>
+  ~> Anchor['vitrage::config::end']
+
   # policy config should occur in the config block also.
   Anchor['vitrage::config::begin']
   -> Openstacklib::Policy<||>
