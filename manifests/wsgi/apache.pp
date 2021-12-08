@@ -131,11 +131,6 @@ class vitrage::wsgi::apache (
 
   include vitrage::deps
   include vitrage::params
-  include apache
-  include apache::mod::wsgi
-  if $ssl_real {
-    include apache::mod::ssl
-  }
 
   ::openstacklib::wsgi::apache { 'vitrage_wsgi':
     bind_host                   => $bind_host,

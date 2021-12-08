@@ -79,7 +79,6 @@ class vitrage::api (
       tag        => 'vitrage-service',
     }
   } elsif $service_name == 'httpd' {
-    include apache::params
     service { 'vitrage-api':
       ensure => 'stopped',
       name   => $::vitrage::params::api_service_name,
