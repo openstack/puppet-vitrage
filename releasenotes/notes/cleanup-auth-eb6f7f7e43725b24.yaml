@@ -1,0 +1,10 @@
+---
+upgrade:
+  - |
+    The following parameters of the ``vitrage::auth`` class.
+
+    - ``auth_endpoint_type``
+    - ``auth_tenant_name``
+    - ``auth_tenant_id``
+    - ``project_domain_id``
+    - ``user_domain_id``
