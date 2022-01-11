@@ -132,6 +132,8 @@ class vitrage::wsgi::apache (
   include vitrage::deps
   include vitrage::params
 
+  Anchor['vitrage::install::end'] -> Class['apache']
+
   ::openstacklib::wsgi::apache { 'vitrage_wsgi':
     bind_host                   => $bind_host,
     bind_port                   => $port,
@@ -160,6 +162,5 @@ class vitrage::wsgi::apache (
     access_log_format           => $access_log_format,
     error_log_file              => $error_log_file,
     custom_wsgi_process_options => $custom_wsgi_process_options,
-    require                     => Anchor['vitrage::install::end'],
   }
 }
