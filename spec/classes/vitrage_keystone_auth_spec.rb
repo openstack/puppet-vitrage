@@ -5,130 +5,76 @@
 require 'spec_helper'
 
 describe 'vitrage::keystone::auth' do
-
-  let :facts do
-    @default_facts.merge({ :osfamily => 'Debian' })
-  end
-
   shared_examples_for 'vitrage::keystone::auth' do
     context 'with default class parameters' do
       let :params do
-        { :password => 'vitrage_password',
-          :tenant   => 'foobar' }
+        { :password => 'vitrage_password' }
       end
 
-      it { is_expected.to contain_keystone_user('vitrage').with(
-        :ensure   => 'present',
-        :password => 'vitrage_password',
-      ) }
-
-      it { is_expected.to contain_keystone_user_role('vitrage@foobar').with(
-        :ensure  => 'present',
-        :roles   => ['admin']
-      )}
-
-      it { is_expected.to contain_keystone_service('vitrage::rca').with(
-        :ensure      => 'present',
-        :description => 'Root Cause Analysis Service'
-      ) }
-
-      it { is_expected.to contain_keystone_endpoint('RegionOne/vitrage::rca').with(
-        :ensure       => 'present',
-        :public_url   => 'http://127.0.0.1:8999',
-        :admin_url    => 'http://127.0.0.1:8999',
-        :internal_url => 'http://127.0.0.1:8999',
+      it { is_expected.to contain_keystone__resource__service_identity('vitrage').with(
+        :configure_user      => true,
+        :configure_user_role => true,
+        :configure_endpoint  => true,
+        :service_name        => 'vitrage',
+        :service_type        => 'rca',
+        :service_description => 'Root Cause Analysis Service',
+        :region              => 'RegionOne',
+        :auth_name           => 'vitrage',
+        :password            => 'vitrage_password',
+        :email               => 'vitrage@localhost',
+        :tenant              => 'services',
+        :public_url          => 'http://127.0.0.1:8999',
+        :internal_url        => 'http://127.0.0.1:8999',
+        :admin_url           => 'http://127.0.0.1:8999',
       ) }
     end
 
-    context 'when overriding URL parameters' do
+    context 'when overriding parameters' do
       let :params do
-        { :password     => 'vitrage_password',
-          :public_url   => 'https://10.10.10.10:80',
-          :internal_url => 'http://10.10.10.11:81',
-          :admin_url    => 'http://10.10.10.12:81', }
-      end
-
-      it { is_expected.to contain_keystone_endpoint('RegionOne/vitrage::rca').with(
-        :ensure       => 'present',
-        :public_url   => 'https://10.10.10.10:80',
-        :internal_url => 'http://10.10.10.11:81',
-        :admin_url    => 'http://10.10.10.12:81',
-      ) }
-    end
-
-    context 'when overriding auth name' do
-      let :params do
-        { :password  => 'foo',
-          :auth_name => 'vitrageany' }
-      end
-
-      it { is_expected.to contain_keystone_user('vitrageany') }
-      it { is_expected.to contain_keystone_user_role('vitrageany@services') }
-      it { is_expected.to contain_keystone_service('vitrageany::rca') }
-      it { is_expected.to contain_keystone_endpoint('RegionOne/vitrageany::rca') }
-    end
-
-    context 'when overriding service name' do
-      let :params do
-        { :service_name => 'vitrage_service',
-          :auth_name    => 'vitrage',
-          :password     => 'vitrage_password' }
-      end
-
-      it { is_expected.to contain_keystone_user('vitrage') }
-      it { is_expected.to contain_keystone_user_role('vitrage@services') }
-      it { is_expected.to contain_keystone_service('vitrage_service::rca') }
-      it { is_expected.to contain_keystone_endpoint('RegionOne/vitrage_service::rca') }
-    end
-
-    context 'when disabling user configuration' do
-
-      let :params do
-        {
-          :password       => 'vitrage_password',
-          :configure_user => false
-        }
-      end
-
-      it { is_expected.not_to contain_keystone_user('vitrage') }
-      it { is_expected.to contain_keystone_user_role('vitrage@services') }
-      it { is_expected.to contain_keystone_service('vitrage::rca').with(
-        :ensure      => 'present',
-        :description => 'Root Cause Analysis Service'
-      ) }
-
-    end
-
-    context 'when disabling user and user role configuration' do
-
-      let :params do
-        {
-          :password            => 'vitrage_password',
+        { :password            => 'vitrage_password',
+          :auth_name           => 'alt_vitrage',
+          :email               => 'alt_vitrage@alt_localhost',
+          :tenant              => 'alt_service',
+          :configure_endpoint  => false,
           :configure_user      => false,
-          :configure_user_role => false
-        }
+          :configure_user_role => false,
+          :service_description => 'Alternative Root Cause Analysis Service',
+          :service_name        => 'alt_service',
+          :service_type        => 'alt_rca',
+          :region              => 'RegionTwo',
+          :public_url          => 'https://10.10.10.10:80',
+          :internal_url        => 'http://10.10.10.11:81',
+          :admin_url           => 'http://10.10.10.12:81' }
       end
 
-      it { is_expected.not_to contain_keystone_user('vitrage') }
-      it { is_expected.not_to contain_keystone_user_role('vitrage@services') }
-      it { is_expected.to contain_keystone_service('vitrage::rca').with(
-        :ensure      => 'present',
-        :description => 'Root Cause Analysis Service'
+      it { is_expected.to contain_keystone__resource__service_identity('vitrage').with(
+        :configure_user      => false,
+        :configure_user_role => false,
+        :configure_endpoint  => false,
+        :service_name        => 'alt_service',
+        :service_type        => 'alt_rca',
+        :service_description => 'Alternative Root Cause Analysis Service',
+        :region              => 'RegionTwo',
+        :auth_name           => 'alt_vitrage',
+        :password            => 'vitrage_password',
+        :email               => 'alt_vitrage@alt_localhost',
+        :tenant              => 'alt_service',
+        :public_url          => 'https://10.10.10.10:80',
+        :internal_url        => 'http://10.10.10.11:81',
+        :admin_url           => 'http://10.10.10.12:81',
       ) }
-
     end
   end
 
   on_supported_os({
-    :supported_os   => OSDefaults.get_supported_os
+    :supported_os => OSDefaults.get_supported_os
   }).each do |os,facts|
     context "on #{os}" do
       let (:facts) do
-        facts.merge!(OSDefaults.get_facts({}))
+        facts.merge!(OSDefaults.get_facts())
       end
 
-      it_configures 'vitrage::keystone::auth'
+      it_behaves_like 'vitrage::keystone::auth'
     end
   end
-
 end
