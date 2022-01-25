@@ -19,6 +19,18 @@
 #   (Optional) Tenant for vitrage user.
 #   Defaults to 'services'.
 #
+# [*roles*]
+#   (Optional) List of roles assigned to vitrage user.
+#   Defaults to ['admin']
+#
+# [*system_scope*]
+#   (Optional) Scope for system operations.
+#   Defaults to 'all'
+#
+# [*system_roles*]
+#   (Optional) List of system roles assigned to vitrage user.
+#   Defaults to []
+#
 # [*configure_endpoint*]
 #   (Optional) Should vitrage endpoint be configured?
 #   Defaults to true.
@@ -67,6 +79,9 @@ class vitrage::keystone::auth (
   $auth_name           = 'vitrage',
   $email               = 'vitrage@localhost',
   $tenant              = 'services',
+  $roles               = ['admin'],
+  $system_scope        = 'all',
+  $system_roles        = [],
   $configure_endpoint  = true,
   $configure_user      = true,
   $configure_user_role = true,
@@ -95,6 +110,9 @@ class vitrage::keystone::auth (
     password            => $password,
     email               => $email,
     tenant              => $tenant,
+    roles               => $roles,
+    system_scope        => $system_scope,
+    system_roles        => $system_roles,
     public_url          => $public_url,
     internal_url        => $internal_url,
     admin_url           => $admin_url,
