@@ -98,6 +98,8 @@ class vitrage::keystone::auth (
 
   $real_service_name = pick($service_name, $auth_name)
 
+  Keystone::Resource::Service_identity['vitrage'] -> Anchor['vitrage::service::end']
+
   keystone::resource::service_identity { 'vitrage':
     configure_user      => $configure_user,
     configure_user_role => $configure_user_role,
