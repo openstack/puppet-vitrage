@@ -184,12 +184,6 @@
 #   (optional) Datasources types
 #   Defaults to $::os_service_default
 #
-# DEPRECATED PARAMETERS
-#
-# [*amqp_allow_insecure_clients*]
-#   (Optional) Accept clients using either SSL or plain TCP
-#   Defaults to undef.
-#
 class vitrage (
   $package_ensure                     = 'present',
   $default_transport_url              = $::os_service_default,
@@ -229,16 +223,9 @@ class vitrage (
   $purge_config                       = false,
   $snapshots_interval                 = $::os_service_default,
   $types                              = $::os_service_default,
-  # DEPRECATED PARAMETERS
-  $amqp_allow_insecure_clients        = undef,
 ) inherits vitrage::params {
 
   include vitrage::deps
-
-  if $amqp_allow_insecure_clients != undef {
-    warning('The amqp_allow_insecure_clients parameter is deprecated and \
-will be removed in a future release.')
-  }
 
   package { 'vitrage':
     ensure => $package_ensure,
