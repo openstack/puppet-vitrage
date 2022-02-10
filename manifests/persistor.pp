@@ -22,10 +22,11 @@ class vitrage::persistor (
   include vitrage::deps
   include vitrage::params
 
-  ensure_resource( 'package', [$::vitrage::params::persistor_package_name],
-    { ensure => $package_ensure,
-      tag    => ['openstack', 'vitrage-package'] }
-  )
+  package{ 'vitrage-persistor':
+    ensure => $package_ensure,
+    name   => $::vitrage::params::persistor_package_name,
+    tag    => ['openstack', 'vitrage-package']
+  }
 
   if $manage_service {
     if $enabled {

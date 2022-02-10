@@ -33,10 +33,11 @@ class vitrage::notifier (
     $notifiers_orig = $notifiers
   }
 
-  ensure_resource( 'package', [$::vitrage::params::notifier_package_name],
-    { ensure => $package_ensure,
-      tag    => ['openstack', 'vitrage-package'] }
-  )
+  package { 'vitrage-notifier':
+    ensure => $package_ensure,
+    name   => $::vitrage::params::notifier_package_name,
+    tag    => ['openstack', 'vitrage-package']
+  }
 
   vitrage_config {
     'DEFAULT/notifiers': value => $notifiers_orig;

@@ -13,8 +13,9 @@ describe 'vitrage::graph' do
       it { is_expected.to contain_class('vitrage::params') }
 
       it 'installs vitrage-graph package' do
-        is_expected.to contain_package(platform_params[:graph_package_name]).with(
+        is_expected.to contain_package('vitrage-graph').with(
           :ensure => 'present',
+          :name   => platform_params[:graph_package_name],
           :tag    => ['openstack', 'vitrage-package']
         )
       end

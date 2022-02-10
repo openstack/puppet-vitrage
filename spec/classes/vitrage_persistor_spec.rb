@@ -17,9 +17,10 @@ describe 'vitrage::persistor' do
       end
 
       it 'installs vitrage-persistor package' do
-        is_expected.to contain_package(platform_params[:persistor_package_name]).with(
-            :ensure => 'present',
-            :tag    => ['openstack', 'vitrage-package']
+        is_expected.to contain_package('vitrage-persistor').with(
+          :ensure => 'present',
+          :name   => platform_params[:persistor_package_name],
+          :tag    => ['openstack', 'vitrage-package']
         )
       end
 
