@@ -27,24 +27,24 @@ class vitrage::persistor (
       tag    => ['openstack', 'vitrage-package'] }
   )
 
+  vitrage_config {
+    'persistency/enable_persistency': value => $enabled;
+  }
+
   if $manage_service {
     if $enabled {
       $service_ensure = 'running'
     } else {
       $service_ensure = 'stopped'
     }
-  }
 
-  vitrage_config {
-    'persistency/enable_persistency': value => $enabled;
-  }
-
-  service { 'vitrage-persistor':
-    ensure     => $service_ensure,
-    name       => $::vitrage::params::persistor_service_name,
-    enable     => $enabled,
-    hasstatus  => true,
-    hasrestart => true,
-    tag        => 'vitrage-service',
+    service { 'vitrage-persistor':
+      ensure     => $service_ensure,
+      name       => $::vitrage::params::persistor_service_name,
+      enable     => $enabled,
+      hasstatus  => true,
+      hasrestart => true,
+      tag        => 'vitrage-service',
+    }
   }
 }

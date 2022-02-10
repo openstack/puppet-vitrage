@@ -56,19 +56,11 @@ describe 'vitrage::notifier' do
 
     context 'when service management is disabled' do
       let :params do
-        { :enabled        => false,
-          :manage_service => false }
+        { :manage_service => false }
       end
 
-      it 'configures vitrage-notifier service' do
-        is_expected.to contain_service('vitrage-notifier').with(
-            :ensure     => nil,
-            :name       => platform_params[:notifier_service_name],
-            :enable     => false,
-            :hasstatus  => true,
-            :hasrestart => true,
-            :tag        => 'vitrage-service',
-        )
+      it 'does not configure vitrage-notifier service' do
+        is_expected.to_not contain_service('vitrage-notifier')
       end
     end
 

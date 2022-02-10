@@ -11,7 +11,6 @@ describe 'vitrage::api' do
 
   let :params do
     { :enabled           => true,
-      :manage_service    => true,
       :package_ensure    => 'latest',
       :port              => '8999',
       :host              => '0.0.0.0',
@@ -49,7 +48,7 @@ describe 'vitrage::api' do
 
         it 'configures vitrage-api service' do
           is_expected.to contain_service('vitrage-api').with(
-            :ensure     => (params[:manage_service] && params[:enabled]) ? 'running' : 'stopped',
+            :ensure     => params[:enabled] ? 'running' : 'stopped',
             :name       => platform_params[:api_service_name],
             :enable     => params[:enabled],
             :hasstatus  => true,
@@ -86,18 +85,11 @@ describe 'vitrage::api' do
       before do
         params.merge!({
           :manage_service => false,
-          :enabled        => false })
+        })
       end
 
-      it 'configures vitrage-api service' do
-        is_expected.to contain_service('vitrage-api').with(
-          :ensure     => nil,
-          :name       => platform_params[:api_service_name],
-          :enable     => false,
-          :hasstatus  => true,
-          :hasrestart => true,
-          :tag        => 'vitrage-service',
-        )
+      it 'does not configure vitrage-api service' do
+        is_expected.to_not contain_service('vitrage-api')
       end
     end
 
