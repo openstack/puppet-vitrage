@@ -13,9 +13,10 @@ describe 'vitrage::notifier' do
       it { is_expected.to contain_class('vitrage::params') }
 
       it 'installs vitrage-notifier package' do
-        is_expected.to contain_package(platform_params[:notifier_package_name]).with(
-            :ensure => 'present',
-            :tag    => ['openstack', 'vitrage-package']
+        is_expected.to contain_package('vitrage-notifier').with(
+          :ensure => 'present',
+          :name   => platform_params[:notifier_package_name],
+          :tag    => ['openstack', 'vitrage-package']
         )
       end
 
