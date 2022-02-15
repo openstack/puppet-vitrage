@@ -67,35 +67,35 @@ class vitrage::api (
     } else {
       $service_ensure = 'stopped'
     }
-  }
 
-  if $service_name == $::vitrage::params::api_service_name {
-    service { 'vitrage-api':
-      ensure     => $service_ensure,
-      name       => $::vitrage::params::api_service_name,
-      enable     => $enabled,
-      hasstatus  => true,
-      hasrestart => true,
-      tag        => 'vitrage-service',
-    }
-  } elsif $service_name == 'httpd' {
-    service { 'vitrage-api':
-      ensure => 'stopped',
-      name   => $::vitrage::params::api_service_name,
-      enable => false,
-      tag    => 'vitrage-service',
-    }
+    if $service_name == $::vitrage::params::api_service_name {
+      service { 'vitrage-api':
+        ensure     => $service_ensure,
+        name       => $::vitrage::params::api_service_name,
+        enable     => $enabled,
+        hasstatus  => true,
+        hasrestart => true,
+        tag        => 'vitrage-service',
+      }
+    } elsif $service_name == 'httpd' {
+      service { 'vitrage-api':
+        ensure => 'stopped',
+        name   => $::vitrage::params::api_service_name,
+        enable => false,
+        tag    => 'vitrage-service',
+      }
 
-    # we need to make sure vitrage-api/eventlet is stopped before trying to start apache
-    Service['vitrage-api'] -> Service[$service_name]
-  } else {
-    fail("Invalid service_name. Either vitrage/openstack-vitrage-api for running \
+      # we need to make sure vitrage-api/eventlet is stopped before trying to start apache
+      Service['vitrage-api'] -> Service[$service_name]
+    } else {
+      fail("Invalid service_name. Either vitrage/openstack-vitrage-api for running \
 as a standalone service, or httpd for being run by a httpd server")
+    }
   }
 
   vitrage_config {
-    'api/host'                             : value => $host;
-    'api/port'                             : value => $port;
+    'api/host' : value => $host;
+    'api/port' : value => $port;
   }
 
   oslo::middleware { 'vitrage_config':

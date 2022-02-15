@@ -34,15 +34,14 @@ class vitrage::graph (
     } else {
       $service_ensure = 'stopped'
     }
-  }
 
-  Package['vitrage'] -> Service['vitrage-graph']
-  service { 'vitrage-graph':
-    ensure     => $service_ensure,
-    name       => $::vitrage::params::graph_service_name,
-    enable     => $enabled,
-    hasstatus  => true,
-    hasrestart => true,
-    tag        => 'vitrage-service',
+    service { 'vitrage-graph':
+      ensure     => $service_ensure,
+      name       => $::vitrage::params::graph_service_name,
+      enable     => $enabled,
+      hasstatus  => true,
+      hasrestart => true,
+      tag        => 'vitrage-service',
+    }
   }
 }

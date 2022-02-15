@@ -53,19 +53,11 @@ describe 'vitrage::graph' do
 
     context 'when service management is disabled' do
       let :params do
-        { :enabled        => false,
-          :manage_service => false }
+        { :manage_service => false }
       end
 
-      it 'configures vitrage-graph service' do
-        is_expected.to contain_service('vitrage-graph').with(
-          :ensure     => nil,
-          :name       => platform_params[:graph_service_name],
-          :enable     => false,
-          :hasstatus  => true,
-          :hasrestart => true,
-          :tag        => 'vitrage-service',
-        )
+      it 'does not configure vitrage-graph service' do
+        is_expected.to_not contain_service('vitrage-graph')
       end
     end
   end

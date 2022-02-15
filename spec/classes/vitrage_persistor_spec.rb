@@ -60,19 +60,11 @@ describe 'vitrage::persistor' do
 
     context 'when service management is disabled' do
       let :params do
-        { :enabled        => false,
-          :manage_service => false }
+        { :manage_service => false }
       end
 
-      it 'configures vitrage-persistor service' do
-        is_expected.to contain_service('vitrage-persistor').with(
-            :ensure     => nil,
-            :name       => platform_params[:persistor_service_name],
-            :enable     => false,
-            :hasstatus  => true,
-            :hasrestart => true,
-            :tag        => 'vitrage-service',
-        )
+      it 'does not configure vitrage-persistor service' do
+        is_expected.to_not contain_service('vitrage-persistor')
       end
     end
   end
