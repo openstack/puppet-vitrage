@@ -91,12 +91,21 @@ describe 'vitrage::wsgi::apache' do
             :wsgi_script_source => '/usr/share/vitrage-common/app.wsgi'
           }
         when 'RedHat'
-          {
-            :httpd_service_name => 'httpd',
-            :httpd_ports_file   => '/etc/httpd/conf/ports.conf',
-            :wsgi_script_path   => '/var/www/cgi-bin/vitrage',
-            :wsgi_script_source => '/usr/lib/python3.6/site-packages/vitrage/api/app.wsgi'
-          }
+          if facts[:operatingsystemmajrelease].to_i > 8
+            {
+              :httpd_service_name => 'httpd',
+              :httpd_ports_file   => '/etc/httpd/conf/ports.conf',
+              :wsgi_script_path   => '/var/www/cgi-bin/vitrage',
+              :wsgi_script_source => '/usr/lib/python3.9/site-packages/vitrage/api/app.wsgi'
+            }
+          else
+            {
+              :httpd_service_name => 'httpd',
+              :httpd_ports_file   => '/etc/httpd/conf/ports.conf',
+              :wsgi_script_path   => '/var/www/cgi-bin/vitrage',
+              :wsgi_script_source => '/usr/lib/python3.6/site-packages/vitrage/api/app.wsgi'
+            }
+          end
         end
       end
       it_configures 'apache serving vitrage with mod_wsgi'
