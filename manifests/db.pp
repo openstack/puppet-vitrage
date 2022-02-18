@@ -43,12 +43,6 @@
 #   Cluster (NDB).
 #   Defaults to $::os_service_default
 #
-# DEPRECATED PARAMETERS
-#
-# [*database_min_pool_size*]
-#   (optional) Minimum number of SQL connections to keep open in a pool.
-#   Defaults to undef.
-#
 class vitrage::db (
   $database_connection              = 'mysql+pymysql://vitrage:secrete@localhost:3306/vitrage',
   $database_connection_recycle_time = $::os_service_default,
@@ -59,15 +53,9 @@ class vitrage::db (
   $database_max_overflow            = $::os_service_default,
   $database_pool_timeout            = $::os_service_default,
   $mysql_enable_ndb                 = $::os_service_default,
-  # DEPRECATED PARAMETERS
-  $database_min_pool_size           = undef,
 ) {
 
   include vitrage::deps
-
-  if $database_min_pool_size {
-    warning('The database_min_pool_size parameter is deprecated, and will be removed in a future release.')
-  }
 
   oslo::db { 'vitrage_config':
     connection              => $database_connection,
