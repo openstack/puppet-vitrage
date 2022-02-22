@@ -137,7 +137,7 @@ class vitrage::wsgi::apache (
   ::openstacklib::wsgi::apache { 'vitrage_wsgi':
     bind_host                   => $bind_host,
     bind_port                   => $port,
-    group                       => 'vitrage',
+    group                       => $::vitrage::params::group,
     path                        => $path,
     priority                    => $priority,
     servername                  => $servername,
@@ -150,7 +150,7 @@ class vitrage::wsgi::apache (
     ssl_crl_path                => $ssl_crl_path,
     ssl_key                     => $ssl_key,
     threads                     => $threads,
-    user                        => 'vitrage',
+    user                        => $::vitrage::params::user,
     workers                     => $workers,
     wsgi_daemon_process         => 'vitrage',
     wsgi_process_group          => 'vitrage',

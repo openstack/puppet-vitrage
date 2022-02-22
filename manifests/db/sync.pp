@@ -18,11 +18,12 @@ class vitrage::db::sync(
 ) {
 
   include vitrage::deps
+  include vitrage::params
 
   exec { 'vitrage-db-sync':
     command     => "vitrage-dbsync ${extra_params}",
     path        => '/usr/bin',
-    user        => 'vitrage',
+    user        => $::vitrage::params::user,
     refreshonly => true,
     try_sleep   => 5,
     tries       => 10,

@@ -7,6 +7,7 @@ class vitrage::params {
   $pyver3 = $::openstacklib::defaults::pyver3
 
   $client_package_name = 'python3-vitrageclient'
+  $user                = 'vitrage'
   $group               = 'vitrage'
 
   case $::osfamily {
