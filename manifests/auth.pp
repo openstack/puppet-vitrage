@@ -1,3 +1,4 @@
+# DEPRECATED !!
 # The vitrage::auth class helps configure auth settings
 #
 # == Parameters
@@ -57,16 +58,18 @@ class vitrage::auth (
 
   include vitrage::deps
 
-  vitrage_config {
-    'service_credentials/auth_url'            : value => $auth_url;
-    'service_credentials/region_name'         : value => $auth_region;
-    'service_credentials/username'            : value => $auth_user;
-    'service_credentials/password'            : value => $auth_password, secret => true;
-    'service_credentials/project_name'        : value => $auth_project_name;
-    'service_credentials/user_domain_name'    : value => $user_domain_name;
-    'service_credentials/project_domain_name' : value => $project_domain_name;
-    'service_credentials/cacert'              : value => $auth_cacert;
-    'service_credentials/interface'           : value => $interface;
-    'service_credentials/auth_type'           : value => $auth_type;
+  warning('The vitrage::auth class has been deprecated. Use the vitrage::service_credentials class.')
+
+  class { 'vitrage::service_credentials':
+    auth_url            => $auth_url,
+    region_name         => $auth_region,
+    username            => $auth_user,
+    password            => $auth_password,
+    project_name        => $auth_project_name,
+    user_domain_name    => $user_domain_name,
+    project_domain_name => $project_domain_name,
+    cacert              => $auth_cacert,
+    interface           => $interface,
+    auth_type           => $auth_type,
   }
 }
