@@ -29,6 +29,10 @@
 #   (Optional) The keystone user domain id name vitrage services
 #   Defaults to 'Default'
 #
+# [*system_scope*]
+#   (Optional) Scope for system operations.
+#   Defaults to $::os_service_default
+#
 # [*auth_type*]
 #   (Optional) An authentication type to use with an OpenStack Identity server.
 #   The value should contain auth plugin name.
@@ -51,6 +55,7 @@ class vitrage::service_credentials (
   $project_name        = 'services',
   $project_domain_name = 'Default',
   $user_domain_name    = 'Default',
+  $system_scope        = $::os_service_default,
   $auth_type           = 'password',
   $cacert              = $::os_service_default,
   $interface           = $::os_service_default,
@@ -58,14 +63,23 @@ class vitrage::service_credentials (
 
   include vitrage::deps
 
+  if is_service_default($system_scope) {
+    $project_name_real = $project_name
+    $project_domain_name_real = $project_domain_name
+  } else {
+    $project_name_real = $::os_service_default
+    $project_domain_name_real = $::os_service_default
+  }
+
   vitrage_config {
     'service_credentials/auth_url'            : value => $auth_url;
     'service_credentials/region_name'         : value => $region_name;
     'service_credentials/username'            : value => $username;
     'service_credentials/password'            : value => $password, secret => true;
-    'service_credentials/project_name'        : value => $project_name;
+    'service_credentials/project_name'        : value => $project_name_real;
     'service_credentials/user_domain_name'    : value => $user_domain_name;
-    'service_credentials/project_domain_name' : value => $project_domain_name;
+    'service_credentials/project_domain_name' : value => $project_domain_name_real;
+    'service_credentials/system_scope'        : value => $system_scope;
     'service_credentials/cacert'              : value => $cacert;
     'service_credentials/interface'           : value => $interface;
     'service_credentials/auth_type'           : value => $auth_type;
