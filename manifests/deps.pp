@@ -34,6 +34,10 @@ class vitrage::deps {
   -> Openstacklib::Policy<||>
   ~> Anchor['vitrage::config::end']
 
+  # all coordination settings should be applied and all packages should be
+  # installed before service startup
+  Oslo::Coordination<||> -> Anchor['vitrage::service::begin']
+
   # all db settings should be applied and all packages should be installed
   # before dbsync starts
   Oslo::Db<||> -> Anchor['vitrage::dbsync::begin']
