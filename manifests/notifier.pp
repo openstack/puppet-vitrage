@@ -27,12 +27,6 @@ class vitrage::notifier (
   include vitrage::deps
   include vitrage::params
 
-  if !is_service_default($notifiers) {
-    $notifiers_orig = join(any2array($notifiers), ',')
-  } else {
-    $notifiers_orig = $notifiers
-  }
-
   package { 'vitrage-notifier':
     ensure => $package_ensure,
     name   => $::vitrage::params::notifier_package_name,
@@ -40,7 +34,7 @@ class vitrage::notifier (
   }
 
   vitrage_config {
-    'DEFAULT/notifiers': value => $notifiers_orig;
+    'DEFAULT/notifiers': value => join(any2array($notifiers), ',');
   }
 
   if $manage_service {
