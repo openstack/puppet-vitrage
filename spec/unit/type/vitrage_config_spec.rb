@@ -33,7 +33,7 @@ describe 'Puppet::Type.type(:vitrage_config)' do
     expect(@vitrage_config[:value]).to eq(['bar'])
   end
 
-  it 'should not accept a value with whitespace' do
+  it 'should accept a value with whitespace' do
     @vitrage_config[:value] = 'b ar'
     expect(@vitrage_config[:value]).to eq(['b ar'])
   end
