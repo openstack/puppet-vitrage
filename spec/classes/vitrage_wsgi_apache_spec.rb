@@ -95,17 +95,10 @@ describe 'vitrage::wsgi::apache' do
             :wsgi_script_source => '/usr/share/vitrage-common/app.wsgi'
           }
         when 'RedHat'
-          if facts[:operatingsystemmajrelease].to_i > 8
-            {
-              :wsgi_script_path   => '/var/www/cgi-bin/vitrage',
-              :wsgi_script_source => '/usr/lib/python3.9/site-packages/vitrage/api/app.wsgi'
-            }
-          else
-            {
-              :wsgi_script_path   => '/var/www/cgi-bin/vitrage',
-              :wsgi_script_source => '/usr/lib/python3.6/site-packages/vitrage/api/app.wsgi'
-            }
-          end
+          {
+            :wsgi_script_path   => '/var/www/cgi-bin/vitrage',
+            :wsgi_script_source => '/usr/lib/python3.9/site-packages/vitrage/api/app.wsgi'
+          }
         end
       end
       it_configures 'apache serving vitrage with mod_wsgi'
