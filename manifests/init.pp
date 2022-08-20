@@ -285,7 +285,7 @@ class vitrage (
 
   vitrage_config {
     'datasources/snapshots_interval': value => $snapshots_interval;
-    'datasources/types':              value => $types;
+    'datasources/types':              value => join(any2array($types), ',');
   }
 }
 
