@@ -71,7 +71,7 @@ describe 'vitrage::graph' do
       end
 
       let(:platform_params) do
-        case facts[:osfamily]
+        case facts[:os]['family']
         when 'Debian'
           { :graph_package_name => 'vitrage-graph',
             :graph_service_name => 'vitrage-graph' }

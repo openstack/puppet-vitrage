@@ -138,14 +138,11 @@ describe 'vitrage::api' do
   }).each do |os,facts|
     context "on #{os}" do
       let (:facts) do
-        facts.merge!(OSDefaults.get_facts({
-          :fqdn           => 'some.host.tld',
-          :concat_basedir => '/var/lib/puppet/concat'
-        }))
+        facts.merge!(OSDefaults.get_facts())
       end
 
       let(:platform_params) do
-        case facts[:osfamily]
+        case facts[:os]['family']
         when 'Debian'
           { :api_package_name => 'vitrage-api',
             :api_service_name => 'vitrage-api' }

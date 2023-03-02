@@ -233,7 +233,7 @@ describe 'vitrage' do
       end
 
       let(:platform_params) do
-        case facts[:osfamily]
+        case facts[:os]['family']
         when 'Debian'
           { :vitrage_common_package => 'vitrage-common' }
         when 'RedHat'

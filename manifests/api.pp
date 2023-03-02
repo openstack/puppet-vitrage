@@ -34,11 +34,11 @@
 # [*enable_proxy_headers_parsing*]
 #   (Optional) Enable paste middleware to handle SSL requests through
 #   HTTPProxyToWSGI middleware.
-#   Defaults to $::os_service_default.
+#   Defaults to $facts['os_service_default'].
 #
 # [*max_request_body_size*]
 #   (Optional) Set max request body size
-#   Defaults to $::os_service_default.
+#   Defaults to $facts['os_service_default'].
 #
 class vitrage::api (
   $manage_service               = true,
@@ -47,8 +47,8 @@ class vitrage::api (
   $host                         = '0.0.0.0',
   $port                         = '8999',
   $service_name                 = $::vitrage::params::api_service_name,
-  $enable_proxy_headers_parsing = $::os_service_default,
-  $max_request_body_size        = $::os_service_default,
+  $enable_proxy_headers_parsing = $facts['os_service_default'],
+  $max_request_body_size        = $facts['os_service_default'],
 ) inherits vitrage::params {
 
   include vitrage::deps

@@ -78,7 +78,7 @@ describe 'vitrage::persistor' do
       end
 
       let(:platform_params) do
-        case facts[:osfamily]
+        case facts[:os]['family']
           when 'Debian'
             { :persistor_package_name => 'vitrage-persistor',
               :persistor_service_name => 'vitrage-persistor' }

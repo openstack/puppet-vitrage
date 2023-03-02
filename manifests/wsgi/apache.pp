@@ -27,7 +27,7 @@
 #
 #   [*servername*]
 #     The servername for the virtualhost.
-#     Optional. Defaults to $::fqdn
+#     Optional. Defaults to $facts['networking']['fqdn']
 #
 #   [*port*]
 #     The port.
@@ -47,7 +47,7 @@
 #
 #   [*workers*]
 #     Number of WSGI workers to spawn.
-#     Optional. Defaults to $::os_workers
+#     Optional. Defaults to $facts['os_workers']
 #
 #   [*priority*]
 #     (optional) The priority for the vhost.
@@ -127,12 +127,12 @@
 #   class { 'vitrage::wsgi::apache': }
 #
 class vitrage::wsgi::apache (
-  $servername                  = $::fqdn,
+  $servername                  = $facts['networking']['fqdn'],
   $port                        = 8999,
   $bind_host                   = undef,
   $path                        = '/',
   $ssl                         = false,
-  $workers                     = $::os_workers,
+  $workers                     = $facts['os_workers'],
   $wsgi_process_display_name   = undef,
   $ssl_cert                    = undef,
   $ssl_key                     = undef,

@@ -15,13 +15,13 @@
 #
 #  [*notifiers*]
 #    (optional) Names of enabled notifiers.
-#    Defaults to $::os_service_default.
+#    Defaults to $facts['os_service_default'].
 #
 class vitrage::notifier (
   $manage_service = true,
   $enabled        = true,
   $package_ensure = 'present',
-  $notifiers      = $::os_service_default,
+  $notifiers      = $facts['os_service_default'],
 ) {
 
   include vitrage::deps

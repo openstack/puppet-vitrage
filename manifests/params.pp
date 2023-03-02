@@ -10,7 +10,7 @@ class vitrage::params {
   $user                = 'vitrage'
   $group               = 'vitrage'
 
-  case $::osfamily {
+  case $facts['os']['family'] {
     'RedHat': {
       $common_package_name         = 'openstack-vitrage-common'
       $api_package_name            = 'openstack-vitrage-api'
@@ -38,8 +38,8 @@ class vitrage::params {
       $vitrage_wsgi_script_source  = '/usr/share/vitrage-common/app.wsgi'
     }
     default: {
-      fail("Unsupported osfamily: ${::osfamily} operatingsystem")
+      fail("Unsupported osfamily: ${facts['os']['family']}")
     }
 
-  } # Case $::osfamily
+  } # Case $facts['os']['family']
 }
