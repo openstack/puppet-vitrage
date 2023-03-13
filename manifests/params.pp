@@ -35,7 +35,7 @@ class vitrage::params {
       $persistor_package_name      = 'vitrage-persistor'
       $persistor_service_name      = 'vitrage-persistor'
       $vitrage_wsgi_script_path    = '/usr/lib/cgi-bin/vitrage'
-      $vitrage_wsgi_script_source  = '/usr/share/vitrage-common/app.wsgi'
+      $vitrage_wsgi_script_source  = "/usr/lib/python${pyver3}/dist-packages/vitrage/api/app.wsgi"
     }
     default: {
       fail("Unsupported osfamily: ${facts['os']['family']}")

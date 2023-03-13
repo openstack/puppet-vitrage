@@ -154,7 +154,7 @@ describe 'vitrage::wsgi::apache' do
         when 'Debian'
           {
             :wsgi_script_path   => '/usr/lib/cgi-bin/vitrage',
-            :wsgi_script_source => '/usr/share/vitrage-common/app.wsgi'
+            :wsgi_script_source => '/usr/lib/python3/dist-packages/vitrage/api/app.wsgi'
           }
         when 'RedHat'
           {
