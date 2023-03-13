@@ -94,7 +94,7 @@ describe 'vitrage::wsgi::apache' do
             :httpd_service_name => 'apache2',
             :httpd_ports_file   => '/etc/apache2/ports.conf',
             :wsgi_script_path   => '/usr/lib/cgi-bin/vitrage',
-            :wsgi_script_source => '/usr/share/vitrage-common/app.wsgi'
+            :wsgi_script_source => '/usr/lib/python3/dist-packages/vitrage/api/app.wsgi'
           }
         when 'RedHat'
           {
