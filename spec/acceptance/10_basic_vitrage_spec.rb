@@ -14,31 +14,17 @@ describe 'basic vitrage' do
       include openstack_integration::memcached
       include openstack_integration::keystone
 
-      case $::osfamily {
-        'Debian': {
-          warning('Vitrage is not yet packaged on Ubuntu systems.')
-        }
-        'RedHat': {
-          include openstack_integration::vitrage
-        }
-        default: {
-          fail("Unsupported osfamily (${::osfamily})")
-        }
-      }
+      include openstack_integration::vitrage
       EOS
-
 
       # Run it twice and test for idempotency
       apply_manifest(pp, :catch_failures => true)
       apply_manifest(pp, :catch_changes => true)
     end
 
-    if os[:family].casecmp('RedHat') == 0
-      describe port(8999) do
-        it { is_expected.to be_listening }
-      end
+    describe port(8999) do
+      it { is_expected.to be_listening }
     end
-
 
   end
 end
