@@ -34,7 +34,7 @@
 #   Defaults to 'utf8_general_ci'
 #
 class vitrage::db::mysql(
-  $password,
+  String[1] $password,
   $dbname        = 'vitrage',
   $user          = 'vitrage',
   $host          = '127.0.0.1',
@@ -44,8 +44,6 @@ class vitrage::db::mysql(
 ) {
 
   include vitrage::deps
-
-  validate_legacy(String, 'validate_string', $password)
 
   ::openstacklib::db::mysql { 'vitrage':
     user          => $user,

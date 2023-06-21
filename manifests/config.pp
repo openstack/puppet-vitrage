@@ -24,14 +24,11 @@
 #   or Puppet catalog compilation will fail with duplicate resources.
 #
 class vitrage::config (
-  $vitrage_config     = {},
-  $vitrage_api_paste_ini = {},
+  Hash $vitrage_config        = {},
+  Hash $vitrage_api_paste_ini = {},
 ) {
 
   include vitrage::deps
-
-  validate_legacy(Hash, 'validate_hash', $vitrage_config)
-  validate_legacy(Hash, 'validate_hash', $vitrage_api_paste_ini)
 
   create_resources('vitrage_config', $vitrage_config)
   create_resources('vitrage_api_paste_ini', $vitrage_api_paste_ini)

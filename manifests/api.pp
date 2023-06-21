@@ -41,8 +41,8 @@
 #   Defaults to $facts['os_service_default'].
 #
 class vitrage::api (
-  $manage_service               = true,
-  $enabled                      = true,
+  Boolean $manage_service       = true,
+  Boolean $enabled              = true,
   $package_ensure               = 'present',
   $host                         = '0.0.0.0',
   $port                         = '8999',
