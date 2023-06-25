@@ -31,7 +31,7 @@ class vitrage::deps {
 
   # policy config should occur in the config block also.
   Anchor['vitrage::config::begin']
-  -> Openstacklib::Policy<||>
+  -> Openstacklib::Policy<| tag == 'vitrage' |>
   ~> Anchor['vitrage::config::end']
 
   # all coordination settings should be applied and all packages should be
