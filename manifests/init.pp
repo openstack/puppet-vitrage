@@ -220,7 +220,7 @@ class vitrage (
   $notification_transport_url         = $facts['os_service_default'],
   $notification_driver                = $facts['os_service_default'],
   $notification_topics                = $facts['os_service_default'],
-  $purge_config                       = false,
+  Boolean $purge_config               = false,
   $snapshots_interval                 = $facts['os_service_default'],
   $types                              = $facts['os_service_default'],
 ) inherits vitrage::params {
