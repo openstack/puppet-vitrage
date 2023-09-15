@@ -21,17 +21,52 @@ describe 'vitrage' do
         )
       end
 
-      it 'configures rabbit' do
-        is_expected.to contain_vitrage_config('DEFAULT/transport_url').with_value('<SERVICE DEFAULT>')
-        is_expected.to contain_vitrage_config('DEFAULT/rpc_response_timeout').with_value('<SERVICE DEFAULT>')
-        is_expected.to contain_vitrage_config('DEFAULT/control_exchange').with_value('<SERVICE DEFAULT>')
-        is_expected.to contain_vitrage_config('oslo_messaging_rabbit/heartbeat_timeout_threshold').with_value('<SERVICE DEFAULT>')
-        is_expected.to contain_vitrage_config('oslo_messaging_rabbit/heartbeat_rate').with_value('<SERVICE DEFAULT>')
-        is_expected.to contain_vitrage_config('oslo_messaging_rabbit/heartbeat_in_pthread').with_value('<SERVICE DEFAULT>')
-        is_expected.to contain_vitrage_config('oslo_messaging_rabbit/kombu_compression').with_value('<SERVICE DEFAULT>')
-        is_expected.to contain_vitrage_config('oslo_messaging_rabbit/kombu_failover_strategy').with_value('<SERVICE DEFAULT>')
-        is_expected.to contain_vitrage_config('oslo_messaging_notifications/transport_url').with_value('<SERVICE DEFAULT>')
-        is_expected.to contain_vitrage_config('oslo_messaging_notifications/driver').with_value('<SERVICE DEFAULT>')
+      it 'configures messaging' do
+        is_expected.to contain_oslo__messaging__default('vitrage_config').with(
+          :transport_url        => '<SERVICE DEFAULT>',
+          :rpc_response_timeout => '<SERVICE DEFAULT>',
+          :control_exchange     => '<SERVICE DEFAULT>'
+        )
+        is_expected.to contain_oslo__messaging__rabbit('vitrage_config').with(
+          :rabbit_use_ssl              => '<SERVICE DEFAULT>',
+          :heartbeat_timeout_threshold => '<SERVICE DEFAULT>',
+          :heartbeat_rate              => '<SERVICE DEFAULT>',
+          :heartbeat_in_pthread        => '<SERVICE DEFAULT>',
+          :kombu_reconnect_delay       => '<SERVICE DEFAULT>',
+          :kombu_failover_strategy     => '<SERVICE DEFAULT>',
+          :amqp_durable_queues         => '<SERVICE DEFAULT>',
+          :kombu_compression           => '<SERVICE DEFAULT>',
+          :kombu_ssl_ca_certs          => '<SERVICE DEFAULT>',
+          :kombu_ssl_certfile          => '<SERVICE DEFAULT>',
+          :kombu_ssl_keyfile           => '<SERVICE DEFAULT>',
+          :kombu_ssl_version           => '<SERVICE DEFAULT>',
+          :rabbit_ha_queues            => '<SERVICE DEFAULT>',
+          :rabbit_retry_interval       => '<SERVICE DEFAULT>',
+        )
+        is_expected.to contain_oslo__messaging__amqp('vitrage_config').with(
+          :server_request_prefix => '<SERVICE DEFAULT>',
+          :broadcast_prefix      => '<SERVICE DEFAULT>',
+          :group_request_prefix  => '<SERVICE DEFAULT>',
+          :container_name        => '<SERVICE DEFAULT>',
+          :idle_timeout          => '<SERVICE DEFAULT>',
+          :trace                 => '<SERVICE DEFAULT>',
+          :ssl_ca_file           => '<SERVICE DEFAULT>',
+          :ssl_cert_file         => '<SERVICE DEFAULT>',
+          :ssl_key_file          => '<SERVICE DEFAULT>',
+          :sasl_mechanisms       => '<SERVICE DEFAULT>',
+          :sasl_config_dir       => '<SERVICE DEFAULT>',
+          :sasl_config_name      => '<SERVICE DEFAULT>',
+          :username              => '<SERVICE DEFAULT>',
+          :password              => '<SERVICE DEFAULT>',
+        )
+        is_expected.to contain_oslo__messaging__notifications('vitrage_config').with(
+          :transport_url => '<SERVICE DEFAULT>',
+          :driver        => '<SERVICE DEFAULT>',
+          :topics        => '<SERVICE DEFAULT>'
+        )
+      end
+
+      it 'configures datasources' do
         is_expected.to contain_vitrage_config('datasources/types').with_value('<SERVICE DEFAULT>')
         is_expected.to contain_vitrage_config('datasources/snapshots_interval').with_value('<SERVICE DEFAULT>')
       end
@@ -50,12 +85,14 @@ describe 'vitrage' do
           :default_transport_url              => 'rabbit://rabbit_user:password@localhost:5673',
           :rpc_response_timeout               => '120',
           :control_exchange                   => 'vitrage',
-          :rabbit_ha_queues                   => 'undef',
+          :rabbit_ha_queues                   => true,
           :rabbit_heartbeat_timeout_threshold => '60',
           :rabbit_heartbeat_rate              => '10',
           :rabbit_heartbeat_in_pthread        => true,
           :kombu_compression                  => 'gzip',
+          :kombu_reconnect_delay              => '5.0',
           :kombu_failover_strategy            => 'shuffle',
+          :amqp_durable_queues                => true,
           :package_ensure                     => '2012.1.1-15.el6',
           :notification_transport_url         => 'rabbit://rabbit_user:password@localhost:5673',
           :notification_driver                => 'messaging',
@@ -65,76 +102,54 @@ describe 'vitrage' do
         }
       end
 
-      it 'configures rabbit' do
-        is_expected.to contain_vitrage_config('DEFAULT/transport_url').with_value('rabbit://rabbit_user:password@localhost:5673')
-        is_expected.to contain_vitrage_config('DEFAULT/rpc_response_timeout').with_value('120')
-        is_expected.to contain_vitrage_config('DEFAULT/control_exchange').with_value('vitrage')
-        is_expected.to contain_vitrage_config('oslo_messaging_rabbit/heartbeat_timeout_threshold').with_value('60')
-        is_expected.to contain_vitrage_config('oslo_messaging_rabbit/heartbeat_rate').with_value('10')
-        is_expected.to contain_vitrage_config('oslo_messaging_rabbit/heartbeat_in_pthread').with_value(true)
-        is_expected.to contain_vitrage_config('oslo_messaging_rabbit/kombu_compression').with_value('gzip')
-        is_expected.to contain_vitrage_config('oslo_messaging_rabbit/kombu_failover_strategy').with_value('shuffle')
+      it 'configures messaging' do
+        is_expected.to contain_oslo__messaging__default('vitrage_config').with(
+          :transport_url        => 'rabbit://rabbit_user:password@localhost:5673',
+          :rpc_response_timeout => '120',
+          :control_exchange     => 'vitrage'
+        )
+        is_expected.to contain_oslo__messaging__rabbit('vitrage_config').with(
+          :rabbit_use_ssl              => '<SERVICE DEFAULT>',
+          :heartbeat_timeout_threshold => '60',
+          :heartbeat_rate              => '10',
+          :heartbeat_in_pthread        => true,
+          :kombu_reconnect_delay       => '5.0',
+          :kombu_failover_strategy     => 'shuffle',
+          :amqp_durable_queues         => true,
+          :kombu_compression           => 'gzip',
+          :kombu_ssl_ca_certs          => '<SERVICE DEFAULT>',
+          :kombu_ssl_certfile          => '<SERVICE DEFAULT>',
+          :kombu_ssl_keyfile           => '<SERVICE DEFAULT>',
+          :kombu_ssl_version           => '<SERVICE DEFAULT>',
+          :rabbit_ha_queues            => true,
+          :rabbit_retry_interval       => '<SERVICE DEFAULT>',
+        )
+        is_expected.to contain_oslo__messaging__amqp('vitrage_config').with(
+          :server_request_prefix => '<SERVICE DEFAULT>',
+          :broadcast_prefix      => '<SERVICE DEFAULT>',
+          :group_request_prefix  => '<SERVICE DEFAULT>',
+          :container_name        => '<SERVICE DEFAULT>',
+          :idle_timeout          => '<SERVICE DEFAULT>',
+          :trace                 => '<SERVICE DEFAULT>',
+          :ssl_ca_file           => '<SERVICE DEFAULT>',
+          :ssl_cert_file         => '<SERVICE DEFAULT>',
+          :ssl_key_file          => '<SERVICE DEFAULT>',
+          :sasl_mechanisms       => '<SERVICE DEFAULT>',
+          :sasl_config_dir       => '<SERVICE DEFAULT>',
+          :sasl_config_name      => '<SERVICE DEFAULT>',
+          :username              => '<SERVICE DEFAULT>',
+          :password              => '<SERVICE DEFAULT>',
+        )
+        is_expected.to contain_oslo__messaging__notifications('vitrage_config').with(
+          :transport_url => 'rabbit://rabbit_user:password@localhost:5673',
+          :driver        => 'messaging',
+          :topics        => 'openstack'
+        )
       end
 
-      it 'configures various things' do
-        is_expected.to contain_vitrage_config('oslo_messaging_notifications/transport_url').with_value('rabbit://rabbit_user:password@localhost:5673')
-        is_expected.to contain_vitrage_config('oslo_messaging_notifications/driver').with_value('messaging')
-        is_expected.to contain_vitrage_config('oslo_messaging_notifications/topics').with_value('openstack')
+      it 'configures datasources' do
         is_expected.to contain_vitrage_config('datasources/types').with_value('nova.host,nova.instance,nova.zone,cinder.volume,neutron.port,neutron.network,doctor')
         is_expected.to contain_vitrage_config('datasources/snapshots_interval').with_value('120')
-      end
-
-      context 'with multiple notification_driver' do
-        before { params.merge!( :notification_driver => ['messaging', 'messagingv2']) }
-
-        it { is_expected.to contain_vitrage_config('oslo_messaging_notifications/driver').with_value(
-          ['messaging', 'messagingv2']
-        ) }
-      end
-
-    end
-
-    context 'with kombu_reconnect_delay set to 5.0' do
-      let :params do
-        { :kombu_reconnect_delay => '5.0' }
-      end
-
-      it 'configures rabbit' do
-        is_expected.to contain_vitrage_config('oslo_messaging_rabbit/kombu_reconnect_delay').with_value('5.0')
-      end
-    end
-
-    context 'with rabbit_ha_queues set to true' do
-      let :params do
-        { :rabbit_ha_queues => 'true' }
-      end
-
-      it 'configures rabbit' do
-        is_expected.to contain_vitrage_config('oslo_messaging_rabbit/rabbit_ha_queues').with_value(true)
-      end
-    end
-
-    context 'with rabbit_ha_queues set to false' do
-      let :params do
-        { :rabbit_ha_queues => 'false' }
-      end
-
-      it 'configures rabbit' do
-        is_expected.to contain_vitrage_config('oslo_messaging_rabbit/rabbit_ha_queues').with_value(false)
-      end
-    end
-
-    context 'with amqp_durable_queues parameter' do
-      let :params do
-        { :amqp_durable_queues => 'true' }
-      end
-
-      it 'configures rabbit' do
-        is_expected.to contain_vitrage_config('oslo_messaging_rabbit/rabbit_ha_queues').with_value('<SERVICE DEFAULT>')
-        is_expected.to contain_vitrage_config('oslo_messaging_rabbit/amqp_durable_queues').with_value(true)
-        is_expected.to contain_oslo__messaging__rabbit('vitrage_config').with(
-          :rabbit_use_ssl     => '<SERVICE DEFAULT>',
-        )
       end
     end
 
@@ -174,26 +189,6 @@ describe 'vitrage' do
       end
     end
 
-    context 'with default amqp parameters' do
-      it 'configures amqp' do
-        is_expected.to contain_vitrage_config('oslo_messaging_amqp/server_request_prefix').with_value('<SERVICE DEFAULT>')
-        is_expected.to contain_vitrage_config('oslo_messaging_amqp/broadcast_prefix').with_value('<SERVICE DEFAULT>')
-        is_expected.to contain_vitrage_config('oslo_messaging_amqp/group_request_prefix').with_value('<SERVICE DEFAULT>')
-        is_expected.to contain_vitrage_config('oslo_messaging_amqp/container_name').with_value('<SERVICE DEFAULT>')
-        is_expected.to contain_vitrage_config('oslo_messaging_amqp/idle_timeout').with_value('<SERVICE DEFAULT>')
-        is_expected.to contain_vitrage_config('oslo_messaging_amqp/trace').with_value('<SERVICE DEFAULT>')
-        is_expected.to contain_vitrage_config('oslo_messaging_amqp/ssl_ca_file').with_value('<SERVICE DEFAULT>')
-        is_expected.to contain_vitrage_config('oslo_messaging_amqp/ssl_cert_file').with_value('<SERVICE DEFAULT>')
-        is_expected.to contain_vitrage_config('oslo_messaging_amqp/ssl_key_file').with_value('<SERVICE DEFAULT>')
-        is_expected.to contain_vitrage_config('oslo_messaging_amqp/ssl_key_password').with_value('<SERVICE DEFAULT>')
-        is_expected.to contain_vitrage_config('oslo_messaging_amqp/sasl_mechanisms').with_value('<SERVICE DEFAULT>')
-        is_expected.to contain_vitrage_config('oslo_messaging_amqp/sasl_config_dir').with_value('<SERVICE DEFAULT>')
-        is_expected.to contain_vitrage_config('oslo_messaging_amqp/sasl_config_name').with_value('<SERVICE DEFAULT>')
-        is_expected.to contain_vitrage_config('oslo_messaging_amqp/username').with_value('<SERVICE DEFAULT>')
-        is_expected.to contain_vitrage_config('oslo_messaging_amqp/password').with_value('<SERVICE DEFAULT>')
-      end
-    end
-
     context 'with overridden amqp parameters' do
       let :params do
         { :default_transport_url => 'amqp://amqp_user:password@localhost:5672',
@@ -210,16 +205,27 @@ describe 'vitrage' do
       end
 
       it 'configures amqp' do
-        is_expected.to contain_vitrage_config('DEFAULT/transport_url').with_value('amqp://amqp_user:password@localhost:5672')
-        is_expected.to contain_vitrage_config('DEFAULT/rpc_response_timeout').with_value('240')
-        is_expected.to contain_vitrage_config('DEFAULT/control_exchange').with_value('openstack')
-        is_expected.to contain_vitrage_config('oslo_messaging_amqp/idle_timeout').with_value('60')
-        is_expected.to contain_vitrage_config('oslo_messaging_amqp/trace').with_value('true')
-        is_expected.to contain_vitrage_config('oslo_messaging_amqp/ssl_ca_file').with_value('/etc/ca.cert')
-        is_expected.to contain_vitrage_config('oslo_messaging_amqp/ssl_cert_file').with_value('/etc/certfile')
-        is_expected.to contain_vitrage_config('oslo_messaging_amqp/ssl_key_file').with_value('/etc/key')
-        is_expected.to contain_vitrage_config('oslo_messaging_amqp/username').with_value('amqp_user')
-        is_expected.to contain_vitrage_config('oslo_messaging_amqp/password').with_value('password')
+        is_expected.to contain_oslo__messaging__default('vitrage_config').with(
+          :transport_url        => 'amqp://amqp_user:password@localhost:5672',
+          :rpc_response_timeout => '240',
+          :control_exchange     => 'openstack'
+        )
+        is_expected.to contain_oslo__messaging__amqp('vitrage_config').with(
+          :server_request_prefix => '<SERVICE DEFAULT>',
+          :broadcast_prefix      => '<SERVICE DEFAULT>',
+          :group_request_prefix  => '<SERVICE DEFAULT>',
+          :container_name        => '<SERVICE DEFAULT>',
+          :idle_timeout          => '60',
+          :trace                 => true,
+          :ssl_ca_file           => '/etc/ca.cert',
+          :ssl_cert_file         => '/etc/certfile',
+          :ssl_key_file          => '/etc/key',
+          :sasl_mechanisms       => '<SERVICE DEFAULT>',
+          :sasl_config_dir       => '<SERVICE DEFAULT>',
+          :sasl_config_name      => '<SERVICE DEFAULT>',
+          :username              => 'amqp_user',
+          :password              => 'password',
+        )
       end
     end
   end
