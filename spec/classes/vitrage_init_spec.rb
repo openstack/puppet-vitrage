@@ -43,22 +43,6 @@ describe 'vitrage' do
           :rabbit_ha_queues            => '<SERVICE DEFAULT>',
           :rabbit_retry_interval       => '<SERVICE DEFAULT>',
         )
-        is_expected.to contain_oslo__messaging__amqp('vitrage_config').with(
-          :server_request_prefix => '<SERVICE DEFAULT>',
-          :broadcast_prefix      => '<SERVICE DEFAULT>',
-          :group_request_prefix  => '<SERVICE DEFAULT>',
-          :container_name        => '<SERVICE DEFAULT>',
-          :idle_timeout          => '<SERVICE DEFAULT>',
-          :trace                 => '<SERVICE DEFAULT>',
-          :ssl_ca_file           => '<SERVICE DEFAULT>',
-          :ssl_cert_file         => '<SERVICE DEFAULT>',
-          :ssl_key_file          => '<SERVICE DEFAULT>',
-          :sasl_mechanisms       => '<SERVICE DEFAULT>',
-          :sasl_config_dir       => '<SERVICE DEFAULT>',
-          :sasl_config_name      => '<SERVICE DEFAULT>',
-          :username              => '<SERVICE DEFAULT>',
-          :password              => '<SERVICE DEFAULT>',
-        )
         is_expected.to contain_oslo__messaging__notifications('vitrage_config').with(
           :transport_url => '<SERVICE DEFAULT>',
           :driver        => '<SERVICE DEFAULT>',
@@ -124,22 +108,6 @@ describe 'vitrage' do
           :rabbit_ha_queues            => true,
           :rabbit_retry_interval       => '<SERVICE DEFAULT>',
         )
-        is_expected.to contain_oslo__messaging__amqp('vitrage_config').with(
-          :server_request_prefix => '<SERVICE DEFAULT>',
-          :broadcast_prefix      => '<SERVICE DEFAULT>',
-          :group_request_prefix  => '<SERVICE DEFAULT>',
-          :container_name        => '<SERVICE DEFAULT>',
-          :idle_timeout          => '<SERVICE DEFAULT>',
-          :trace                 => '<SERVICE DEFAULT>',
-          :ssl_ca_file           => '<SERVICE DEFAULT>',
-          :ssl_cert_file         => '<SERVICE DEFAULT>',
-          :ssl_key_file          => '<SERVICE DEFAULT>',
-          :sasl_mechanisms       => '<SERVICE DEFAULT>',
-          :sasl_config_dir       => '<SERVICE DEFAULT>',
-          :sasl_config_name      => '<SERVICE DEFAULT>',
-          :username              => '<SERVICE DEFAULT>',
-          :password              => '<SERVICE DEFAULT>',
-        )
         is_expected.to contain_oslo__messaging__notifications('vitrage_config').with(
           :transport_url => 'rabbit://rabbit_user:password@localhost:5673',
           :driver        => 'messaging',
@@ -185,46 +153,6 @@ describe 'vitrage' do
           :kombu_ssl_certfile => '<SERVICE DEFAULT>',
           :kombu_ssl_keyfile  => '<SERVICE DEFAULT>',
           :kombu_ssl_version  => '<SERVICE DEFAULT>',
-        )
-      end
-    end
-
-    context 'with overridden amqp parameters' do
-      let :params do
-        { :default_transport_url => 'amqp://amqp_user:password@localhost:5672',
-          :rpc_response_timeout  => '240',
-          :control_exchange      => 'openstack',
-          :amqp_idle_timeout     => '60',
-          :amqp_trace            => true,
-          :amqp_ssl_ca_file      => '/etc/ca.cert',
-          :amqp_ssl_cert_file    => '/etc/certfile',
-          :amqp_ssl_key_file     => '/etc/key',
-          :amqp_username         => 'amqp_user',
-          :amqp_password         => 'password',
-        }
-      end
-
-      it 'configures amqp' do
-        is_expected.to contain_oslo__messaging__default('vitrage_config').with(
-          :transport_url        => 'amqp://amqp_user:password@localhost:5672',
-          :rpc_response_timeout => '240',
-          :control_exchange     => 'openstack'
-        )
-        is_expected.to contain_oslo__messaging__amqp('vitrage_config').with(
-          :server_request_prefix => '<SERVICE DEFAULT>',
-          :broadcast_prefix      => '<SERVICE DEFAULT>',
-          :group_request_prefix  => '<SERVICE DEFAULT>',
-          :container_name        => '<SERVICE DEFAULT>',
-          :idle_timeout          => '60',
-          :trace                 => true,
-          :ssl_ca_file           => '/etc/ca.cert',
-          :ssl_cert_file         => '/etc/certfile',
-          :ssl_key_file          => '/etc/key',
-          :sasl_mechanisms       => '<SERVICE DEFAULT>',
-          :sasl_config_dir       => '<SERVICE DEFAULT>',
-          :sasl_config_name      => '<SERVICE DEFAULT>',
-          :username              => 'amqp_user',
-          :password              => 'password',
         )
       end
     end
