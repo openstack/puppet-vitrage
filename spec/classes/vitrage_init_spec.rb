@@ -46,7 +46,8 @@ describe 'vitrage' do
         is_expected.to contain_oslo__messaging__notifications('vitrage_config').with(
           :transport_url => '<SERVICE DEFAULT>',
           :driver        => '<SERVICE DEFAULT>',
-          :topics        => '<SERVICE DEFAULT>'
+          :topics        => '<SERVICE DEFAULT>',
+          :retry         => '<SERVICE DEFAULT>'
         )
       end
 
@@ -81,6 +82,7 @@ describe 'vitrage' do
           :notification_transport_url         => 'rabbit://rabbit_user:password@localhost:5673',
           :notification_driver                => 'messaging',
           :notification_topics                => 'openstack',
+          :notification_retry                 => 10,
           :types                              => 'nova.host,nova.instance,nova.zone,cinder.volume,neutron.port,neutron.network,doctor',
           :snapshots_interval                 => '120',
         }
@@ -111,7 +113,8 @@ describe 'vitrage' do
         is_expected.to contain_oslo__messaging__notifications('vitrage_config').with(
           :transport_url => 'rabbit://rabbit_user:password@localhost:5673',
           :driver        => 'messaging',
-          :topics        => 'openstack'
+          :topics        => 'openstack',
+          :retry         => 10,
         )
       end
 
