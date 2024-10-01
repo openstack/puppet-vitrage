@@ -54,6 +54,11 @@
 #   (Optional) Limit the number of memory bytes used by the quorum queue.
 #   Defaults to $facts['os_service_default']
 #
+# [*rabbit_enable_cancel_on_failover*]
+#   (Optional) Enable x-cancel-on-ha-failover flag so that rabbitmq server will
+#   cancel and notify consumers when queue is down.
+#   Defaults to $facts['os_service_default']
+#
 # [*rabbit_heartbeat_timeout_threshold*]
 #   (optional) Number of seconds after which the RabbitMQ broker is considered
 #   down if the heartbeat keepalive fails.  Any value >0 enables heartbeats.
@@ -166,6 +171,7 @@ class vitrage (
   $rabbit_quorum_delivery_limit       = $facts['os_service_default'],
   $rabbit_quorum_max_memory_length    = $facts['os_service_default'],
   $rabbit_quorum_max_memory_bytes     = $facts['os_service_default'],
+  $rabbit_enable_cancel_on_failover   = $facts['os_service_default'],
   $kombu_ssl_ca_certs                 = $facts['os_service_default'],
   $kombu_ssl_certfile                 = $facts['os_service_default'],
   $kombu_ssl_keyfile                  = $facts['os_service_default'],
@@ -202,6 +208,7 @@ class vitrage (
     rabbit_quorum_delivery_limit    => $rabbit_quorum_delivery_limit,
     rabbit_quorum_max_memory_length => $rabbit_quorum_max_memory_length,
     rabbit_quorum_max_memory_bytes  => $rabbit_quorum_max_memory_bytes,
+    enable_cancel_on_failover       => $rabbit_enable_cancel_on_failover,
     heartbeat_timeout_threshold     => $rabbit_heartbeat_timeout_threshold,
     heartbeat_rate                  => $rabbit_heartbeat_rate,
     heartbeat_in_pthread            => $rabbit_heartbeat_in_pthread,

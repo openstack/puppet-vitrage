@@ -47,6 +47,7 @@ describe 'vitrage' do
           :rabbit_quorum_delivery_limit    => '<SERVICE DEFAULT>',
           :rabbit_quorum_max_memory_length => '<SERVICE DEFAULT>',
           :rabbit_quorum_max_memory_bytes  => '<SERVICE DEFAULT>',
+          :enable_cancel_on_failover       => '<SERVICE DEFAULT>',
         )
         is_expected.to contain_oslo__messaging__notifications('vitrage_config').with(
           :transport_url => '<SERVICE DEFAULT>',
@@ -119,6 +120,7 @@ describe 'vitrage' do
           :rabbit_quorum_delivery_limit    => '<SERVICE DEFAULT>',
           :rabbit_quorum_max_memory_length => '<SERVICE DEFAULT>',
           :rabbit_quorum_max_memory_bytes  => '<SERVICE DEFAULT>',
+          :enable_cancel_on_failover       => '<SERVICE DEFAULT>',
         )
         is_expected.to contain_oslo__messaging__notifications('vitrage_config').with(
           :transport_url => 'rabbit://rabbit_user:password@localhost:5673',
