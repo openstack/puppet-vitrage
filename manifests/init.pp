@@ -133,6 +133,11 @@
 #   (optional) AMQP topic used for OpenStack notifications
 #   Defaults to $facts['os_service_default']
 #
+# [*notification_retry*]
+#   (optional) The maximum number of attempts to re-sent a notification
+#   message, which failed to be delivered due to a recoverable error.
+#   Defaults to $facts['os_service_default'].
+#
 # [*purge_config*]
 #   (optional) Whether to set only the specified config options
 #   in the vitrage config.
@@ -172,6 +177,7 @@ class vitrage (
   $notification_transport_url         = $facts['os_service_default'],
   $notification_driver                = $facts['os_service_default'],
   $notification_topics                = $facts['os_service_default'],
+  $notification_retry                 = $facts['os_service_default'],
   Boolean $purge_config               = false,
   $snapshots_interval                 = $facts['os_service_default'],
   $types                              = $facts['os_service_default'],
@@ -220,6 +226,7 @@ class vitrage (
     transport_url => $notification_transport_url,
     driver        => $notification_driver,
     topics        => $notification_topics,
+    retry         => $notification_retry,
   }
 
   vitrage_config {
