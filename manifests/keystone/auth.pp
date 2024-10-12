@@ -43,6 +43,10 @@
 #   (Optional) Should the admin role be configured for the service user?
 #   Defaults to true.
 #
+# [*configure_service*]
+#   (Optional) Should the service be configurd?
+#   Defaults to True
+#
 # [*service_type*]
 #   (Optional) Type of service.
 #   Defaults to 'rca'.
@@ -85,6 +89,7 @@ class vitrage::keystone::auth (
   Boolean $configure_endpoint             = true,
   Boolean $configure_user                 = true,
   Boolean $configure_user_role            = true,
+  Boolean $configure_service              = true,
   String[1] $service_description          = 'Root Cause Analysis Service',
   Optional[String[1]] $service_name       = undef,
   String[1] $service_type                 = 'rca',
@@ -104,6 +109,7 @@ class vitrage::keystone::auth (
     configure_user      => $configure_user,
     configure_user_role => $configure_user_role,
     configure_endpoint  => $configure_endpoint,
+    configure_service   => $configure_service,
     service_name        => $real_service_name,
     service_type        => $service_type,
     service_description => $service_description,
