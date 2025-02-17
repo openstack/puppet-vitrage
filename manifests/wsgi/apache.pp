@@ -160,7 +160,7 @@ class vitrage::wsgi::apache (
 
   Anchor['vitrage::install::end'] -> Class['apache']
 
-  ::openstacklib::wsgi::apache { 'vitrage_wsgi':
+  openstacklib::wsgi::apache { 'vitrage_wsgi':
     bind_host                   => $bind_host,
     bind_port                   => $port,
     group                       => $::vitrage::params::group,

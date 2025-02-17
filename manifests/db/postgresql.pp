@@ -34,7 +34,7 @@ class vitrage::db::postgresql(
 
   include vitrage::deps
 
-  ::openstacklib::db::postgresql { 'vitrage':
+  openstacklib::db::postgresql { 'vitrage':
     password   => $password,
     dbname     => $dbname,
     user       => $user,

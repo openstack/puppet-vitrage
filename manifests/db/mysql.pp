@@ -45,7 +45,7 @@ class vitrage::db::mysql(
 
   include vitrage::deps
 
-  ::openstacklib::db::mysql { 'vitrage':
+  openstacklib::db::mysql { 'vitrage':
     user          => $user,
     password      => $password,
     dbname        => $dbname,
