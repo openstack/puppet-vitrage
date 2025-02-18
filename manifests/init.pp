@@ -74,16 +74,6 @@
 #   every 30 seconds.
 #   Defaults to $facts['os_service_default']
 #
-# [*rabbit_heartbeat_in_pthread*]
-#   (Optional) EXPERIMENTAL: Run the health check heartbeat thread
-#   through a native python thread. By default if this
-#   option isn't provided the  health check heartbeat will
-#   inherit the execution model from the parent process. By
-#   example if the parent process have monkey patched the
-#   stdlib by using eventlet/greenlet then the heartbeat
-#   will be run through a green thread.
-#   Defaults to $facts['os_service_default']
-#
 # [*kombu_ssl_ca_certs*]
 #   (optional) SSL certification authority file (valid only if SSL enabled).
 #   Defaults to $facts['os_service_default']
@@ -156,6 +146,18 @@
 #   (optional) Datasources types
 #   Defaults to $facts['os_service_default']
 #
+# DEPRECATED PARAMETERS
+#
+# [*rabbit_heartbeat_in_pthread*]
+#   (Optional) EXPERIMENTAL: Run the health check heartbeat thread
+#   through a native python thread. By default if this
+#   option isn't provided the  health check heartbeat will
+#   inherit the execution model from the parent process. By
+#   example if the parent process have monkey patched the
+#   stdlib by using eventlet/greenlet then the heartbeat
+#   will be run through a green thread.
+#   Defaults to undef
+#
 class vitrage (
   $package_ensure                     = 'present',
   $default_transport_url              = $facts['os_service_default'],
@@ -164,7 +166,6 @@ class vitrage (
   $rabbit_use_ssl                     = $facts['os_service_default'],
   $rabbit_heartbeat_timeout_threshold = $facts['os_service_default'],
   $rabbit_heartbeat_rate              = $facts['os_service_default'],
-  $rabbit_heartbeat_in_pthread        = $facts['os_service_default'],
   $rabbit_ha_queues                   = $facts['os_service_default'],
   $rabbit_quorum_queue                = $facts['os_service_default'],
   $rabbit_transient_quorum_queue      = $facts['os_service_default'],
@@ -187,6 +188,8 @@ class vitrage (
   Boolean $purge_config               = false,
   $snapshots_interval                 = $facts['os_service_default'],
   $types                              = $facts['os_service_default'],
+  # DEPRECATED PARAMETERS
+  $rabbit_heartbeat_in_pthread        = undef,
 ) inherits vitrage::params {
 
   include vitrage::deps
