@@ -201,7 +201,7 @@ class vitrage (
   }
 
   resources { 'vitrage_config':
-    purge  => $purge_config,
+    purge => $purge_config,
   }
 
   oslo::messaging::rabbit { 'vitrage_config':
