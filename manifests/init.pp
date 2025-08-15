@@ -220,7 +220,7 @@ class vitrage (
 
   package { 'vitrage':
     ensure => $package_ensure,
-    name   => $::vitrage::params::common_package_name,
+    name   => $vitrage::params::common_package_name,
     tag    => ['openstack', 'vitrage-package'],
   }
 

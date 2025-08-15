@@ -24,8 +24,8 @@ class vitrage::persistor (
 
   package{ 'vitrage-persistor':
     ensure => $package_ensure,
-    name   => $::vitrage::params::persistor_package_name,
-    tag    => ['openstack', 'vitrage-package']
+    name   => $vitrage::params::persistor_package_name,
+    tag    => ['openstack', 'vitrage-package'],
   }
 
   vitrage_config {
@@ -41,7 +41,7 @@ class vitrage::persistor (
 
     service { 'vitrage-persistor':
       ensure     => $service_ensure,
-      name       => $::vitrage::params::persistor_service_name,
+      name       => $vitrage::params::persistor_service_name,
       enable     => $enabled,
       hasstatus  => true,
       hasrestart => true,

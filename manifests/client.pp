@@ -15,7 +15,7 @@ class vitrage::client (
 
   package { 'python-vitrageclient':
     ensure => $ensure,
-    name   => $::vitrage::params::client_package_name,
+    name   => $vitrage::params::client_package_name,
     tag    => 'openstack',
   }
 

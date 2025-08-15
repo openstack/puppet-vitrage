@@ -24,8 +24,8 @@ class vitrage::graph (
 
   package{ 'vitrage-graph':
     ensure => $package_ensure,
-    name   => $::vitrage::params::graph_package_name,
-    tag    => ['openstack', 'vitrage-package']
+    name   => $vitrage::params::graph_package_name,
+    tag    => ['openstack', 'vitrage-package'],
   }
 
   if $manage_service {
@@ -37,7 +37,7 @@ class vitrage::graph (
 
     service { 'vitrage-graph':
       ensure     => $service_ensure,
-      name       => $::vitrage::params::graph_service_name,
+      name       => $vitrage::params::graph_service_name,
       enable     => $enabled,
       hasstatus  => true,
       hasrestart => true,

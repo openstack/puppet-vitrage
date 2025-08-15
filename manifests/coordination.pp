@@ -15,6 +15,6 @@ class vitrage::coordination (
   include vitrage::deps
 
   oslo::coordination{ 'vitrage_config':
-    backend_url => $backend_url
+    backend_url => $backend_url,
   }
 }

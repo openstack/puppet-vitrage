@@ -29,8 +29,8 @@ class vitrage::notifier (
 
   package { 'vitrage-notifier':
     ensure => $package_ensure,
-    name   => $::vitrage::params::notifier_package_name,
-    tag    => ['openstack', 'vitrage-package']
+    name   => $vitrage::params::notifier_package_name,
+    tag    => ['openstack', 'vitrage-package'],
   }
 
   vitrage_config {
@@ -46,7 +46,7 @@ class vitrage::notifier (
 
     service { 'vitrage-notifier':
       ensure     => $service_ensure,
-      name       => $::vitrage::params::notifier_service_name,
+      name       => $vitrage::params::notifier_service_name,
       enable     => $enabled,
       hasstatus  => true,
       hasrestart => true,

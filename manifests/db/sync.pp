@@ -23,7 +23,7 @@ class vitrage::db::sync(
   exec { 'vitrage-db-sync':
     command     => "vitrage-dbsync ${extra_params}",
     path        => '/usr/bin',
-    user        => $::vitrage::params::user,
+    user        => $vitrage::params::user,
     refreshonly => true,
     try_sleep   => 5,
     tries       => 10,

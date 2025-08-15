@@ -29,7 +29,7 @@
 #   service, and you must use another class to configure that
 #   web service. For example, use class { 'vitrage::wsgi::apache'...}
 #   to make vitrage-api be a web app using apache mod_wsgi.
-#   Defaults to '$::vitrage::params::api_service_name'
+#   Defaults to '$vitrage::params::api_service_name'
 #
 # [*enable_proxy_headers_parsing*]
 #   (Optional) Enable paste middleware to handle SSL requests through
@@ -46,7 +46,7 @@ class vitrage::api (
   $package_ensure               = 'present',
   $host                         = '0.0.0.0',
   $port                         = '8999',
-  $service_name                 = $::vitrage::params::api_service_name,
+  $service_name                 = $vitrage::params::api_service_name,
   $enable_proxy_headers_parsing = $facts['os_service_default'],
   $max_request_body_size        = $facts['os_service_default'],
 ) inherits vitrage::params {
@@ -57,7 +57,7 @@ class vitrage::api (
 
   package { 'vitrage-api':
     ensure => $package_ensure,
-    name   => $::vitrage::params::api_package_name,
+    name   => $vitrage::params::api_package_name,
     tag    => ['openstack', 'vitrage-package'],
   }
 
@@ -68,10 +68,10 @@ class vitrage::api (
       $service_ensure = 'stopped'
     }
 
-    if $service_name == $::vitrage::params::api_service_name {
+    if $service_name == $vitrage::params::api_service_name {
       service { 'vitrage-api':
         ensure     => $service_ensure,
-        name       => $::vitrage::params::api_service_name,
+        name       => $vitrage::params::api_service_name,
         enable     => $enabled,
         hasstatus  => true,
         hasrestart => true,
@@ -80,7 +80,7 @@ class vitrage::api (
     } elsif $service_name == 'httpd' {
       service { 'vitrage-api':
         ensure => 'stopped',
-        name   => $::vitrage::params::api_service_name,
+        name   => $vitrage::params::api_service_name,
         enable => false,
         tag    => 'vitrage-service',
       }
