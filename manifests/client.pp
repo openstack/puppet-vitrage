@@ -9,7 +9,6 @@
 class vitrage::client (
   $ensure = 'present'
 ) {
-
   include vitrage::deps
   include vitrage::params
 
@@ -18,6 +17,4 @@ class vitrage::client (
     name   => $vitrage::params::client_package_name,
     tag    => 'openstack',
   }
-
 }
-

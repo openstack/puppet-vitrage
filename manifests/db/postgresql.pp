@@ -24,14 +24,13 @@
 #   (Optional) Privileges given to the database user.
 #   Default to 'ALL'
 #
-class vitrage::db::postgresql(
+class vitrage::db::postgresql (
   $password,
   $dbname     = 'vitrage',
   $user       = 'vitrage',
   $encoding   = undef,
   $privileges = 'ALL',
 ) {
-
   include vitrage::deps
 
   openstacklib::db::postgresql { 'vitrage':
@@ -45,5 +44,4 @@ class vitrage::db::postgresql(
   Anchor['vitrage::db::begin']
   ~> Class['vitrage::db::postgresql']
   ~> Anchor['vitrage::db::end']
-
 }

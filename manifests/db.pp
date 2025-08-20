@@ -54,7 +54,6 @@ class vitrage::db (
   $database_pool_timeout            = $facts['os_service_default'],
   $mysql_enable_ndb                 = $facts['os_service_default'],
 ) {
-
   include vitrage::deps
 
   oslo::db { 'vitrage_config':
@@ -68,5 +67,4 @@ class vitrage::db (
     pool_timeout            => $database_pool_timeout,
     mysql_enable_ndb        => $mysql_enable_ndb,
   }
-
 }

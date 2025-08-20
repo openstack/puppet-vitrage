@@ -11,10 +11,9 @@
 class vitrage::coordination (
   $backend_url = $facts['os_service_default'],
 ) {
-
   include vitrage::deps
 
-  oslo::coordination{ 'vitrage_config':
+  oslo::coordination { 'vitrage_config':
     backend_url => $backend_url,
   }
 }

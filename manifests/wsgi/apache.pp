@@ -154,7 +154,6 @@ class vitrage::wsgi::apache (
   $headers                     = undef,
   $request_headers             = undef,
 ) {
-
   include vitrage::deps
   include vitrage::params
 

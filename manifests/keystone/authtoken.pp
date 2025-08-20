@@ -190,7 +190,7 @@
 #  "public", "internal" or "admin".
 #  Defaults to $facts['os_service_default'].
 #
-class vitrage::keystone::authtoken(
+class vitrage::keystone::authtoken (
   String[1] $password,
   $username                       = 'vitrage',
   $auth_url                       = 'http://localhost:5000',
@@ -229,7 +229,6 @@ class vitrage::keystone::authtoken(
   $service_type                   = $facts['os_service_default'],
   $interface                      = $facts['os_service_default'],
 ) {
-
   include vitrage::deps
 
   keystone::resource::authtoken { 'vitrage_config':
@@ -272,4 +271,3 @@ class vitrage::keystone::authtoken(
     interface                      => $interface,
   }
 }
-

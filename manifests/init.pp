@@ -215,7 +215,6 @@ class vitrage (
   # DEPRECATED PARAMETERS
   $rabbit_heartbeat_in_pthread        = undef,
 ) inherits vitrage::params {
-
   include vitrage::deps
 
   package { 'vitrage':
@@ -272,4 +271,3 @@ class vitrage (
     'datasources/types':              value => join(any2array($types), ',');
   }
 }
-

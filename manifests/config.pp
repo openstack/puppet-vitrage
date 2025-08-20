@@ -27,7 +27,6 @@ class vitrage::config (
   Hash $vitrage_config        = {},
   Hash $vitrage_api_paste_ini = {},
 ) {
-
   include vitrage::deps
 
   create_resources('vitrage_config', $vitrage_config)

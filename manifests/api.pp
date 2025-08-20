@@ -50,9 +50,7 @@ class vitrage::api (
   $enable_proxy_headers_parsing = $facts['os_service_default'],
   $max_request_body_size        = $facts['os_service_default'],
 ) inherits vitrage::params {
-
   include vitrage::deps
-  include vitrage::params
   include vitrage::policy
 
   package { 'vitrage-api':
@@ -102,5 +100,4 @@ as a standalone service, or httpd for being run by a httpd server")
     enable_proxy_headers_parsing => $enable_proxy_headers_parsing,
     max_request_body_size        => $max_request_body_size,
   }
-
 }

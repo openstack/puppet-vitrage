@@ -18,11 +18,10 @@ class vitrage::persistor (
   Boolean $enabled        = true,
   $package_ensure         = 'present',
 ) {
-
   include vitrage::deps
   include vitrage::params
 
-  package{ 'vitrage-persistor':
+  package { 'vitrage-persistor':
     ensure => $package_ensure,
     name   => $vitrage::params::persistor_package_name,
     tag    => ['openstack', 'vitrage-package'],

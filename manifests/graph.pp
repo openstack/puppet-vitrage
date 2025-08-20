@@ -18,11 +18,10 @@ class vitrage::graph (
   Boolean $enabled        = true,
   $package_ensure         = 'present',
 ) {
-
   include vitrage::deps
   include vitrage::params
 
-  package{ 'vitrage-graph':
+  package { 'vitrage-graph':
     ensure => $package_ensure,
     name   => $vitrage::params::graph_package_name,
     tag    => ['openstack', 'vitrage-package'],

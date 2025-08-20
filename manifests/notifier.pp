@@ -23,7 +23,6 @@ class vitrage::notifier (
   $package_ensure         = 'present',
   $notifiers              = $facts['os_service_default'],
 ) {
-
   include vitrage::deps
   include vitrage::params
 

@@ -12,11 +12,10 @@
 #   (Optional) Timeout for the execution of the db_sync
 #   Defaults to 300
 #
-class vitrage::db::sync(
+class vitrage::db::sync (
   $extra_params    = undef,
   $db_sync_timeout = 300,
 ) {
-
   include vitrage::deps
   include vitrage::params
 
@@ -37,5 +36,4 @@ class vitrage::db::sync(
     notify      => Anchor['vitrage::dbsync::end'],
     tag         => 'openstack-db',
   }
-
 }

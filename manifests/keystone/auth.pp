@@ -98,7 +98,6 @@ class vitrage::keystone::auth (
   Keystone::EndpointUrl $internal_url     = 'http://127.0.0.1:8999',
   Keystone::EndpointUrl $admin_url        = 'http://127.0.0.1:8999',
 ) {
-
   include vitrage::deps
 
   $real_service_name = pick($service_name, $auth_name)
@@ -125,5 +124,4 @@ class vitrage::keystone::auth (
     internal_url        => $internal_url,
     admin_url           => $admin_url,
   }
-
 }

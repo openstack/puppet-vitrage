@@ -33,7 +33,7 @@
 #   Only used with mysql modules >= 2.2.
 #   Defaults to 'utf8_general_ci'
 #
-class vitrage::db::mysql(
+class vitrage::db::mysql (
   String[1] $password,
   $dbname        = 'vitrage',
   $user          = 'vitrage',
@@ -42,7 +42,6 @@ class vitrage::db::mysql(
   $collate       = 'utf8_general_ci',
   $allowed_hosts = undef
 ) {
-
   include vitrage::deps
 
   openstacklib::db::mysql { 'vitrage':
@@ -58,5 +57,4 @@ class vitrage::db::mysql(
   Anchor['vitrage::db::begin']
   ~> Class['vitrage::db::mysql']
   ~> Anchor['vitrage::db::end']
-
 }
