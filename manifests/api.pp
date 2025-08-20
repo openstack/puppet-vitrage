@@ -78,6 +78,8 @@ class vitrage::api (
         tag        => 'vitrage-service',
       }
     } elsif $service_name == 'httpd' {
+      Service <| title == 'httpd' |> { tag +> 'vitrage-service' }
+
       service { 'vitrage-api':
         ensure => 'stopped',
         name   => $vitrage::params::api_service_name,
