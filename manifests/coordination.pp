@@ -16,4 +16,8 @@ class vitrage::coordination (
   oslo::coordination { 'vitrage_config':
     backend_url => $backend_url,
   }
+
+  # all coordination settings should be applied and all packages should be
+  # installed before service startup
+  Oslo::Coordination['vitrage_config'] -> Anchor['vitrage::service::begin']
 }

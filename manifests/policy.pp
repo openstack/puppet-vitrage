@@ -69,6 +69,11 @@ class vitrage::policy (
 
   create_resources('openstacklib::policy', { $policy_path => $policy_parameters })
 
+  # policy config should occur in the config block also.
+  Anchor['vitrage::config::begin']
+  -> Openstacklib::Policy[$policy_path]
+  -> Anchor['vitrage::config::end']
+
   oslo::policy { 'vitrage_config':
     enforce_scope        => $enforce_scope,
     enforce_new_defaults => $enforce_new_defaults,
