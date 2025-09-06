@@ -27,7 +27,7 @@ class vitrage::deps {
   # paste-api.ini config should occur in the config block also.
   Anchor['vitrage::config::begin']
   -> Vitrage_api_paste_ini<||>
-  ~> Anchor['vitrage::config::end']
+  -> Anchor['vitrage::config::end']
 
   # policy config should occur in the config block also.
   Anchor['vitrage::config::begin']
