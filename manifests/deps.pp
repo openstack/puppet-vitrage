@@ -29,19 +29,6 @@ class vitrage::deps {
   -> Vitrage_api_paste_ini<||>
   -> Anchor['vitrage::config::end']
 
-  # policy config should occur in the config block also.
-  Anchor['vitrage::config::begin']
-  -> Openstacklib::Policy<| tag == 'vitrage' |>
-  -> Anchor['vitrage::config::end']
-
-  # all coordination settings should be applied and all packages should be
-  # installed before service startup
-  Oslo::Coordination<||> -> Anchor['vitrage::service::begin']
-
-  # all db settings should be applied and all packages should be installed
-  # before dbsync starts
-  Oslo::Db<||> -> Anchor['vitrage::dbsync::begin']
-
   # Installation or config changes will always restart services.
   Anchor['vitrage::install::end'] ~> Anchor['vitrage::service::begin']
   Anchor['vitrage::config::end']  ~> Anchor['vitrage::service::begin']
