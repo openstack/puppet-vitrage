@@ -18,10 +18,10 @@
 #    Defaults to $facts['os_service_default'].
 #
 class vitrage::notifier (
-  Boolean $manage_service = true,
-  Boolean $enabled        = true,
-  $package_ensure         = 'present',
-  $notifiers              = $facts['os_service_default'],
+  Boolean $manage_service                 = true,
+  Boolean $enabled                        = true,
+  Stdlib::Ensure::Package $package_ensure = 'present',
+  $notifiers                              = $facts['os_service_default'],
 ) {
   include vitrage::deps
   include vitrage::params

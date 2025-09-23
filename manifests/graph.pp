@@ -14,9 +14,9 @@
 #    Defaults to 'present'
 #
 class vitrage::graph (
-  Boolean $manage_service = true,
-  Boolean $enabled        = true,
-  $package_ensure         = 'present',
+  Boolean $manage_service                 = true,
+  Boolean $enabled                        = true,
+  Stdlib::Ensure::Package $package_ensure = 'present',
 ) {
   include vitrage::deps
   include vitrage::params
