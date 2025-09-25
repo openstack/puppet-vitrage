@@ -41,14 +41,14 @@
 #   Defaults to $facts['os_service_default'].
 #
 class vitrage::api (
-  Boolean $manage_service       = true,
-  Boolean $enabled              = true,
-  $package_ensure               = 'present',
-  $host                         = '0.0.0.0',
-  $port                         = '8999',
-  $service_name                 = $vitrage::params::api_service_name,
-  $enable_proxy_headers_parsing = $facts['os_service_default'],
-  $max_request_body_size        = $facts['os_service_default'],
+  Boolean $manage_service                 = true,
+  Boolean $enabled                        = true,
+  Stdlib::Ensure::Package $package_ensure = 'present',
+  $host                                   = '0.0.0.0',
+  $port                                   = '8999',
+  $service_name                           = $vitrage::params::api_service_name,
+  $enable_proxy_headers_parsing           = $facts['os_service_default'],
+  $max_request_body_size                  = $facts['os_service_default'],
 ) inherits vitrage::params {
   include vitrage::deps
   include vitrage::policy

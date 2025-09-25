@@ -7,7 +7,7 @@
 #   Defaults to 'present'
 #
 class vitrage::client (
-  $ensure = 'present'
+  Stdlib::Ensure::Package $ensure = 'present',
 ) {
   include vitrage::deps
   include vitrage::params
