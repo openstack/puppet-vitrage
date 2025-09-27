@@ -33,7 +33,6 @@ describe 'vitrage::policy' do
           :file_group   => 'vitrage',
           :file_format  => 'yaml',
           :purge_config => false,
-          :tag          => 'vitrage',
         )
         is_expected.to contain_oslo__policy('vitrage_config').with(
           :enforce_scope        => false,
@@ -64,7 +63,6 @@ describe 'vitrage::policy' do
           :file_group   => 'vitrage',
           :file_format  => 'yaml',
           :purge_config => true,
-          :tag          => 'vitrage',
         )
         is_expected.to contain_oslo__policy('vitrage_config').with(
           :enforce_scope        => false,
