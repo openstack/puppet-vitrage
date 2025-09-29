@@ -46,7 +46,7 @@ class vitrage::api (
   Stdlib::Ensure::Package $package_ensure = 'present',
   $host                                   = '0.0.0.0',
   $port                                   = '8999',
-  $service_name                           = $vitrage::params::api_service_name,
+  String[1] $service_name                 = $vitrage::params::api_service_name,
   $enable_proxy_headers_parsing           = $facts['os_service_default'],
   $max_request_body_size                  = $facts['os_service_default'],
 ) inherits vitrage::params {
@@ -60,40 +60,39 @@ class vitrage::api (
   }
 
   if $manage_service {
-    if $enabled {
-      $service_ensure = 'running'
-    } else {
-      $service_ensure = 'stopped'
-    }
+    case $service_name {
+      'httpd': {
+        Service <| title == 'httpd' |> { tag +> 'vitrage-service' }
 
-    if $service_name == $vitrage::params::api_service_name {
-      service { 'vitrage-api':
-        ensure     => $service_ensure,
-        name       => $vitrage::params::api_service_name,
-        enable     => $enabled,
-        hasstatus  => true,
-        hasrestart => true,
-        tag        => 'vitrage-service',
+        service { 'vitrage-api':
+          ensure => 'stopped',
+          name   => $vitrage::params::api_service_name,
+          enable => false,
+          tag    => 'vitrage-service',
+        }
+
+        # we need to make sure vitrage-api/eventlet is stopped before trying to start apache
+        Service['vitrage-api'] -> Service['httpd']
+
+        Vitrage_api_paste_ini<||> ~> Service['httpd']
       }
+      default: {
+        $service_ensure = $enabled ? {
+          true    => 'running',
+          default => 'stopped',
+        }
 
-      Vitrage_api_paste_ini<||> ~> Service['vitrage-api']
-    } elsif $service_name == 'httpd' {
-      Service <| title == 'httpd' |> { tag +> 'vitrage-service' }
+        service { 'vitrage-api':
+          ensure     => $service_ensure,
+          name       => $service_name,
+          enable     => $enabled,
+          hasstatus  => true,
+          hasrestart => true,
+          tag        => 'vitrage-service',
+        }
 
-      service { 'vitrage-api':
-        ensure => 'stopped',
-        name   => $vitrage::params::api_service_name,
-        enable => false,
-        tag    => 'vitrage-service',
+        Vitrage_api_paste_ini<||> ~> Service['vitrage-api']
       }
-
-      # we need to make sure vitrage-api/eventlet is stopped before trying to start apache
-      Service['vitrage-api'] -> Service[$service_name]
-
-      Vitrage_api_paste_ini<||> ~> Service[$service_name]
-    } else {
-      fail("Invalid service_name. Either vitrage/openstack-vitrage-api for running \
-as a standalone service, or httpd for being run by a httpd server")
     }
   }
 
