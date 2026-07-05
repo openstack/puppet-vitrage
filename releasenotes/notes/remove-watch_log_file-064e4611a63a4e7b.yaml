@@ -1,4 +1,0 @@
----
-upgrade:
-  - |
-    The ``vitrage::logging::watch_log_file`` parameter has been removed.

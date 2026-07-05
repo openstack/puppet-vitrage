@@ -1,4 +1,0 @@
----
-upgrade:
-  - |
-    The ``vitrage::db::database_min_pool_size`` parameter has been removed.

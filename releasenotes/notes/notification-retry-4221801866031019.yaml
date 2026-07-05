@@ -1,4 +1,0 @@
----
-features:
-  - |
-    The new ``vitrage::notification_retry`` parameter has been added.

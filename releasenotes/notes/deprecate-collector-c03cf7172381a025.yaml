@@ -1,6 +1,0 @@
----
-deprecations:
-  - |
-    The vitrage::collector class is now deprecated and will be removed in the
-    Train release. This resource no longer does anything since the collector
-    service doesn't exist anymore.

@@ -1,8 +1,0 @@
----
-other:
-  - |
-    vitrage has renamed persistor config option in
-    https://review.opendev.org/#/c/530650. So rename of
-    config option 'persistor/persist_events' to
-    'persistency/enable_persistency' is required in
-    puppet-vitrage.

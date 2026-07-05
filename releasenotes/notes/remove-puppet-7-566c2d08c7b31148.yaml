@@ -1,4 +1,0 @@
----
-upgrade:
-  - |
-    Puppet 7 is no longer supported. Use Puppet 8 instead.

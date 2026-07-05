@@ -1,4 +1,0 @@
----
-upgrade:
-  - |
-    The ``vitrage::auth`` class has been removed.

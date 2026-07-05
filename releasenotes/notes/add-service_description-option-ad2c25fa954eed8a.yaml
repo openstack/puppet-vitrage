@@ -1,5 +1,0 @@
----
-features:
-  - |
-    Adds the service_description option to config description
-    of the service.
